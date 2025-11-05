@@ -80,6 +80,20 @@ export const projects = [
     description: 'Built a custom WordPress plugin to handle event registrations and ticketing for a non-profit organization.',
     imageUrlId: 'project-dev-1',
   },
+  {
+    id: 9,
+    title: 'Event Poster Design',
+    category: 'Graphic Design',
+    description: 'Created a series of eye-catching posters for a local music festival.',
+    imageUrlId: 'project-design-3',
+  },
+  {
+    id: 10,
+    title: 'Social Media Graphics Pack',
+    category: 'Graphic Design',
+    description: 'Designed a pack of reusable social media templates for a small business to maintain brand consistency.',
+    imageUrlId: 'project-design-4',
+  },
 ];
 
 

@@ -37,6 +37,18 @@
       "imageHint": "ui design"
     },
     {
+      "id": "project-design-3",
+      "description": "Event poster design.",
+      "imageUrl": "https://images.unsplash.com/photo-1754681920848-d20733e4ef23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxldmVudCUyMHBvc3RlcnxlbnwwfHx8fDE3NjIzNjUzMDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "event poster"
+    },
+    {
+      "id": "project-design-4",
+      "description": "Social media graphics pack.",
+      "imageUrl": "https://images.unsplash.com/photo-1683721003111-070bcc053d8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzb2NpYWwlMjBtZWRpYXxlbnwwfHx8fDE3NjIzMjQ5ODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "social media"
+    },
+    {
       "id": "project-dev-1",
       "description": "Code on a screen for a web application.",
       "imageUrl": "https://images.unsplash.com/photo-1603943761979-879c839ac8e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2RlJTIwZWRpdG9yfGVufDB8fHx8MTc2MjI1OTkwMnww&ixlib=rb-4.1.0&q=80&w=1080",
