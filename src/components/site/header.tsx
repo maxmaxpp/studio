@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Briefcase, Github, Linkedin } from "lucide-react";
+import { Button } from "../ui/button";
+
+const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/projects', label: 'Projects' },
+    { href: '/#contact', label: 'Contact' },
+]
 
 export default function SiteHeader() {
   return (
@@ -13,17 +19,13 @@ export default function SiteHeader() {
             <Link href="/" className="text-2xl font-bold font-headline text-primary">
                 Heymaxx.site
             </Link>
-            <div className="flex items-center gap-4">
-                <Link href="https://www.upwork.com/freelancers/~01c7e137b49c42ea81" aria-label="Upwork" target="_blank" rel="noopener noreferrer">
-                    <Briefcase className="h-6 w-6 transition-colors text-muted-foreground hover:text-primary" />
-                </Link>
-                <Link href="https://www.linkedin.com/in/angelyne-potenciano-57a930389/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-6 w-6 transition-colors text-muted-foreground hover:text-primary" />
-                </Link>
-                <Link href="https://github.com/potensmarxella-lang" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                    <Github className="h-6 w-6 transition-colors text-muted-foreground hover:text-primary" />
-                </Link>
-            </div>
+            <nav className="hidden md:flex items-center gap-6">
+                {navLinks.map(link => (
+                     <Link key={link.href} href={link.href} className="text-base font-medium text-muted-foreground transition-colors hover:text-primary">
+                        {link.label}
+                     </Link>
+                ))}
+            </nav>
         </div>
       </div>
     </header>
