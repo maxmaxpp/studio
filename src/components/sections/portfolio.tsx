@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { projects } from '@/lib/data';
 import placeholderData from '@/lib/placeholder-images.json';
 import { services } from '@/lib/data';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
 const projectCategories = services.map(s => s.title);
@@ -37,6 +37,7 @@ function ProjectCard({ project, isGraphicDesign }: { project: (typeof projects)[
           <div className="cursor-pointer">{galleryImage}</div>
         </DialogTrigger>
         <DialogContent className="max-w-3xl p-0">
+          <DialogTitle className="sr-only">{project.title}</DialogTitle>
           <div className="relative aspect-video">
             <Image
               src={projectImage.imageUrl}
@@ -91,9 +92,12 @@ export default function PortfolioSection() {
           </TabsList>
           {projectCategories.map((category) => (
             <TabsContent key={category} value={category}>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className={cn(
+                  "grid gap-6",
+                  category === 'Graphic Design' ? 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'sm:grid-cols-2 lg:grid-cols-3'
+                )}>
                 {projects
-                  .filter((project) => category === 'All' || project.category === category)
+                  .filter((project) => project.category === category)
                   .map((project) => (
                     <ProjectCard key={project.id} project={project} isGraphicDesign={project.category === 'Graphic Design'} />
                   ))}
