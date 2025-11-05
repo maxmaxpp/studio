@@ -82,29 +82,6 @@ export const projects = [
   },
 ];
 
-export const testimonials = [
-  {
-    id: 1,
-    name: 'Jane Doe',
-    company: 'CEO, Innovate Co.',
-    quote: 'Working with Heymaxx was a game-changer for our brand. The new design is fantastic and has been receiving amazing feedback. The process was smooth and professional from start to finish.',
-    avatarUrlId: 'testimonial-avatar-1',
-  },
-  {
-    id: 2,
-    name: 'John Smith',
-    company: 'Marketing Director, TechCorp',
-    quote: 'The data migration project was huge, and Heymaxx handled it with incredible attention to detail. Everything was done on time and without a single issue. Highly recommended!',
-    avatarUrlId: 'testimonial-avatar-2',
-  },
-  {
-    id: 3,
-    name: 'Alex Ray',
-    company: 'Founder, Creative Studio',
-    quote: 'Our social media presence has never been stronger. Heymaxx understands our audience and consistently delivers engaging content that drives results. A true professional.',
-    avatarUrlId: 'testimonial-avatar-3',
-  },
-];
 
 export const navLinks = [
   { href: '#home', label: 'Home' },

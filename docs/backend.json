@@ -72,36 +72,36 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Testimonial",
       "type": "object",
-      "description": "Represents a client testimonial for a specific niche.",
+      "description": "Represents a client testimonial.",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the Testimonial entity."
         },
-        "nicheId": {
-          "type": "string",
-          "description": "Reference to Niche. (Relationship: Niche 1:N Testimonial)"
-        },
-        "clientName": {
+        "name": {
           "type": "string",
           "description": "Name of the client providing the testimonial."
         },
-        "content": {
+        "company": {
+          "type": "string",
+          "description": "Company of the client."
+        },
+        "quote": {
           "type": "string",
           "description": "Text content of the testimonial."
         },
-        "date": {
+        "createdAt": {
           "type": "string",
-          "description": "Date when the testimonial was given.",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Timestamp when the testimonial was created."
         }
       },
       "required": [
         "id",
-        "nicheId",
-        "clientName",
-        "content",
-        "date"
+        "name",
+        "company",
+        "quote",
+        "createdAt"
       ]
     },
     "ContactFormSubmission": {
@@ -207,19 +207,13 @@
         }
       },
       {
-        "path": "/niches/{nicheId}/testimonials",
+        "path": "/testimonials",
         "definition": {
           "entityName": "Testimonial",
           "schema": {
             "$ref": "#/backend/entities/Testimonial"
           },
-          "description": "Stores all Testimonial entities related to a specific niche. Includes denormalized `nicheId` for authorization independence.",
-          "params": [
-            {
-              "name": "nicheId",
-              "description": "The ID of the niche the testimonial is for."
-            }
-          ]
+          "description": "Stores all Testimonial entities. Public read and create access."
         }
       },
       {
@@ -243,6 +237,6 @@
         }
       }
     ],
-    "reasoning": "The Firestore structure is designed to optimize for security, scalability, and ease of querying, following the principles of Authorization Independence, Structural Segregation, and Access Modeling. Each entity is stored in its own top-level collection or within a user-scoped collection (if applicable), ensuring clear separation of concerns and simplified security rules.\n\n*   **niches:** Stores Niche entities.  Since niches are global data, it resides in the top-level collection `/niches`. Read access is public.\n*   **niches/{nicheId}/projects:** Stores Project entities. A subcollection under each Niche, allowing easy access to projects related to a specific niche.  Read access is public.\n*   **niches/{nicheId}/testimonials:** Stores Testimonial entities.  A subcollection under each Niche, allowing easy access to testimonials related to a specific niche. Read access is public. The `nicheId` is denormalized within each Testimonial document to ensure authorization independence, even though authorization for listing is public.\n*   **contact_form_submissions:** Stores ContactFormSubmission entities.  Write access is public (no auth). Read access should be restricted.\n*   **about_sections:** Stores AboutSection entities. Since there will be only one about section it is preferable to use a document with a known ID. However, using a collection allows more flexibility in the future. Read access is public.\n\nThis structure facilitates straightforward security rules. For instance, listing testimonials for a specific niche can be done securely without complex `get()` calls due to the denormalized `nicheId` within each testimonial document.  The segregation of data types into separate collections simplifies querying and indexing."
+    "reasoning": "The Firestore structure is designed to optimize for security, scalability, and ease of querying, following the principles of Authorization Independence, Structural Segregation, and Access Modeling. Each entity is stored in its own top-level collection or within a user-scoped collection (if applicable), ensuring clear separation of concerns and simplified security rules.\n\n*   **niches:** Stores Niche entities.  Since niches are global data, it resides in the top-level collection `/niches`. Read access is public.\n*   **niches/{nicheId}/projects:** Stores Project entities. A subcollection under each Niche, allowing easy access to projects related to a specific niche.  Read access is public.\n*   **testimonials:** Stores Testimonial entities. Public read and create access to allow users to submit and view testimonials.\n*   **contact_form_submissions:** Stores ContactFormSubmission entities.  Write access is public (no auth). Read access should be restricted.\n*   **about_sections:** Stores AboutSection entities. Since there will be only one about section it is preferable to use a document with a known ID. However, using a collection allows more flexibility in the future. Read access is public.\n\nThis structure facilitates straightforward security rules. For instance, listing testimonials for a specific niche can be done securely without complex `get()` calls due to the denormalized `nicheId` within each testimonial document.  The segregation of data types into separate collections simplifies querying and indexing."
   }
 }

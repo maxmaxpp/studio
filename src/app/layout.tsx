@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import SiteHeader from '@/components/site/header';
 import SiteFooter from '@/components/site/footer';
 import { Toaster } from '@/components/ui/toaster';
+import { FirebaseClientProvider } from '@/firebase/client-provider';
 
 export const metadata: Metadata = {
   title: 'Heymaxx.site | Freelance Services',
@@ -27,10 +28,12 @@ export default function RootLayout({
           'min-h-screen bg-background font-body text-foreground antialiased'
         )}
       >
-        <SiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
-        <Toaster />
+        <FirebaseClientProvider>
+          <SiteHeader />
+          <main>{children}</main>
+          <SiteFooter />
+          <Toaster />
+        </FirebaseClientProvider>
       </body>
     </html>
   );
