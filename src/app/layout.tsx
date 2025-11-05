@@ -6,7 +6,7 @@ import SiteFooter from '@/components/site/footer';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Heymaxx | Freelance Services',
+  title: 'Heymaxx.site | Freelance Services',
   description: 'Professional freelance services in Data Entry, Social Media Management, Graphic Design, and Development.',
 };
 
