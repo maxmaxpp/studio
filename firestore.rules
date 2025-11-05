@@ -1,0 +1,91 @@
+/**
+ * @fileoverview Firestore Security Rules for the application.
+ *
+ * Core Philosophy:
+ * This ruleset prioritizes security by enforcing explicit access control for each data entity.
+ * It leverages public read access for static content and restricts write access based on explicit conditions.
+ *
+ * Data Structure:
+ * The data is organized into top-level collections (niches, contact_form_submissions, about_sections) and
+ * subcollections (projects, testimonials) nested under niches. This structure allows for granular control
+ * over access to related data.
+ *
+ * Key Security Decisions:
+ * - Public read access is granted for niches, projects, testimonials and about_sections, as this data is intended to be publicly viewable.
+ * - Write access to all collections except contact_form_submissions is denied to prevent unauthorized modifications.
+ * - Contact form submissions allow public write access to enable anyone to submit the form.
+ * - No user-specific data is stored, so user-based authentication is not required for data access.
+ *
+ * Denormalization for Authorization:
+ * - The `testimonials` collection denormalizes the `nicheId` into each document to allow rules to validate
+ *   the relationship without additional `get()` calls.
+ *
+ * Structural Segregation:
+ * - The separation of public content (niches, projects, testimonials, about_sections) from contact form submissions ensures that
+ *   sensitive data is not exposed and write access is carefully controlled.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows public read access to Niche entities. Write access is denied.
+     * @path /niches
+     * @allow (get, list)
+     * @deny (create, update, delete)
+     * @principle Allows public read access for all niche data. Write access is not allowed.
+     */
+    match /niches {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Allows public read access to Project entities related to a specific niche. Write access is denied.
+     * @path /niches/{nicheId}/projects
+     * @allow (get, list)
+     * @deny (create, update, delete)
+     * @principle Allows public read access for all project data. Write access is not allowed.
+     */
+    match /niches/{nicheId}/projects {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Allows public read access to Testimonial entities related to a specific niche. Write access is denied.
+     * @path /niches/{nicheId}/testimonials
+     * @allow (get, list)
+     * @deny (create, update, delete)
+     * @principle Allows public read access for all testimonial data. Write access is not allowed.
+     */
+    match /niches/{nicheId}/testimonials {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Allows public write access to ContactFormSubmission entities. Read access is denied.
+     * @path /contact_form_submissions
+     * @allow create
+     * @deny (get, list, update, delete)
+     * @principle Allows anyone to submit a contact form, but restricts read access.
+     */
+    match /contact_form_submissions {
+      allow create: if true;
+      allow get, list, update, delete: if false;
+    }
+
+    /**
+     * @description Allows public read access to AboutSection entities. Write access is denied.
+     * @path /about_sections
+     * @allow (get, list)
+     * @deny (create, update, delete)
+     * @principle Allows public read access for the about section data. Write access is not allowed.
+     */
+    match /about_sections {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+  }
+}
