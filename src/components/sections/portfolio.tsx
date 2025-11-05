@@ -14,7 +14,7 @@ export default function PortfolioSection() {
     <section id="portfolio" className="w-full py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary">My Work</h2>
+          <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary">My Projects</h2>
           <p className="max-w-2xl mx-auto text-lg text-foreground/80 mt-4">
             A selection of projects that showcase my skills and expertise.
           </p>

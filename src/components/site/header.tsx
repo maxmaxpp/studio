@@ -7,10 +7,12 @@ import { Menu, X } from "lucide-react";
 import { navLinks } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 
 export default function SiteHeader() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const pathname = usePathname();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -28,11 +30,16 @@ export default function SiteHeader() {
     setIsMobileMenuOpen(false);
   }
 
+  const isLinkActive = (href: string) => {
+    if (href === '/') return pathname === href;
+    return pathname.startsWith(href);
+  };
+
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "bg-background/80 backdrop-blur-sm shadow-md" : "bg-transparent"
+        isScrolled || isMobileMenuOpen || pathname !== '/' ? "bg-background/80 backdrop-blur-sm shadow-md" : "bg-transparent"
       )}
     >
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
@@ -44,7 +51,10 @@ export default function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-foreground",
+                isLinkActive(link.href) ? "text-foreground" : "text-foreground/60"
+              )}
             >
               {link.label}
             </Link>
@@ -64,7 +74,10 @@ export default function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={closeMobileMenu}
-                className="text-lg font-medium text-foreground transition-colors hover:text-primary"
+                className={cn(
+                  "text-lg font-medium transition-colors hover:text-primary",
+                  isLinkActive(link.href) ? "text-primary" : "text-foreground"
+                )}
               >
                 {link.label}
               </Link>
