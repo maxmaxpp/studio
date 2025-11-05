@@ -4,79 +4,105 @@
       "id": "project-data-1",
       "description": "Dashboard for data analysis.",
       "imageUrl": "https://images.unsplash.com/photo-1608222351212-18fe0ec7b13b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkYXRhJTIwZGFzaGJvYXJkfGVufDB8fHx8MTc2MjI2MDIxMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "data dashboard"
+      "imageHint": "data dashboard",
+      "width": 1080,
+      "height": 720
     },
     {
       "id": "project-data-2",
       "description": "Spreadsheet with organized data.",
       "imageUrl": "https://images.unsplash.com/photo-1543286386-2e659306cd6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcHJlYWRzaGVldCUyMGNoYXJ0c3xlbnwwfHx8fDE3NjIzNDQwNTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "spreadsheet charts"
+      "imageHint": "spreadsheet charts",
+      "width": 1080,
+      "height": 720
     },
     {
       "id": "project-social-1",
       "description": "Social media campaign graphics.",
       "imageUrl": "https://images.unsplash.com/photo-1761864293806-51e7500c08e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MXwxfHNlYXJjaHw4fHxzb2NpYWwlMjBtZWRpYXxlbnwwfHx8fDE3NjIzMjQ5ODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "social media"
+      "imageHint": "social media",
+      "width": 1080,
+      "height": 720
     },
     {
       "id": "project-social-2",
       "description": "Analytics report for a social media account.",
       "imageUrl": "https://images.unsplash.com/photo-1728044849280-10a1a75cff83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhbmFseXRpY3MlMjByZXBvcnR8ZW58MHx8fHwxNzYyMjcyNzIzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "analytics report"
+      "imageHint": "analytics report",
+      "width": 1080,
+      "height": 720
     },
     {
       "id": "project-design-1",
       "description": "Logo design for a brand.",
       "imageUrl": "https://images.unsplash.com/photo-1626251851903-1143b5c6f057?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxsb2dvJTIwZGVzaWdufGVufDB8fHx8MTc2MjI3Nzg4OXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "logo design"
+      "imageHint": "logo design",
+      "width": 1080,
+      "height": 1350
     },
     {
       "id": "project-design-2",
       "description": "Website UI mockup.",
       "imageUrl": "https://images.unsplash.com/photo-1545235617-7a424c1a60cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dWklMjBkZXNpZ258ZW58MHx8fHwxNzYyMzYxMzY2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "ui design"
+      "imageHint": "ui design",
+      "width": 1080,
+      "height": 720
     },
     {
       "id": "project-design-3",
       "description": "Event poster design.",
       "imageUrl": "https://images.unsplash.com/photo-1754681920848-d20733e4ef23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxldmVudCUyMHBvc3RlcnxlbnwwfHx8fDE3NjIzNjUzMDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "event poster"
+      "imageHint": "event poster",
+      "width": 1080,
+      "height": 1620
     },
     {
       "id": "project-design-4",
       "description": "Social media graphics pack.",
       "imageUrl": "https://images.unsplash.com/photo-1683721003111-070bcc053d8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzb2NpYWwlMjBtZWRpYXxlbnwwfHx8fDE3NjIzMjQ5ODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "social media"
+      "imageHint": "social media",
+      "width": 1080,
+      "height": 1080
     },
     {
       "id": "project-dev-1",
       "description": "Code on a screen for a web application.",
       "imageUrl": "https://images.unsplash.com/photo-1603943761979-879c839ac8e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2RlJTIwZWRpdG9yfGVufDB8fHx8MTc2MjI1OTkwMnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "code editor"
+      "imageHint": "code editor",
+      "width": 1080,
+      "height": 720
     },
     {
       "id": "project-dev-2",
       "description": "A responsive website displayed on multiple devices.",
       "imageUrl": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZXNwb25zaXZlJTIwd2Vic2l0ZXxlbnwwfHx8fDE3NjIzMzM4ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "responsive website"
+      "imageHint": "responsive website",
+      "width": 1080,
+      "height": 720
     },
     {
       "id": "testimonial-avatar-1",
       "description": "Avatar for Jane Doe.",
       "imageUrl": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MjMzOTU2MHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "woman portrait"
+      "imageHint": "woman portrait",
+      "width": 1080,
+      "height": 720
     },
     {
       "id": "testimonial-avatar-2",
       "description": "Avatar for John Smith.",
       "imageUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjIzMzEzMTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "man portrait"
+      "imageHint": "man portrait",
+      "width": 1080,
+      "height": 720
     },
     {
       "id": "testimonial-avatar-3",
       "description": "Avatar for Alex Ray.",
       "imageUrl": "https://images.unsplash.com/photo-1590086782792-42dd2350140d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjIyODA1NDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "person portrait"
+      "imageHint": "person portrait",
+      "width": 1080,
+      "height": 720
     }
   ]
 }

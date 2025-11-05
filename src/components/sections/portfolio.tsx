@@ -18,40 +18,48 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   }
 
   return (
-    <Card className="overflow-hidden group transition-all duration-300 hover:shadow-xl rounded-lg h-full flex flex-col border-none shadow-none">
-      <CardContent className="p-0">
-        <Dialog>
-          <DialogTrigger asChild>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg group transition-all duration-300 hover:shadow-xl cursor-pointer">
-              <Image
-                src={projectImage.imageUrl}
-                alt={project.title}
-                data-ai-hint={projectImage.imageHint}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            </div>
-          </DialogTrigger>
-          <DialogContent className="max-w-5xl w-full p-0">
-            <DialogTitle className='sr-only'>{project.title}</DialogTitle>
-            <div className="relative aspect-video">
+    <motion.div
+      layout
+      variants={{
+        hidden: { opacity: 0, scale: 0.9 },
+        visible: { opacity: 1, scale: 1 },
+      }}
+      className="w-full"
+    >
+      <Card className="overflow-hidden group transition-all duration-300 hover:shadow-xl rounded-lg h-full flex flex-col border-none shadow-none bg-transparent">
+        <CardContent className="p-0">
+          <Dialog>
+            <DialogTrigger asChild>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-lg group transition-all duration-300 hover:shadow-xl cursor-pointer">
                 <Image
-                    src={projectImage.imageUrl}
-                    alt={project.title}
-                    data-ai-hint={projectImage.imageHint}
-                    fill
-                    className="object-contain"
+                  src={projectImage.imageUrl}
+                  alt={project.title}
+                  data-ai-hint={projectImage.imageHint}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-            </div>
-          </DialogContent>
-        </Dialog>
-      </CardContent>
-      <CardHeader className="p-4 pl-0">
-        <CardTitle className="font-headline text-xl font-bold">{project.title}</CardTitle>
-        <CardDescription className="text-base text-foreground/70">{project.description}</CardDescription>
-        <Button variant="link" className="p-0 h-auto justify-start text-base">View Project</Button>
-      </CardHeader>
-    </Card>
+              </div>
+            </DialogTrigger>
+            <DialogContent className="max-w-5xl w-full p-0">
+              <DialogTitle className='sr-only'>{project.title}</DialogTitle>
+              <div className="relative aspect-video">
+                  <Image
+                      src={projectImage.imageUrl}
+                      alt={project.title}
+                      data-ai-hint={projectImage.imageHint}
+                      fill
+                      className="object-contain"
+                  />
+              </div>
+            </DialogContent>
+          </Dialog>
+        </CardContent>
+        <CardHeader className="p-4 pl-0">
+          <CardTitle className="font-headline text-xl font-bold">{project.title}</CardTitle>
+          <CardDescription className="text-base text-foreground/70">{project.description}</CardDescription>
+        </CardHeader>
+      </Card>
+    </motion.div>
   );
 }
 
@@ -85,31 +93,36 @@ export default function PortfolioSection() {
             </div>
         </div>
         
-        {selectedCategory === 'Graphic Design' ? (
-          <motion.div 
-            className="grid grid-cols-2 md:grid-cols-3 gap-4"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              visible: {
-                transition: {
-                  staggerChildren: 0.1,
-                },
+        <motion.div 
+          layout
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.05,
               },
-            }}
-          >
-            {filteredProjects.map((project) => {
-              const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlId);
-              if (!projectImage) return null;
-              
+            },
+          }}
+          className={cn(
+            selectedCategory === 'Graphic Design'
+              ? 'columns-2 md:columns-3 gap-4 space-y-4'
+              : 'grid sm:grid-cols-2 gap-x-8 gap-y-12'
+          )}
+        >
+          {filteredProjects.map((project) => {
+            const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlId);
+            if (!projectImage) return null;
+
+            if (selectedCategory === 'Graphic Design') {
               return (
                 <Dialog key={project.id}>
                   <DialogTrigger asChild>
                     <motion.div
-                      className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group"
+                      className="relative overflow-hidden rounded-lg cursor-pointer group break-inside-avoid"
                       variants={{
-                        hidden: { opacity: 0, scale: 0.8 },
-                        visible: { opacity: 1, scale: 1 },
+                        hidden: { opacity: 0, y: 30 },
+                        visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
                       }}
                       layout
                     >
@@ -117,8 +130,9 @@ export default function PortfolioSection() {
                         src={projectImage.imageUrl}
                         alt={project.title}
                         data-ai-hint={projectImage.imageHint}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        width={projectImage.width}
+                        height={projectImage.height}
+                        className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
                       />
                     </motion.div>
                   </DialogTrigger>
@@ -136,15 +150,11 @@ export default function PortfolioSection() {
                   </DialogContent>
                 </Dialog>
               );
-            })}
-          </motion.div>
-        ) : (
-          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-12">
-              {filteredProjects.map((project) => (
-                  <ProjectCard key={project.id} project={project} />
-              ))}
-          </div>
-        )}
+            } else {
+              return <ProjectCard key={project.id} project={project} />;
+            }
+          })}
+        </motion.div>
       </div>
     </section>
   );
