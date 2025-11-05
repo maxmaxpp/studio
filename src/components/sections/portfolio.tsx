@@ -9,7 +9,7 @@ import { services } from '@/lib/data';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
-const projectCategories = ['All', ...services.map(s => s.title)];
+const projectCategories = services.map(s => s.title);
 
 function ProjectCard({ project, isGraphicDesign }: { project: (typeof projects)[0], isGraphicDesign: boolean }) {
   const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlId);
@@ -83,8 +83,8 @@ export default function PortfolioSection() {
             A selection of projects that showcase my skills and expertise. Graphic design projects can be clicked to view larger.
           </p>
         </div>
-        <Tabs defaultValue="All" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 mb-8 h-auto flex-wrap">
+        <Tabs defaultValue="Data Entry" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-2 md:grid-cols-4 mb-8 h-auto flex-wrap">
             {projectCategories.map((category) => (
               <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
             ))}
