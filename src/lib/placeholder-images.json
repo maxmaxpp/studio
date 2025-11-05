@@ -1,3 +1,76 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "about-heymaxx",
+      "description": "A professional portrait of Heymaxx.",
+      "imageUrl": "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjIzMTM3MjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "professional portrait"
+    },
+    {
+      "id": "project-data-1",
+      "description": "Dashboard for data analysis.",
+      "imageUrl": "https://images.unsplash.com/photo-1608222351212-18fe0ec7b13b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkYXRhJTIwZGFzaGJvYXJkfGVufDB8fHx8MTc2MjI2MDIxMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "data dashboard"
+    },
+    {
+      "id": "project-data-2",
+      "description": "Spreadsheet with organized data.",
+      "imageUrl": "https://images.unsplash.com/photo-1543286386-2e659306cd6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcHJlYWRzaGVldCUyMGNoYXJ0c3xlbnwwfHx8fDE3NjIzNDQwNTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "spreadsheet charts"
+    },
+    {
+      "id": "project-social-1",
+      "description": "Social media campaign graphics.",
+      "imageUrl": "https://images.unsplash.com/photo-1761864293806-51e7500c08e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MXwxfHNlYXJjaHw4fHxzb2NpYWwlMjBtZWRpYXxlbnwwfHx8fDE3NjIzMjQ5ODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "social media"
+    },
+    {
+      "id": "project-social-2",
+      "description": "Analytics report for a social media account.",
+      "imageUrl": "https://images.unsplash.com/photo-1728044849280-10a1a75cff83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhbmFseXRpY3MlMjByZXBvcnR8ZW58MHx8fHwxNzYyMjcyNzIzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "analytics report"
+    },
+    {
+      "id": "project-design-1",
+      "description": "Logo design for a brand.",
+      "imageUrl": "https://images.unsplash.com/photo-1626251851903-1143b5c6f057?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxsb2dvJTIwZGVzaWdufGVufDB8fHx8MTc2MjI3Nzg4OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "logo design"
+    },
+    {
+      "id": "project-design-2",
+      "description": "Website UI mockup.",
+      "imageUrl": "https://images.unsplash.com/photo-1545235617-7a424c1a60cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dWklMjBkZXNpZ258ZW58MHx8fHwxNzYyMzYxMzY2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ui design"
+    },
+    {
+      "id": "project-dev-1",
+      "description": "Code on a screen for a web application.",
+      "imageUrl": "https://images.unsplash.com/photo-1603943761979-879c839ac8e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2RlJTIwZWRpdG9yfGVufDB8fHx8MTc2MjI1OTkwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "code editor"
+    },
+    {
+      "id": "project-dev-2",
+      "description": "A responsive website displayed on multiple devices.",
+      "imageUrl": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZXNwb25zaXZlJTIwd2Vic2l0ZXxlbnwwfHx8fDE3NjIzMzM4ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "responsive website"
+    },
+    {
+      "id": "testimonial-avatar-1",
+      "description": "Avatar for Jane Doe.",
+      "imageUrl": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MjMzOTU2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "testimonial-avatar-2",
+      "description": "Avatar for John Smith.",
+      "imageUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjIzMzEzMTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "testimonial-avatar-3",
+      "description": "Avatar for Alex Ray.",
+      "imageUrl": "https://images.unsplash.com/photo-1590086782792-42dd2350140d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjIyODA1NDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    }
+  ]
 }
