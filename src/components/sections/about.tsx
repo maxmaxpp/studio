@@ -1,8 +1,5 @@
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
-import placeholderData from '@/lib/placeholder-images.json';
-
-const aboutImage = placeholderData.placeholderImages.find(p => p.id === 'about-heymaxx');
 
 export default function AboutSection() {
   return (
@@ -12,16 +9,14 @@ export default function AboutSection() {
           <div className="md:col-span-2">
             <Card className="overflow-hidden shadow-2xl rounded-lg">
               <CardContent className="p-0">
-                {aboutImage && (
-                  <Image
-                    src={aboutImage.imageUrl}
-                    alt={aboutImage.description}
-                    data-ai-hint={aboutImage.imageHint}
-                    width={600}
-                    height={800}
-                    className="w-full h-auto object-cover aspect-[3/4]"
-                  />
-                )}
+                <Image
+                  src="/heymaxx-portrait.jpg"
+                  alt="A portrait of Heymaxx."
+                  data-ai-hint="woman portrait"
+                  width={600}
+                  height={800}
+                  className="w-full h-auto object-cover aspect-[3/4]"
+                />
               </CardContent>
             </Card>
           </div>
