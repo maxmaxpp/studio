@@ -56,13 +56,10 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 
 
 export default function PortfolioSection() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const categories = services.map(s => s.title);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   
-  const categories = ['All', ...services.map(s => s.title)];
-
-  const filteredProjects = selectedCategory === 'All'
-    ? projects
-    : projects.filter(project => project.category === selectedCategory);
+  const filteredProjects = projects.filter(project => project.category === selectedCategory);
 
   return (
     <section id="portfolio" className="w-full py-16 md:py-24">
