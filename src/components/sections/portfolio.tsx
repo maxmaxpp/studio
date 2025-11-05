@@ -7,39 +7,34 @@ import { projects } from '@/lib/data';
 import placeholderData from '@/lib/placeholder-images.json';
 import { services } from '@/lib/data';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
 
 const projectCategories = ['All', ...services.map(s => s.title)];
 
-function ProjectCard({ project }: { project: (typeof projects)[0] }) {
+function ProjectCard({ project, isGraphicDesign }: { project: (typeof projects)[0], isGraphicDesign: boolean }) {
   const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlId);
 
-  const cardContent = (
-    <Card className="overflow-hidden group transition-all duration-300 hover:shadow-xl rounded-lg h-full">
-      <CardContent className="p-0">
-        {projectImage && (
-          <div className="relative aspect-video overflow-hidden">
-            <Image
-              src={projectImage.imageUrl}
-              alt={project.title}
-              data-ai-hint={projectImage.imageHint}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
-        )}
-      </CardContent>
-      <CardHeader className="p-4">
-        <CardTitle className="font-headline text-lg">{project.title}</CardTitle>
-        <CardDescription className="text-sm text-foreground/70">{project.description}</CardDescription>
-      </CardHeader>
-    </Card>
+  if (!projectImage) {
+    return null;
+  }
+
+  const galleryImage = (
+    <div className="relative aspect-video overflow-hidden rounded-lg group transition-all duration-300 hover:shadow-xl">
+      <Image
+        src={projectImage.imageUrl}
+        alt={project.title}
+        data-ai-hint={projectImage.imageHint}
+        fill
+        className="object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+    </div>
   );
 
-  if (project.category === 'Graphic Design' && projectImage) {
+  if (isGraphicDesign) {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <div className="cursor-pointer">{cardContent}</div>
+          <div className="cursor-pointer">{galleryImage}</div>
         </DialogTrigger>
         <DialogContent className="max-w-3xl p-0">
           <div className="relative aspect-video">
@@ -56,7 +51,25 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
     );
   }
 
-  return cardContent;
+  return (
+    <Card className="overflow-hidden group transition-all duration-300 hover:shadow-xl rounded-lg h-full">
+      <CardContent className="p-0">
+          <div className="relative aspect-video overflow-hidden">
+            <Image
+              src={projectImage.imageUrl}
+              alt={project.title}
+              data-ai-hint={projectImage.imageHint}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+      </CardContent>
+      <CardHeader className="p-4">
+        <CardTitle className="font-headline text-lg">{project.title}</CardTitle>
+        <CardDescription className="text-sm text-foreground/70">{project.description}</CardDescription>
+      </CardHeader>
+    </Card>
+  );
 }
 
 
@@ -82,7 +95,7 @@ export default function PortfolioSection() {
                 {projects
                   .filter((project) => category === 'All' || project.category === category)
                   .map((project) => (
-                    <ProjectCard key={project.id} project={project} />
+                    <ProjectCard key={project.id} project={project} isGraphicDesign={project.category === 'Graphic Design'} />
                   ))}
               </div>
             </TabsContent>
