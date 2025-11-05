@@ -13,16 +13,13 @@ export default function ServicesSection() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (
-            <Card key={service.title} className="text-center flex flex-col items-center p-6 bg-background shadow-lg hover:shadow-2xl transition-shadow duration-300 rounded-lg">
+            <Card key={service.title} className="text-center flex flex-col items-center justify-center p-6 bg-background shadow-lg hover:shadow-2xl transition-shadow duration-300 rounded-lg aspect-square">
               <CardHeader className="p-0 mb-4">
                 <div className="bg-primary/10 text-primary rounded-full p-4">
                   <service.icon className="h-10 w-10" />
                 </div>
               </CardHeader>
-              <CardTitle className="mb-2 font-headline text-xl">{service.title}</CardTitle>
-              <CardDescription className="text-foreground/70 text-base">
-                {service.description}
-              </CardDescription>
+              <CardTitle className="font-headline text-xl">{service.title}</CardTitle>
             </Card>
           ))}
         </div>
