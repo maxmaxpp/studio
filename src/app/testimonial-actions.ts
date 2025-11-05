@@ -2,17 +2,16 @@
 
 import { z } from 'zod';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { getSdks } from '@/firebase';
+import { getFirestore } from 'firebase/firestore/lite';
 import { initializeApp, getApps } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
 import { firebaseConfig } from '@/firebase/config';
 
-// Initialize Firebase Admin SDK
+// Initialize Firebase app if not already initialized
 if (!getApps().length) {
   initializeApp(firebaseConfig);
 }
-const { firestore } = getSdks(getApps()[0]);
 
+const firestore = getFirestore(getApps()[0]);
 
 const testimonialSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -61,8 +60,9 @@ export async function submitTestimonial(
     };
   } catch (error) {
     console.error('Error submitting testimonial:', error);
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred.';
     return {
-      message: 'An unexpected error occurred. Please try again later.',
+      message: `An unexpected error occurred. Please try again later. Details: ${errorMessage}`,
       isSuccess: false,
     };
   }
