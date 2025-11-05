@@ -1,12 +1,12 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useEffect, useRef, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { submitTestimonial, type FormState } from '@/app/testimonial-actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useEffect, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import {
@@ -35,7 +35,7 @@ function SubmitButton() {
 }
 
 export default function AddTestimonial() {
-  const [state, formAction] = useFormState(submitTestimonial, initialState);
+  const [state, formAction] = useActionState(submitTestimonial, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState(false);
