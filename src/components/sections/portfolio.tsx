@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/
 import { Button } from '../ui/button';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlId);
@@ -83,11 +84,67 @@ export default function PortfolioSection() {
                 ))}
             </div>
         </div>
-        <div className="grid sm:grid-cols-2 gap-x-8 gap-y-12">
-            {filteredProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-            ))}
-        </div>
+        
+        {selectedCategory === 'Graphic Design' ? (
+          <motion.div 
+            className="grid grid-cols-2 md:grid-cols-3 gap-4"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            {filteredProjects.map((project) => {
+              const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlId);
+              if (!projectImage) return null;
+              
+              return (
+                <Dialog key={project.id}>
+                  <DialogTrigger asChild>
+                    <motion.div
+                      className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group"
+                      variants={{
+                        hidden: { opacity: 0, scale: 0.8 },
+                        visible: { opacity: 1, scale: 1 },
+                      }}
+                      layout
+                    >
+                      <Image
+                        src={projectImage.imageUrl}
+                        alt={project.title}
+                        data-ai-hint={projectImage.imageHint}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </motion.div>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-5xl w-full p-0">
+                    <DialogTitle className='sr-only'>{project.title}</DialogTitle>
+                    <div className="relative aspect-video">
+                        <Image
+                            src={projectImage.imageUrl}
+                            alt={project.title}
+                            data-ai-hint={projectImage.imageHint}
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              );
+            })}
+          </motion.div>
+        ) : (
+          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-12">
+              {filteredProjects.map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+              ))}
+          </div>
+        )}
       </div>
     </section>
   );
