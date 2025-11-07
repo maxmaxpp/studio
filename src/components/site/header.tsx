@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { Home, Mail, Brush } from "lucide-react";
 
 const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/projects', label: 'Projects' },
-    { href: '/#contact', label: 'Contact' },
+    { href: '/', label: 'Home', icon: Home },
+    { href: '/projects', label: 'Projects', icon: Brush },
+    { href: '/#contact', label: 'Contact', icon: Mail },
 ]
 
 export default function SiteHeader() {
@@ -19,11 +20,14 @@ export default function SiteHeader() {
             <Link href="/" className="text-2xl font-bold font-headline text-primary">
                 Heymaxx.site
             </Link>
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-2">
                 {navLinks.map(link => (
-                     <Link key={link.href} href={link.href} className="text-base font-medium text-muted-foreground transition-colors hover:text-primary">
-                        {link.label}
-                     </Link>
+                     <Button key={link.href} asChild variant="ghost">
+                        <Link href={link.href} className="text-base font-medium text-muted-foreground transition-colors hover:text-primary gap-2">
+                            <link.icon className="h-4 w-4" />
+                            {link.label}
+                        </Link>
+                     </Button>
                 ))}
             </nav>
         </div>

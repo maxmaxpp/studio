@@ -26,21 +26,21 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
       }}
       className="w-full"
     >
-      <Card className="overflow-hidden group transition-all duration-300 hover:shadow-xl rounded-lg h-full flex flex-col border-none shadow-none bg-transparent">
+      <Card className="overflow-hidden group transition-all duration-300 hover:shadow-xl rounded-lg h-full flex flex-col border bg-card/80 shadow-sm hover:shadow-primary/10">
         <CardContent className="p-0">
           <Dialog>
             <DialogTrigger asChild>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg group transition-all duration-300 hover:shadow-xl cursor-pointer">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg group transition-all duration-300 cursor-pointer">
                 <Image
                   src={projectImage.imageUrl}
                   alt={project.title}
                   data-ai-hint={projectImage.imageHint}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
                 />
               </div>
             </DialogTrigger>
-            <DialogContent className="max-w-5xl w-full p-0">
+            <DialogContent className="max-w-5xl w-full p-0 bg-background border-none rounded-lg shadow-2xl">
               <DialogTitle className='sr-only'>{project.title}</DialogTitle>
               <div className="relative aspect-video">
                   <Image
@@ -54,7 +54,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
             </DialogContent>
           </Dialog>
         </CardContent>
-        <CardHeader className="p-4 pl-0">
+        <CardHeader className="p-4">
           <CardTitle className="font-headline text-xl font-bold">{project.title}</CardTitle>
           <CardDescription className="text-base text-foreground/70">{project.description}</CardDescription>
         </CardHeader>
@@ -74,17 +74,17 @@ export default function PortfolioSection() {
     <section id="portfolio" className="w-full py-16 md:py-24">
       <div className="container mx-auto">
         <div className="flex justify-center mb-12">
-            <div className="flex flex-wrap gap-2 rounded-lg bg-muted p-1">
+            <div className="flex flex-wrap gap-2 rounded-full bg-muted p-1.5 shadow-inner">
                 {categories.map(category => (
                     <Button
                         key={category}
                         variant="ghost"
                         onClick={() => setSelectedCategory(category)}
                         className={cn(
-                            "rounded-md px-4 py-2 text-sm font-medium transition-colors",
+                            "rounded-full px-5 py-2 text-sm font-medium transition-colors",
                             selectedCategory === category
-                            ? "bg-background text-foreground shadow-sm"
-                            : "text-muted-foreground hover:bg-background/50"
+                            ? "bg-background text-primary shadow-sm"
+                            : "text-muted-foreground hover:text-primary"
                         )}
                     >
                         {category}
@@ -100,13 +100,13 @@ export default function PortfolioSection() {
           variants={{
             visible: {
               transition: {
-                staggerChildren: 0.05,
+                staggerChildren: 0.1,
               },
             },
           }}
           className={cn(
             selectedCategory === 'Graphic Design'
-              ? 'columns-2 md:columns-3 gap-4 space-y-4'
+              ? 'columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4'
               : 'grid sm:grid-cols-2 gap-x-8 gap-y-12'
           )}
         >
@@ -119,10 +119,10 @@ export default function PortfolioSection() {
                 <Dialog key={project.id}>
                   <DialogTrigger asChild>
                     <motion.div
-                      className="relative overflow-hidden rounded-lg cursor-pointer group break-inside-avoid"
+                      className="relative overflow-hidden rounded-xl cursor-pointer group break-inside-avoid shadow-md hover:shadow-primary/20 transition-shadow duration-300"
                       variants={{
-                        hidden: { opacity: 0, y: 30 },
-                        visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
+                        hidden: { opacity: 0, y: 30, scale: 0.98 },
+                        visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 100, damping: 15 } },
                       }}
                       layout
                     >
@@ -132,11 +132,12 @@ export default function PortfolioSection() {
                         data-ai-hint={projectImage.imageHint}
                         width={projectImage.width}
                         height={projectImage.height}
-                        className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                        className="object-cover w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105"
                       />
+                       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </motion.div>
                   </DialogTrigger>
-                  <DialogContent className="max-w-5xl w-full p-0">
+                  <DialogContent className="max-w-5xl w-full p-0 bg-background/80 backdrop-blur-md border-none rounded-lg shadow-2xl">
                     <DialogTitle className='sr-only'>{project.title}</DialogTitle>
                     <div className="relative aspect-video">
                         <Image

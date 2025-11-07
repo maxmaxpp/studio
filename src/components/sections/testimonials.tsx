@@ -33,7 +33,7 @@ function TestimonialCard({
   );
   return (
     <div className="p-1 h-full">
-      <Card className="h-full flex flex-col justify-between bg-background shadow-lg rounded-lg">
+      <Card className="h-full flex flex-col justify-between bg-background shadow-lg rounded-xl border-none">
         <CardContent className="p-6 flex flex-col items-center text-center">
           <p className="text-foreground/80 italic mb-6 flex-grow">
             "{testimonial.quote}"
@@ -67,7 +67,7 @@ function TestimonialCard({
 function TestimonialSkeleton() {
   return (
     <div className="p-1 h-full">
-       <Card className="h-full flex flex-col justify-between bg-background shadow-lg rounded-lg">
+       <Card className="h-full flex flex-col justify-between bg-background shadow-lg rounded-xl border-none">
         <CardContent className="p-6 flex flex-col items-center text-center">
             <Skeleton className="h-4 w-3/4 mb-6" />
              <Skeleton className="h-4 w-1/2 mb-2" />

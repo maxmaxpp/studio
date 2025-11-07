@@ -57,7 +57,7 @@ export default function ContactSection() {
               <DialogTrigger asChild>
                 <Button size="lg" className="font-bold">Contact Form</Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-lg">
+              <DialogContent className="sm:max-w-lg rounded-lg">
                 <DialogHeader>
                   <DialogTitle>Contact Me</DialogTitle>
                   <DialogDescription>
