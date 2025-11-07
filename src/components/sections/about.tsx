@@ -10,7 +10,7 @@ export default function AboutSection() {
               Heymaxx
             </h1>
             <p className="text-lg text-foreground/80">
-              I'm a dedicated and versatile freelancer with a passion for helping businesses succeed. With a strong background in technology and design, I've honed my skills across multiple disciplines to offer a comprehensive suite of services. Whether it's organizing complex data, building a vibrant social media presence, creating beautiful designs, or developing a functional website, I am committed to providing solutions that are both effective and efficient.
+              I'm a dedicated and versatile professional with a passion for helping businesses succeed. With a strong background in technology and design, I've honed my skills across multiple disciplines to offer a comprehensive suite of services. Whether it's organizing complex data, building a vibrant social media presence, creating beautiful designs, or developing a functional website, I am committed to providing solutions that are both effective and efficient.
             </p>
           </div>
           <div className="md:col-span-1 flex justify-center md:justify-end">
