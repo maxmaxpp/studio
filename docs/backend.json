@@ -58,6 +58,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "liveUrl": {
+          "type": "string",
+          "description": "URL to the live version of the project, if applicable."
         }
       },
       "required": [

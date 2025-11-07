@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { projects, services } from '@/lib/data';
 import placeholderData from '@/lib/placeholder-images.json';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
@@ -9,6 +9,8 @@ import { Button } from '../ui/button';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
 
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlId);
@@ -54,10 +56,20 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
             </DialogContent>
           </Dialog>
         </CardContent>
-        <CardHeader className="p-4">
+        <CardHeader className="p-4 flex-grow">
           <CardTitle className="font-headline text-xl font-bold">{project.title}</CardTitle>
           <CardDescription className="text-base text-foreground/70">{project.description}</CardDescription>
         </CardHeader>
+        {project.liveUrl && (
+          <CardFooter className="p-4 pt-0">
+            <Button asChild className="w-full" variant="outline">
+              <Link href={project.liveUrl} target="_blank">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                View Live Work
+              </Link>
+            </Button>
+          </CardFooter>
+        )}
       </Card>
     </motion.div>
   );

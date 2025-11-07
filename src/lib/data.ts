@@ -51,6 +51,7 @@ export const projects = [
     category: 'Development',
     description: 'Designed and developed a fast, responsive portfolio website using Next.js to showcase their work.',
     imageUrlId: 'project-dev-2',
+    liveUrl: 'https://heymaxx-dev-2.web.app',
   },
   {
     id: 5,
@@ -79,6 +80,7 @@ export const projects = [
     category: 'Development',
     description: 'Built a custom WordPress plugin to handle event registrations and ticketing for a non-profit organization.',
     imageUrlId: 'project-dev-1',
+    liveUrl: 'https://heymaxx-dev-1.web.app',
   },
   {
     id: 9,
