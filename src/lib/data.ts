@@ -1,25 +1,22 @@
+
 import { CodeXml, DatabaseZap, Megaphone, Palette } from 'lucide-react';
 
 export const services = [
   {
     icon: DatabaseZap,
     title: 'Data Entry',
-    description: 'Accurate and efficient data entry services to help you organize and manage your information effectively. From spreadsheets to databases, I ensure your data is clean and accessible.',
   },
   {
     icon: Megaphone,
     title: 'Social Media Manager',
-    description: 'Grow your online presence with strategic social media management. I create engaging content, manage your accounts, and analyze performance to build your brand and connect with your audience.',
   },
   {
     icon: Palette,
     title: 'Graphic Design',
-    description: 'Visually stunning designs that communicate your message. From logos and branding to marketing materials and web graphics, I create assets that make an impact.',
   },
   {
     icon: CodeXml,
     title: 'Development',
-    description: 'Custom web development solutions to bring your ideas to life. I build responsive, user-friendly websites and applications tailored to your specific needs using modern technologies.',
   },
 ];
 
@@ -96,6 +93,14 @@ export const projects = [
     description: 'Designed a pack of reusable social media templates for a small business to maintain brand consistency.',
     imageUrlId: 'project-design-4',
   },
+  {
+    id: 11,
+    title: 'Critique Corner',
+    category: 'Development',
+    description: 'A platform for designers and developers to share their work and receive constructive feedback.',
+    imageUrlId: 'project-dev-3',
+    liveUrl: 'https://heymaxx-dev-3.web.app',
+  }
 ];
 
 
