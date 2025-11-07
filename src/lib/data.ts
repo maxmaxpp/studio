@@ -72,14 +72,6 @@ export const projects = [
     imageUrlId: 'project-design-2',
   },
   {
-    id: 8,
-    title: 'Custom WordPress Plugin',
-    category: 'Development',
-    description: 'Built a custom WordPress plugin to handle event registrations and ticketing for a non-profit organization.',
-    imageUrlId: 'project-dev-1',
-    liveUrl: 'https://heymaxx-dev-1.web.app',
-  },
-  {
     id: 9,
     title: 'Event Poster Design',
     category: 'Graphic Design',
@@ -100,6 +92,14 @@ export const projects = [
     description: 'A platform for designers and developers to share their work and receive constructive feedback.',
     imageUrlId: 'project-dev-3',
     liveUrl: 'https://heymaxx-dev-3.web.app',
+  },
+  {
+    id: 12,
+    title: 'Liachuu',
+    category: 'Development',
+    description: 'An interactive web application for anime and manga enthusiasts to track, discover, and discuss their favorite series.',
+    imageUrlId: 'project-dev-liachuu',
+    liveUrl: 'https://liachuu.web.app',
   }
 ];
 

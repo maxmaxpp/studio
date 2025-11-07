@@ -65,14 +65,6 @@
       "height": 1080
     },
     {
-      "id": "project-dev-1",
-      "description": "Code on a screen for a web application.",
-      "imageUrl": "https://images.unsplash.com/photo-1603943761979-879c839ac8e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2RlJTIwZWRpdG9yfGVufDB8fHx8MTc2MjI1OTkwMnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "code editor",
-      "width": 1080,
-      "height": 720
-    },
-    {
       "id": "project-dev-2",
       "description": "A responsive website displayed on multiple devices.",
       "imageUrl": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZXNwb25zaXZlJTIwd2Vic2l0ZXxlbnwwfHx8fDE3NjIzMzM4ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -85,6 +77,14 @@
       "description": "An interface for a feedback or critique application.",
       "imageUrl": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxmZWVkYmFjayUyMGFwcHxlbnwwfHx8fDE3NjI0MjY1ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "feedback app",
+      "width": 1080,
+      "height": 720
+    },
+    {
+      "id": "project-dev-liachuu",
+      "description": "Interface for an anime and manga tracking application.",
+      "imageUrl": "https://images.unsplash.com/photo-1613376023733-0a73375d8620?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhbmltZSUyMGFwcHxlbnwwfHx8fDE3NjI0MjY4MTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "anime app",
       "width": 1080,
       "height": 720
     },
