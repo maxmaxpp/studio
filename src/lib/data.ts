@@ -86,6 +86,13 @@ export const projects = [
     imageUrlId: 'project-design-4',
   },
   {
+    id: 13,
+    title: 'New Awesome Design',
+    category: 'Graphic Design',
+    description: 'A description for your new awesome design project.',
+    imageUrlId: 'project-design-new',
+  },
+  {
     id: 11,
     title: 'Critique Corner',
     category: 'Development',
