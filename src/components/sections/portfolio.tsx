@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from 'next/image';
@@ -11,11 +12,74 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 
-function ProjectCard({ project }: { project: (typeof projects)[0] }) {
-  const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlId);
+type Project = (typeof projects)[0];
+type PlaceholderImage = (typeof placeholderData.placeholderImages)[0];
 
-  if (!projectImage) {
+function ProjectImage({ image, projectTitle }: { image: PlaceholderImage; projectTitle: string }) {
+  return (
+    <Image
+      src={image.imageUrl}
+      alt={projectTitle}
+      data-ai-hint={image.imageHint}
+      fill
+      className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+    />
+  );
+}
+
+function ProjectSlideshow({ images, projectTitle, isDialog }: { images: PlaceholderImage[]; projectTitle: string; isDialog?: boolean }) {
+  if (!images.length) return null;
+
+  if (images.length === 1 && !isDialog) {
+    return (
+       <div className={cn("relative overflow-hidden rounded-t-lg group transition-all duration-300", isDialog ? "aspect-video" : "aspect-[4/3] cursor-pointer")}>
+        <Image
+          src={images[0].imageUrl}
+          alt={projectTitle}
+          data-ai-hint={images[0].imageHint}
+          fill
+          className={cn("object-cover transition-transform duration-500 ease-in-out", !isDialog && "group-hover:scale-105")}
+        />
+      </div>
+    )
+  }
+  
+  return (
+    <Carousel className={cn("w-full", isDialog ? "p-8" : "group")}>
+      <CarouselContent>
+        {images.map((image) => (
+          <CarouselItem key={image.id}>
+             <div className={cn("relative overflow-hidden rounded-lg", isDialog ? "aspect-video" : "aspect-[4/3]")}>
+              <Image
+                src={image.imageUrl}
+                alt={projectTitle}
+                data-ai-hint={image.imageHint}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      {images.length > 1 && (
+        <>
+          <CarouselPrevious className={cn("absolute left-2 top-1/2 -translate-y-1/2 z-10", isDialog ? "sm:inline-flex" : "hidden group-hover:inline-flex")} />
+          <CarouselNext className={cn("absolute right-2 top-1/2 -translate-y-1/2 z-10", isDialog ? "sm:inline-flex" : "hidden group-hover:inline-flex")} />
+        </>
+      )}
+    </Carousel>
+  );
+}
+
+
+function ProjectCard({ project }: { project: Project }) {
+  const projectImages = project.imageUrlIds
+    .map(id => placeholderData.placeholderImages.find(p => p.id === id))
+    .filter((p): p is PlaceholderImage => !!p);
+
+  if (!projectImages.length) {
     return null;
   }
 
@@ -32,27 +96,13 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
         <CardContent className="p-0">
           <Dialog>
             <DialogTrigger asChild>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg group transition-all duration-300 cursor-pointer">
-                <Image
-                  src={projectImage.imageUrl}
-                  alt={project.title}
-                  data-ai-hint={projectImage.imageHint}
-                  fill
-                  className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-                />
+              <div className="cursor-pointer">
+                <ProjectSlideshow images={projectImages} projectTitle={project.title} />
               </div>
             </DialogTrigger>
             <DialogContent className="max-w-5xl w-full p-0 bg-background border-none rounded-lg shadow-2xl">
               <DialogTitle className='sr-only'>{project.title}</DialogTitle>
-              <div className="relative aspect-video">
-                  <Image
-                      src={projectImage.imageUrl}
-                      alt={project.title}
-                      data-ai-hint={projectImage.imageHint}
-                      fill
-                      className="object-contain"
-                  />
-              </div>
+              <ProjectSlideshow images={projectImages} projectTitle={project.title} isDialog />
             </DialogContent>
           </Dialog>
         </CardContent>
@@ -123,7 +173,7 @@ export default function PortfolioSection() {
           )}
         >
           {filteredProjects.map((project) => {
-            const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlId);
+            const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlIds[0]);
             if (!projectImage) return null;
 
             if (selectedCategory === 'Graphic Design') {
