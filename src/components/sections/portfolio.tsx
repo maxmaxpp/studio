@@ -86,7 +86,7 @@ export default function PortfolioSection() {
     <section id="portfolio" className="w-full py-16 md:py-24">
       <div className="container mx-auto">
         <div className="flex justify-center mb-12">
-            <div className="flex justify-start md:justify-center gap-2 rounded-full bg-muted p-1.5 shadow-inner overflow-x-auto whitespace-nowrap">
+            <div className="flex flex-wrap justify-center gap-2 rounded-full bg-muted p-1.5 shadow-inner">
                 {categories.map(category => (
                     <Button
                         key={category}
