@@ -23,8 +23,8 @@ export default function SiteHeader() {
             </Link>
             <nav className="hidden md:flex items-center gap-2">
                 {navLinks.map(link => (
-                     <Button key={link.href} asChild variant="ghost">
-                        <Link href={link.href} className="text-base font-medium text-muted-foreground transition-colors hover:text-primary gap-2">
+                     <Button key={link.href} asChild variant="ghost" className="text-base font-medium text-muted-foreground transition-colors hover:text-primary">
+                        <Link href={link.href}>
                             <link.icon className="h-4 w-4" />
                             {link.label}
                         </Link>
