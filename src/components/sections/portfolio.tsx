@@ -86,14 +86,14 @@ export default function PortfolioSection() {
     <section id="portfolio" className="w-full py-16 md:py-24">
       <div className="container mx-auto">
         <div className="flex justify-center mb-12">
-            <div className="flex flex-wrap gap-2 rounded-full bg-muted p-1.5 shadow-inner">
+            <div className="flex flex-wrap justify-center gap-2 rounded-full bg-muted p-1.5 shadow-inner">
                 {categories.map(category => (
                     <Button
                         key={category}
                         variant="ghost"
                         onClick={() => setSelectedCategory(category)}
                         className={cn(
-                            "rounded-full px-5 py-2 text-sm font-medium transition-colors",
+                            "rounded-full px-4 md:px-5 py-2 text-xs md:text-sm font-medium transition-colors",
                             selectedCategory === category
                             ? "bg-background text-primary shadow-sm"
                             : "text-muted-foreground hover:text-primary"
