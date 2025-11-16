@@ -11,7 +11,7 @@ export default function ServicesSection() {
             A range of professional services to meet your business needs.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (
             <Card key={service.title} className="text-center flex flex-col items-center justify-center p-6 bg-background/80 shadow-lg hover:shadow-primary/20 transition-shadow duration-300 rounded-xl aspect-square border-none">
               <CardHeader className="p-0 mb-4">

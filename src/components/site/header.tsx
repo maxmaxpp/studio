@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { Home, Mail, Brush } from "lucide-react";
+import { Home, Mail, Brush, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 const navLinks = [
     { href: '/', label: 'Home', icon: Home },
@@ -30,6 +31,26 @@ export default function SiteHeader() {
                      </Button>
                 ))}
             </nav>
+            <div className="md:hidden">
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                            <Menu className="h-6 w-6" />
+                            <span className="sr-only">Toggle navigation menu</span>
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="right">
+                        <div className="grid gap-4 py-6">
+                            {navLinks.map(link => (
+                                <Link key={link.href} href={link.href} className="flex items-center gap-2 text-lg font-medium text-foreground hover:text-primary">
+                                    <link.icon className="h-5 w-5" />
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </div>
+                    </SheetContent>
+                </Sheet>
+            </div>
         </div>
       </div>
     </header>
