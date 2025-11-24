@@ -13,6 +13,7 @@ export default {
         body: ['Karla', 'sans-serif'],
         headline: ['Karla', 'sans-serif'],
         code: ['monospace'],
+        logo: ['Caveat', 'cursive'],
       },
       colors: {
         background: 'hsl(var(--background))',

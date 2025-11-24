@@ -2,31 +2,31 @@
 
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { Home, Mail, Brush, Menu, Info } from "lucide-react";
+import { Home, Mail, Brush, Menu, Info, User } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 const navLinks = [
-    { href: '/', label: 'Home', icon: Home },
-    { href: '/projects', label: 'Projects', icon: Brush },
-    { href: '/#contact', label: 'Contact', icon: Mail },
-    { href: '/about', label: 'About', icon: Info },
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About Me' },
+    { href: '/#services', label: 'My Services' },
+    { href: '/projects', label: 'Project' },
+    { href: '/#contact', label: 'Contact' },
 ]
 
 export default function SiteHeader() {
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm"
+      className="sticky top-0 z-50"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
-            <Link href="/" className="text-2xl font-bold font-headline text-primary">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-24 items-center justify-between">
+            <Link href="/" className="text-4xl font-logo text-primary">
                 Heymaxx.site
             </Link>
-            <nav className="hidden md:flex items-center gap-2">
+            <nav className="hidden md:flex items-center gap-1">
                 {navLinks.map(link => (
-                     <Button key={link.href} asChild variant="ghost" className="text-base font-medium text-muted-foreground transition-colors hover:text-primary">
+                     <Button key={link.href} asChild variant="link" className="text-base font-medium text-primary/80 transition-colors hover:text-primary hover:underline underline-offset-4 decoration-2">
                         <Link href={link.href}>
-                            <link.icon className="h-4 w-4" />
                             {link.label}
                         </Link>
                      </Button>
@@ -44,7 +44,6 @@ export default function SiteHeader() {
                         <div className="grid gap-4 py-6">
                             {navLinks.map(link => (
                                 <Link key={link.href} href={link.href} className="flex items-center gap-2 text-lg font-medium text-foreground hover:text-primary">
-                                    <link.icon className="h-5 w-5" />
                                     {link.label}
                                 </Link>
                             ))}
