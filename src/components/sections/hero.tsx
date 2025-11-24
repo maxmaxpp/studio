@@ -35,14 +35,14 @@ export default function HeroSection() {
        <Asterisk className="absolute top-1/2 right-1/4 w-14 h-14 opacity-40 text-accent" />
 
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10 py-16">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 py-2">
         <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-3xl md:text-4xl font-bold font-headline tracking-tight text-foreground/90"
+                    className="text-xl md:text-2xl font-bold font-headline tracking-tight text-foreground/90"
                 >
                     Bringing Clarity, 
                     Creativity, and Care 
@@ -74,7 +74,7 @@ export default function HeroSection() {
                  initial={{ opacity: 0, scale: 0.8 }}
                  animate={{ opacity: 1, scale: 1 }}
                  transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 100 }}
-                className="flex justify-center"
+                className="flex justify-center -mt-8"
             >
                 <div className="relative w-[300px] h-[400px] md:w-[350px] md:h-[460px] rounded-t-full overflow-hidden shadow-2xl shadow-primary/20">
                      <Image
