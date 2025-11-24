@@ -26,7 +26,7 @@ export default function HeroSection() {
   return (
     <section id="home" className="w-full py-20 md:py-32 relative">
        <div className="absolute -top-10 -left-16 opacity-30 md:opacity-50">
-        <Image src="/planet-design.png" alt="Planet design" width={200} height={200} />
+        <Image src="/planet-design.png" alt="Planet design" width={300} height={300} />
        </div>
        <Asterisk className="absolute top-20 right-1/3 w-12 h-12 opacity-50 text-accent" />
        <Asterisk className="absolute bottom-24 left-1/4 w-10 h-10 opacity-40 text-accent" />
