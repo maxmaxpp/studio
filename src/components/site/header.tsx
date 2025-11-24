@@ -19,7 +19,7 @@ export default function SiteHeader() {
       className="sticky top-0 z-50"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-24 items-center justify-between">
+        <div className="flex h-16 items-center justify-between">
             <Link href="/" className="text-4xl font-logo text-primary">
                 Heymaxx.site
             </Link>
