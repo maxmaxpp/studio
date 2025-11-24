@@ -29,6 +29,9 @@ export default function HeroSection() {
        <Asterisk className="absolute top-20 right-1/3 w-12 h-12 opacity-50 text-accent" />
        <Asterisk className="absolute bottom-24 left-1/4 w-10 h-10 opacity-40 text-accent" />
        <Asterisk className="absolute bottom-16 right-1/4 w-16 h-16 opacity-60 text-accent" />
+       <Asterisk className="absolute top-1/4 left-1/4 w-8 h-8 opacity-30 text-accent" />
+       <Asterisk className="absolute top-1/2 right-1/4 w-14 h-14 opacity-40 text-accent" />
+
 
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
