@@ -24,9 +24,9 @@ const Asterisk = ({ className }: { className?: string }) => (
 
 export default function HeroSection() {
   return (
-    <section id="home" className="w-full py-20 md:py-32 relative">
-       <div className="absolute -top-10 -left-16 opacity-30 md:opacity-50">
-        <Image src="/planet-design.png" alt="Planet design" width={300} height={300} />
+    <section id="home" className="w-full py-20 md:py-32 relative overflow-hidden">
+       <div className="absolute -top-24 -left-32 opacity-30 md:opacity-50">
+        <Image src="/planet-design.png" alt="Planet design" width={500} height={500} />
        </div>
        <Asterisk className="absolute top-20 right-1/3 w-12 h-12 opacity-50 text-accent" />
        <Asterisk className="absolute bottom-24 left-1/4 w-10 h-10 opacity-40 text-accent" />
@@ -35,7 +35,7 @@ export default function HeroSection() {
        <Asterisk className="absolute top-1/2 right-1/4 w-14 h-14 opacity-40 text-accent" />
 
 
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
                 <motion.h1
