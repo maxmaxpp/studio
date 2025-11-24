@@ -8,27 +8,43 @@ export default function AboutPage() {
       </div>
       <div className="container mx-auto relative z-10">
         <div className="grid md:grid-cols-5 gap-12 items-center">
-          <div className="md:col-span-2 flex justify-center">
-            <Image
-              src="/heymaxx-portrait.png"
-              alt="A portrait of Jenna."
-              data-ai-hint="woman sitting"
-              width={400}
-              height={600}
-              className="rounded-lg object-cover shadow-lg"
-            />
+          <div className="md:col-span-2 flex flex-col items-center gap-8">
+            <div className="flex justify-center">
+              <Image
+                src="/heymaxx-portrait.png"
+                alt="A portrait of Jenna."
+                data-ai-hint="woman sitting"
+                width={400}
+                height={600}
+                className="rounded-lg object-cover shadow-lg"
+              />
+            </div>
+            <div className="flex gap-4">
+              {[...Array(7)].map((_, i) => (
+                <div key={i} className="w-3 h-3 rounded-full bg-accent/30" />
+              ))}
+            </div>
           </div>
           <div className="md:col-span-3 space-y-6">
             <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">
               About Me
             </h1>
             <div className="text-lg text-foreground/80 space-y-4">
-                <p>
-                Hi, I’m Jenna—a Creative Virtual Assistant who loves building organized, aesthetic, and efficient digital spaces. I specialize in Notion setups, productivity systems, content planning, social media posting & scheduling, basic copywriting, and creative tasks like graphics, simple brand design, and video editing.
-                </p>
-                <p>
-                My experience in the BPO industry strengthened my communication, multitasking, and client-handling skills—skills I now bring into every project. Whether it’s organizing workflows, crafting digital layouts, managing content, or creating visuals, I always aim for clarity, intention, and my maximum effort.
-                </p>
+              <p>
+                Hi, I’m Jenna—a Creative Virtual Assistant who loves building
+                organized, aesthetic, and efficient digital spaces. I specialize
+                in Notion setups, productivity systems, content planning, social
+                media posting & scheduling, basic copywriting, and creative
+                tasks like graphics, simple brand design, and video editing.
+              </p>
+              <p>
+                My experience in the BPO industry strengthened my
+                communication, multitasking, and client-handling skills—skills
+                I now bring into every project. Whether it’s organizing
+                workflows, crafting digital layouts, managing content, or
+                creating visuals, I always aim for clarity, intention, and my
+                maximum effort.
+              </p>
             </div>
           </div>
         </div>
