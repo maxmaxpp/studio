@@ -17,6 +17,7 @@ const testimonialSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
   company: z.string().optional(),
   quote: z.string().min(10, 'Testimonial must be at least 10 characters.'),
+  rating: z.coerce.number().min(1, 'Please provide a rating.').max(5),
 });
 
 export type FormState = {
@@ -25,6 +26,7 @@ export type FormState = {
     name?: string[];
     company?: string[];
     quote?: string[];
+    rating?: string[];
   };
   isSuccess?: boolean;
 };
@@ -37,6 +39,7 @@ export async function submitTestimonial(
     name: formData.get('name'),
     company: formData.get('company'),
     quote: formData.get('quote'),
+    rating: formData.get('rating'),
   });
 
   if (!validatedFields.success) {

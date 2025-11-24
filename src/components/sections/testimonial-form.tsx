@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Star } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -19,6 +19,8 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
+import { StarRating } from '../ui/star-rating';
 
 const initialState: FormState = {
   message: '',
@@ -39,6 +41,7 @@ export default function AddTestimonial() {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     if (state.message) {
@@ -49,6 +52,7 @@ export default function AddTestimonial() {
       });
       if (state.isSuccess) {
         formRef.current?.reset();
+        setRating(0);
         setOpen(false);
       }
     }
@@ -68,6 +72,16 @@ export default function AddTestimonial() {
           </DialogDescription>
         </DialogHeader>
         <form ref={formRef} action={formAction} className="space-y-4 py-4">
+          <input type="hidden" name="rating" value={rating} />
+          <div className="space-y-2">
+            <Label>Rating</Label>
+            <StarRating rating={rating} onRatingChange={setRating} />
+             {state.errors?.rating && (
+                <p className="text-sm font-medium text-destructive">
+                    {state.errors.rating.join(', ')}
+                </p>
+             )}
+          </div>
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
             <Input id="name" name="name" placeholder="Your Name" required />

@@ -15,11 +15,13 @@ import { useFirestore, useMemoFirebase } from '@/firebase/provider';
 import placeholderData from '@/lib/placeholder-images.json';
 import { Skeleton } from '@/components/ui/skeleton';
 import AddTestimonial from './testimonial-form';
+import { StarRating } from '../ui/star-rating';
 
 interface Testimonial {
   name: string;
   company: string;
   quote: string;
+  rating: number;
   avatarUrlId?: string;
 }
 
@@ -35,6 +37,9 @@ function TestimonialCard({
     <div className="p-1 h-full">
       <Card className="h-full flex flex-col justify-between bg-background shadow-lg rounded-xl border-none">
         <CardContent className="p-6 flex flex-col items-center text-center">
+           {testimonial.rating > 0 && (
+             <StarRating rating={testimonial.rating} className="mb-4" size={20} />
+           )}
           <p className="text-foreground/80 italic mb-6 flex-grow">
             "{testimonial.quote}"
           </p>
@@ -69,6 +74,7 @@ function TestimonialSkeleton() {
     <div className="p-1 h-full">
        <Card className="h-full flex flex-col justify-between bg-background shadow-lg rounded-xl border-none">
         <CardContent className="p-6 flex flex-col items-center text-center">
+             <Skeleton className="h-5 w-24 mb-4" />
             <Skeleton className="h-4 w-3/4 mb-6" />
              <Skeleton className="h-4 w-1/2 mb-2" />
             <div className="flex flex-col items-center mt-auto">
