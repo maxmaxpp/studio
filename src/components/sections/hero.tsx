@@ -22,10 +22,32 @@ const Asterisk = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const Planet = ({ className }: { className?: string }) => (
+    <svg 
+        className={className}
+        viewBox="0 0 100 100" 
+        xmlns="http://www.w3.org/2000/svg" 
+        fill="none" 
+        stroke="hsl(var(--accent))" 
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+    >
+        <circle cx="50" cy="50" r="30" strokeOpacity="0.6" />
+        <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(-30 50 50)" strokeOpacity="0.6" />
+        {/* Stars */}
+        <path d="M20 20 L 22 22 M 22 20 L 20 22" strokeWidth="1.5" strokeOpacity="0.5" />
+        <path d="M80 30 L 81 31 M 81 30 L 80 31" strokeWidth="1" strokeOpacity="0.5" />
+        <path d="M25 80 L 26 81 M 26 80 L 25 81" strokeWidth="1" strokeOpacity="0.5" />
+        <circle cx="75" cy="75" r="1" fill="hsl(var(--accent))" strokeOpacity="0.5" />
+    </svg>
+);
+
 
 export default function HeroSection() {
   return (
     <section id="home" className="w-full py-20 md:py-32 relative">
+       <Planet className="absolute top-10 left-10 w-24 h-24 opacity-30 text-accent" />
        <Asterisk className="absolute top-20 right-1/3 w-12 h-12 opacity-50 text-accent" />
        <Asterisk className="absolute bottom-24 left-1/4 w-10 h-10 opacity-40 text-accent" />
        <Asterisk className="absolute bottom-16 right-1/4 w-16 h-16 opacity-60 text-accent" />
