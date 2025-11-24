@@ -25,10 +25,10 @@ const Asterisk = ({ className }: { className?: string }) => (
 export default function HeroSection() {
   return (
     <section id="home" className="w-full relative">
-       <div className="absolute -top-20 -right-52 opacity-30 md:opacity-50">
+       <div className="absolute -top-40 -right-52 opacity-30 md:opacity-50">
         <Image src="/moon-design.png" alt="Moon design" width={500} height={500} />
        </div>
-       <div className="absolute -top-40 -left-52 opacity-30 md:opacity-50">
+       <div className="absolute -top-20 -left-52 opacity-30 md:opacity-50">
         <Image src="/planet-design.png" alt="Planet design" width={800} height={800} />
        </div>
        <Asterisk className="absolute top-20 right-1/3 w-12 h-12 opacity-50 text-accent" />
@@ -45,7 +45,7 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-3xl md:text-4xl font-bold font-headline tracking-tight text-foreground/90"
+                    className="text-4xl md:text-5xl font-bold font-headline tracking-tight text-foreground/90"
                 >
                     Bringing Clarity, 
                     Creativity, and Care 
@@ -55,7 +55,7 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    className="max-w-xl mx-auto md:mx-0 text-base md:text-lg text-foreground/70"
+                    className="max-w-xl mx-auto md:mx-0 text-base text-foreground/70"
                 >
                     With a mix of structure, creativity, and thoughtful execution, I support you in keeping your business organized, efficient, and beautifully presented.
                 </motion.p>
@@ -79,7 +79,7 @@ export default function HeroSection() {
                  transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 100 }}
                 className="flex justify-center -mt-24"
             >
-                <div className="relative w-[300px] h-[400px] md:w-[350px] md:h-[460px] rounded-t-full overflow-hidden shadow-2xl shadow-primary/20 -mt-16">
+                <div className="relative w-[300px] h-[400px] md:w-[350px] md:h-[460px] rounded-t-full overflow-hidden shadow-2xl shadow-primary/20 -mt-20">
                      <Image
                         src="/heymaxx-portrait.png"
                         alt="A portrait of Heymaxx."
