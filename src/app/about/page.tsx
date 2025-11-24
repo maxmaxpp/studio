@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import WorkExperience from '@/components/sections/work-experience';
 
 export default function AboutPage() {
   return (
@@ -55,6 +56,7 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+        <WorkExperience />
       </div>
     </div>
   );
