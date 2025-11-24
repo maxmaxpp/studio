@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function AboutPage() {
   return (
@@ -9,7 +10,7 @@ export default function AboutPage() {
       <div className="container mx-auto relative z-10">
         <div className="grid md:grid-cols-5 gap-12 items-center">
           <div className="md:col-span-2 flex flex-col items-center gap-8">
-            <div className="flex justify-center">
+            <motion.div layoutId="heymaxx-portrait" className="flex justify-center">
               <Image
                 src="/heymaxx-portrait.png"
                 alt="A portrait of Jenna."
@@ -18,7 +19,7 @@ export default function AboutPage() {
                 height={600}
                 className="rounded-lg object-cover shadow-lg"
               />
-            </div>
+            </motion.div>
             <div className="flex gap-4">
               {[...Array(7)].map((_, i) => (
                 <div key={i} className="w-3 h-3 rounded-full bg-accent/30" />

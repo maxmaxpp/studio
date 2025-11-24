@@ -26,10 +26,10 @@ const Asterisk = ({ className }: { className?: string }) => (
 export default function HeroSection() {
   return (
     <section id="home" className="w-full relative">
-       <div className="absolute -top-40 -right-52 opacity-30 md:opacity-50">
+       <div className="absolute -top-40 -left-52 opacity-30 md:opacity-50">
         <Image src="/planet-design.png" alt="Planet design" width={500} height={500} />
        </div>
-       <div className="absolute -top-20 -left-52 opacity-30 md:opacity-50">
+       <div className="absolute -top-20 -right-52 opacity-30 md:opacity-50">
         <Image src="/moon-design.png" alt="Moon design" width={800} height={800} />
        </div>
        <Asterisk className="absolute top-20 right-1/3 w-12 h-12 opacity-50 text-accent" />
@@ -80,7 +80,7 @@ export default function HeroSection() {
                  transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 100 }}
                 className="flex justify-center"
             >
-                <div className="relative w-[300px] h-[400px] md:w-[350px] md:h-[460px] rounded-t-full overflow-hidden shadow-2xl shadow-primary/20">
+                <motion.div layoutId="heymaxx-portrait" className="relative w-[300px] h-[400px] md:w-[350px] md:h-[460px] rounded-t-full overflow-hidden shadow-2xl shadow-primary/20">
                      <Image
                         src="/heymaxx-portrait.png"
                         alt="A portrait of Heymaxx."
@@ -88,7 +88,7 @@ export default function HeroSection() {
                         fill
                         className="object-cover"
                     />
-                </div>
+                </motion.div>
             </motion.div>
         </div>
       </div>
