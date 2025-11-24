@@ -1,9 +1,12 @@
+
 "use client";
 
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { Home, Mail, Brush, Menu, Info, User } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -14,12 +17,28 @@ const navLinks = [
 ]
 
 export default function SiteHeader() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <header
-      className="sticky top-0 z-50"
+      className={cn(
+        "sticky top-0 z-50 transition-all duration-300",
+        scrolled ? "bg-background/80 backdrop-blur-sm" : ""
+      )}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-14 items-center justify-between">
             <Link href="/" className="text-4xl font-logo text-primary">
                 Heymaxx.site
             </Link>
