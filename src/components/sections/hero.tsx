@@ -83,7 +83,6 @@ export default function HeroSection() {
             </motion.div>
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-primary/80" />
     </section>
   );
 }
