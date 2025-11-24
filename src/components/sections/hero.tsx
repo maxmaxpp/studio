@@ -24,7 +24,7 @@ const Asterisk = ({ className }: { className?: string }) => (
 
 export default function HeroSection() {
   return (
-    <section id="home" className="w-full relative py-16">
+    <section id="home" className="w-full relative">
        <div className="absolute -top-40 -left-52 opacity-30 md:opacity-50">
         <Image src="/planet-design.png" alt="Planet design" width={800} height={800} />
        </div>
