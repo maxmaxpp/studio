@@ -12,7 +12,11 @@ export default function AboutPage() {
       <div className="container mx-auto relative z-10">
         <div className="grid md:grid-cols-5 gap-12 items-center">
           <div className="md:col-span-2 flex flex-col items-center gap-8">
-            <motion.div layoutId="heymaxx-portrait" className="flex justify-center">
+            <motion.div 
+              layoutId="heymaxx-portrait" 
+              className="flex justify-center"
+              transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+            >
               <Image
                 src="/heymaxx-portrait.png"
                 alt="A portrait of Jenna."
