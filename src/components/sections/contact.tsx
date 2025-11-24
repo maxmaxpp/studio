@@ -50,7 +50,7 @@ export default function ContactSection() {
       <div className="container mx-auto px-4 md:px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary">Get in Touch</h2>
         <p className="max-w-2xl mx-auto text-lg text-foreground/80 mt-4">
-            Ready to work together? My inbox is always open! You can contact me via email at <a href="mailto:gelyne.potenciano@gmail.com" className="underline font-medium hover:text-primary">gelyne.potenciano@gmail.com</a> or via the contact form below:
+            Ready to work together? My inbox is always open! You can contact me via email at <a href="mailto:elainejennat@gmail.com" className="underline font-medium hover:text-primary">gelyne.potenciano@gmail.com</a> or via the contact form below:
         </p>
         <div className="mt-8">
             <Dialog open={open} onOpenChange={setOpen}>
