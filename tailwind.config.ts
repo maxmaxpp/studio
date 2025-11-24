@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Karla', 'sans-serif'],
-        headline: ['Karla', 'sans-serif'],
+        headline: ['Baloo 2', 'sans-serif'],
         code: ['monospace'],
         logo: ['Caveat', 'cursive'],
       },
