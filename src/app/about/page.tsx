@@ -12,10 +12,24 @@ export default function AboutPage() {
                     </CardHeader>
                     <CardContent className="text-lg text-foreground/80 space-y-4">
                         <p>
-                            "Heymaxx" is a playful and memorable name derived from my nickname. It represents a friendly, approachable, and creative spirit. The name is a conversation starter, embodying the collaborative and personal approach I bring to every project.
+                            HeyMaxx is rooted in a simple idea: delivering maximum value.
                         </p>
                         <p>
-                            The ".site" domain is a modern and straightforward choice, reflecting the focus on providing dedicated online solutions and a strong web presence for my clients.
+                            The word “Maxx” represents the standard I set for myself—always going beyond the basics, always giving more than what is expected, and always showing up with my best work.
+                        </p>
+                        <p>
+                            I chose the name heymaxx.site because it reflects how I approach everything I do as a Creative VA:
+                            I aim for maximum clarity, maximum quality, and maximum care in every project.
+                            It’s a reminder that whenever someone visits my space, they’re greeted with work that’s thoughtful, intentional, and done with full effort.
+                        </p>
+                        <p>
+                            At its core, HeyMaxx means:
+                        </p>
+                        <p>    
+                            “Hey, welcome in—here’s where you get my maximum.”
+                        </p>
+                        <p>
+                            It’s simple, memorable, and fully aligned with the kind of work ethic and creativity I bring to every client and project.
                         </p>
                     </CardContent>
                 </Card>
