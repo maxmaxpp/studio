@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { Home, Mail, Brush, Menu } from "lucide-react";
+import { Home, Mail, Brush, Menu, Info } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 const navLinks = [
     { href: '/', label: 'Home', icon: Home },
+    { href: '/about', label: 'About', icon: Info },
     { href: '/projects', label: 'Projects', icon: Brush },
     { href: '/#contact', label: 'Contact', icon: Mail },
 ]
