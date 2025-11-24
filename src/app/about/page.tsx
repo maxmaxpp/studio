@@ -2,8 +2,11 @@ import Image from 'next/image';
 
 export default function AboutPage() {
   return (
-    <div className="py-12 sm:py-16">
-      <div className="container mx-auto">
+    <div className="relative py-12 sm:py-16">
+      <div className="absolute -top-20 -right-40 opacity-30 md:opacity-50 pointer-events-none">
+        <Image src="/sun-design.png" alt="Sun design" width={500} height={500} />
+      </div>
+      <div className="container mx-auto relative z-10">
         <div className="grid md:grid-cols-5 gap-12 items-center">
           <div className="md:col-span-2 flex justify-center">
             <Image
