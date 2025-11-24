@@ -35,7 +35,7 @@ export default function HeroSection() {
        <Asterisk className="absolute top-1/2 right-1/4 w-14 h-14 opacity-40 text-accent" />
 
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 py-16">
         <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
                 <motion.h1
