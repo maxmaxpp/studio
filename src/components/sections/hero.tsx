@@ -24,7 +24,7 @@ const Asterisk = ({ className }: { className?: string }) => (
 
 export default function HeroSection() {
   return (
-    <section id="home" className="w-full relative">
+    <section id="home" className="w-full relative py-16">
        <div className="absolute -top-40 -left-52 opacity-30 md:opacity-50">
         <Image src="/planet-design.png" alt="Planet design" width={800} height={800} />
        </div>
@@ -42,7 +42,7 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold font-headline tracking-tight text-foreground/90"
+                    className="text-3xl md:text-4xl font-bold font-headline tracking-tight text-foreground/90"
                 >
                     Bringing Clarity, 
                     Creativity, and Care 
