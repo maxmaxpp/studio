@@ -93,6 +93,13 @@ export const projects = [
     imageUrlIds: ['project-design-new'],
   },
   {
+    id: 14,
+    title: 'Planet Logo Sketch',
+    category: 'Graphic Design',
+    description: 'A creative logo design featuring a planet with rings and stars, in a hand-drawn style.',
+    imageUrlIds: ['project-design-planet'],
+  },
+  {
     id: 11,
     title: 'Critique Corner',
     category: 'Development',
