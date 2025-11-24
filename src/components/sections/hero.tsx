@@ -45,7 +45,7 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-base md:text-lg font-bold font-headline tracking-tight text-foreground/90"
+                    className="text-3xl md:text-4xl font-bold font-headline tracking-tight text-foreground/90"
                 >
                     Bringing Clarity, 
                     Creativity, and Care 
@@ -55,7 +55,7 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    className="max-w-xl mx-auto md:mx-0 text-lg md:text-xl text-foreground/70"
+                    className="max-w-xl mx-auto md:mx-0 text-base md:text-lg text-foreground/70"
                 >
                     With a mix of structure, creativity, and thoughtful execution, I support you in keeping your business organized, efficient, and beautifully presented.
                 </motion.p>
@@ -77,7 +77,7 @@ export default function HeroSection() {
                  initial={{ opacity: 0, scale: 0.8 }}
                  animate={{ opacity: 1, scale: 1 }}
                  transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 100 }}
-                className="flex justify-center -mt-8"
+                className="flex justify-center -mt-24"
             >
                 <div className="relative w-[300px] h-[400px] md:w-[350px] md:h-[460px] rounded-t-full overflow-hidden shadow-2xl shadow-primary/20 -mt-16">
                      <Image
