@@ -39,10 +39,14 @@ export default function AboutPage() {
                     </CardHeader>
                     <CardContent className="text-lg text-foreground/80 space-y-4">
                         <p>
-                            This website serves as a central hub for my professional services and creative portfolio. It's designed to give you a clear and comprehensive look at the skills and expertise I offer across various fields, including Data Entry, Social Media Management, Graphic Design, and Web Development.
+                            This website serves as my creative portfolio and digital workspace, built to showcase the skills, projects, and services I offer as a Creative Virtual Assistant. Everything here is designed to give a clear, honest, and organized look into how I work—my process, my style, and the kind of value I bring to clients.
                         </p>
                         <p>
-                            The goal is to showcase the quality and versatility of my work, and to make it easy for potential clients to get in touch and start a conversation about their needs. Whether you're a startup looking to build a brand or an established business needing reliable support, this site is the first step toward our collaboration.
+                            It also acts as a space where I can grow, improve, and document my journey. Whether it’s building systems in Notion, creating digital assets, or exploring new tools, this site reflects both my progress and my passion for learning.
+                        </p>
+                        <p>
+                            Most of all, the purpose of this website is simple:
+                            to give you a straightforward, transparent view of what I can do—done with intention, creativity, and my best effort.
                         </p>
                     </CardContent>
                 </Card>
