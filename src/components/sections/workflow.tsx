@@ -52,10 +52,10 @@ const Card = ({
                     scale,
                     top: `calc(-5vh + ${i * 25}px)`
                 }}
-                className="relative h-[500px] w-[800px] rounded-2xl p-8 shadow-2xl bg-secondary/50 border border-primary/10 flex flex-col justify-center"
+                className="relative h-[500px] w-[800px] rounded-2xl p-8 shadow-2xl bg-secondary border border-primary/10 flex flex-col justify-center"
             >
                 <h3 className="font-headline text-3xl font-bold text-accent mb-4 text-center">{step.title}</h3>
-                <p className="text-foreground/70 text-lg text-center max-w-lg mx-auto">{step.description}</p>
+                <p className="text-foreground/80 text-lg text-center max-w-lg mx-auto">{step.description}</p>
             </motion.div>
         </div>
     );
