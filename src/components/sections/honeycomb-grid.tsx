@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useRef, useMemo, useState } from 'react';
@@ -66,7 +67,7 @@ const HoneycombGrid = () => {
         target: containerRef,
     });
 
-    const scale = useTransform(scrollYProgress, [0, 1], [1.2, 0.4]);
+    const scale = useTransform(scrollYProgress, [0, 1], [1.2, 0.7]);
     const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [1, 1, 1, 1]);
 
     const honeycombPoints = useMemo(() => calculateHoneycombPoints(projects.length, ICON_SIZE, GAP), [projects.length]);
