@@ -25,7 +25,7 @@ const educationHistory = [
 ];
 
 const BentArrow = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block mr-2 h-5 w-5 text-accent/80">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block mr-2 h-5 w-5 text-accent/80 shrink-0">
         <path d="M10 4C10 4 10 10.0001 16 10.0001C22 10.0001 22 4 22 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M13 7L16 10L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
@@ -41,22 +41,24 @@ export default function Education() {
             </div>
         </div>
 
-        <div className="relative pl-6 md:pl-12">
-            <div className="absolute left-6 md:left-12 top-0 bottom-0 w-0.5 bg-primary/20"></div>
+        <div className="relative pl-6">
+            <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary/20 translate-x-[11px]"></div>
             <div className="space-y-12">
             {educationHistory.map((edu, index) => (
                 <div key={index} className="relative">
-                     <div className="absolute -left-3 top-1.5 w-6 h-6 rounded-full bg-primary/30 border-4 border-background"></div>
+                     <div className="absolute -left-1.5 top-1.5 w-6 h-6 rounded-full bg-primary/30 border-4 border-background"></div>
                     <div className="pl-8">
                         <h3 className="text-lg font-bold font-headline text-foreground/80 mb-2">
                             {edu.level}
                         </h3>
                         <div className="space-y-1">
                             {edu.schools.map((school, sIndex) => (
-                                <p key={sIndex} className="text-foreground/70 flex items-center">
+                                <div key={sIndex} className="flex items-start">
                                     <BentArrow />
-                                    <span>{school.years}: {school.name}</span>
-                                </p>
+                                    <p className="text-foreground/70">
+                                      <span>{school.years}: {school.name}</span>
+                                    </p>
+                                </div>
                             ))}
                         </div>
                     </div>
