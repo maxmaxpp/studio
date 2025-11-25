@@ -3,7 +3,7 @@
 
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { projects, services } from '@/lib/data';
+import { projects, services } from '@/lib/data.tsx';
 import placeholderData from '@/lib/placeholder-images.json';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '../ui/button';

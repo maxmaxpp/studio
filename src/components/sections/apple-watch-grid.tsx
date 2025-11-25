@@ -4,7 +4,7 @@
 import { motion, useDragControls } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { projects as allProjects, techStackWithProjects } from '@/lib/data';
+import { projects as allProjects, techStackWithProjects } from '@/lib/data.tsx';
 import placeholderData from '@/lib/placeholder-images.json';
 import { useMemo } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
