@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion, useDragControls } from 'framer-motion';
@@ -91,12 +92,8 @@ export default function AppleWatchGrid() {
       style={{ touchAction: 'none' }}
     >
       <motion.div
-        drag="x"
+        drag
         dragControls={dragControls}
-        dragConstraints={{ 
-            left: -containerWidth / 4, 
-            right: containerWidth / 4,
-        }}
         className="relative"
         style={{ width: containerWidth, height: containerHeight }}
       >
