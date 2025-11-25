@@ -6,6 +6,7 @@ import { services } from '@/lib/data';
 import placeholderData from '@/lib/placeholder-images.json';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { motion } from 'framer-motion';
+import TechStack from '@/components/sections/tech-stack';
 
 const serviceImages: { [key: string]: string } = {
     'Data Entry': 'service-data-entry',
@@ -174,7 +175,7 @@ export default function ServicesPage() {
             </motion.div>
         </div>
     </div>
+    <TechStack />
     </>
   );
 }
-

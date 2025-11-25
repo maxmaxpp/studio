@@ -67,7 +67,7 @@ const IconCarousel = () => (
       {[...icons, ...icons].map((icon, index) => (
         <div
           key={`${icon.name}-${index}`}
-          className="flex-shrink-0 p-3 bg-card/70 backdrop-blur-sm rounded-full shadow-lg"
+          className="flex-shrink-0 p-3 bg-card/70 backdrop-blur-sm rounded-lg"
         >
           {icon.component}
         </div>
@@ -77,14 +77,12 @@ const IconCarousel = () => (
 
 export default function TechStack() {
   return (
-    <section className="relative py-16 overflow-hidden">
-        <div className="container mx-auto text-center z-10">
-            <div
-                className="relative w-full overflow-hidden"
-                style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
-            >
-                <IconCarousel />
-            </div>
+    <section className="py-16 overflow-hidden">
+        <div
+            className="w-full overflow-hidden"
+            style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
+        >
+            <IconCarousel />
         </div>
     </section>
   );

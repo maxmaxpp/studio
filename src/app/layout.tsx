@@ -9,15 +9,12 @@ import SiteHeader from '@/components/site/header';
 import SiteFooter from '@/components/site/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
-import TechStack from '@/components/sections/tech-stack';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const showTechStack = pathname === '/services';
 
   return (
     <html lang="en" className="scroll-smooth">
@@ -40,11 +37,9 @@ export default function RootLayout({
             <main>{children}</main>
             <SiteFooter />
           </div>
-          {showTechStack && <TechStack />}
           <Toaster />
         </FirebaseClientProvider>
       </body>
     </html>
   );
 }
-
