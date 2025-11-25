@@ -1,3 +1,7 @@
+
+'use client';
+
+import { usePathname } from 'next/navigation';
 import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
@@ -5,17 +9,16 @@ import SiteHeader from '@/components/site/header';
 import SiteFooter from '@/components/site/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
-
-export const metadata: Metadata = {
-  title: 'Heymaxx.site | Freelance Services',
-  description: 'Professional freelance services in Data Entry, Social Media Management, Graphic Design, and Development.',
-};
+import TechStack from '@/components/sections/tech-stack';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const showTechStack = pathname === '/services';
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -23,6 +26,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet" />
+        <meta name="title" content="Heymaxx.site | Freelance Services" />
+        <meta name="description" content="Professional freelance services in Data Entry, Social Media Management, Graphic Design, and Development." />
       </head>
       <body
         className={cn(
@@ -35,9 +40,11 @@ export default function RootLayout({
             <main>{children}</main>
             <SiteFooter />
           </div>
+          {showTechStack && <TechStack />}
           <Toaster />
         </FirebaseClientProvider>
       </body>
     </html>
   );
 }
+

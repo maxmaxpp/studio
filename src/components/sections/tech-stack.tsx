@@ -1,8 +1,8 @@
+
 'use client';
 
 import { Facebook, Instagram, Linkedin, MessageCircle, Youtube } from 'lucide-react';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
 
 const icons = [
   {
@@ -77,11 +77,8 @@ const IconCarousel = () => (
 
 export default function TechStack() {
   return (
-    <section className="relative py-16 bg-secondary overflow-hidden">
+    <section className="relative py-16 overflow-hidden">
         <div className="container mx-auto text-center z-10">
-            <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary mb-12">
-                My Tech Stack
-            </h2>
             <div
                 className="relative w-full overflow-hidden"
                 style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}

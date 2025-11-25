@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -5,7 +6,6 @@ import { services } from '@/lib/data';
 import placeholderData from '@/lib/placeholder-images.json';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { motion } from 'framer-motion';
-import TechStack from '@/components/sections/tech-stack';
 
 const serviceImages: { [key: string]: string } = {
     'Data Entry': 'service-data-entry',
@@ -71,7 +71,7 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, scale: 0, x: 0, y: 0 },
+  hidden: { opacity: 0, scale: 0, x: '50vw', y: '50vh' },
   visible: {
     opacity: 1,
     scale: 1,
@@ -174,7 +174,7 @@ export default function ServicesPage() {
             </motion.div>
         </div>
     </div>
-    <TechStack />
     </>
   );
 }
+
