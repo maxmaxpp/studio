@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
     { href: '/', label: 'Home' },
+    { href: '/about', label: 'About Me' },
     { href: '/#services', label: 'My Services' },
     { href: '/projects', label: 'Project' },
     { href: '/#contact', label: 'Contact' },
-    { href: '/about', label: 'About Me' },
 ]
 
 export default function SiteHeader() {
