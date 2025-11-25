@@ -1,3 +1,4 @@
+
 'use client';
 
 import HoneycombGrid from '@/components/sections/honeycomb-grid';
@@ -6,7 +7,7 @@ import { motion } from 'framer-motion';
 export default function ProjectsPage() {
   return (
     <div className="relative w-full h-[150vh] overflow-hidden bg-background">
-      <div className="text-center pt-16 md:pt-24 mb-8 sticky top-0 z-20 bg-background/80 backdrop-blur-sm pb-4">
+      <div className="text-center pt-12 md:pt-16 mb-8">
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
