@@ -1,3 +1,5 @@
+'use client';
+
 import { GraduationCap } from 'lucide-react';
 
 const educationHistory = [
@@ -39,24 +41,29 @@ export default function Education() {
             </div>
         </div>
 
-        <div className="space-y-8">
+        <div className="relative pl-6 md:pl-12">
+            <div className="absolute left-6 md:left-12 top-0 bottom-0 w-0.5 bg-primary/20"></div>
+            <div className="space-y-12">
             {educationHistory.map((edu, index) => (
-                <div key={index}>
-                    <h3 className="flex items-center text-lg font-bold font-headline text-foreground/80 mb-2">
-                        <span className="w-2 h-2 bg-primary/50 rounded-full mr-3"></span>
-                        {edu.level}
-                    </h3>
-                    <div className="pl-5 space-y-1">
-                        {edu.schools.map((school, sIndex) => (
-                             <p key={sIndex} className="text-foreground/70 flex items-center">
-                                <BentArrow />
-                                <span>{school.years}: {school.name}</span>
-                             </p>
-                        ))}
+                <div key={index} className="relative">
+                     <div className="absolute -left-3 top-1.5 w-6 h-6 rounded-full bg-primary/30 border-4 border-background"></div>
+                    <div className="pl-8">
+                        <h3 className="text-lg font-bold font-headline text-foreground/80 mb-2">
+                            {edu.level}
+                        </h3>
+                        <div className="space-y-1">
+                            {edu.schools.map((school, sIndex) => (
+                                <p key={sIndex} className="text-foreground/70 flex items-center">
+                                    <BentArrow />
+                                    <span>{school.years}: {school.name}</span>
+                                </p>
+                            ))}
+                        </div>
                     </div>
                 </div>
             ))}
-        </div>
+            </div>
+      </div>
     </section>
   );
 }
