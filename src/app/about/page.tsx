@@ -7,7 +7,13 @@ import Education from '@/components/sections/education';
 
 export default function AboutPage() {
   return (
-    <div className="relative py-12 sm:py-16">
+    <div 
+        className="relative py-12 sm:py-16 overflow-hidden"
+        style={{
+            backgroundImage: 'radial-gradient(hsl(var(--border)) 1px, transparent 1px)',
+            backgroundSize: '16px 16px',
+        }}
+    >
       <div className="absolute -top-24 -right-48 opacity-30 pointer-events-none">
         <Image src="/sun-design.png" alt="Sun design" width={600} height={600} />
       </div>
