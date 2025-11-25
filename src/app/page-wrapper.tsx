@@ -29,7 +29,7 @@ export default function PageWrapper({
       >
         <SiteHeader />
         <main className="flex-grow">
-          {isProjectsPage ? <HoneycombGrid /> : children}
+          {children}
         </main>
         <SiteFooter />
       </div>

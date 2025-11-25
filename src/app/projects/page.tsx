@@ -2,6 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import HoneycombGrid from '@/components/sections/honeycomb-grid';
 
 export default function ProjectsPage() {
 
@@ -27,7 +28,7 @@ export default function ProjectsPage() {
           Drag to explore. Click to see details.
         </motion.p>
       </div>
-      {/* The HoneycombGrid is now rendered by PageWrapper on this route */}
+      <HoneycombGrid />
     </div>
   );
 }
