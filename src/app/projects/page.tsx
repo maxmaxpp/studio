@@ -3,17 +3,23 @@
 
 import { motion } from 'framer-motion';
 import HoneycombGrid from '@/components/sections/honeycomb-grid';
+import { useState } from 'react';
 
 export default function ProjectsPage() {
+  const [isExploring, setIsExploring] = useState(false);
+
+  const handleDragStart = () => {
+    setIsExploring(true);
+  };
 
   return (
     <div 
       className="relative h-[calc(100vh-8rem)] w-[calc(100vw)] -translate-x-1/2 left-1/2 overflow-hidden"
     >
       <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 1, y: 0 }}
+        animate={{ opacity: isExploring ? 0 : 1, y: isExploring ? -20 : 0 }}
+        transition={{ duration: 0.3 }}
         className="absolute top-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none bg-background/80 backdrop-blur-sm rounded-xl px-8 py-6 shadow-lg"
       >
         <h1 
@@ -27,7 +33,7 @@ export default function ProjectsPage() {
           Drag to explore. Click to see details.
         </p>
       </motion.div>
-      <HoneycombGrid isInteractive={true} />
+      <HoneycombGrid isInteractive={true} onDragStart={handleDragStart} />
     </div>
   );
 }

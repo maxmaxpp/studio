@@ -59,7 +59,7 @@ const ProjectSlideshow = ({ project }: { project: Project }) => {
     )
 }
 
-const HoneycombGrid = ({ isInteractive = true }: { isInteractive?: boolean }) => {
+const HoneycombGrid = ({ isInteractive = true, onDragStart }: { isInteractive?: boolean, onDragStart?: () => void }) => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const dragControls = useDragControls();
 
@@ -74,11 +74,12 @@ const HoneycombGrid = ({ isInteractive = true }: { isInteractive?: boolean }) =>
     const motionDivProps = isInteractive ? {
       drag: true,
       dragControls: dragControls,
+      onDragStart: onDragStart,
       dragConstraints: {
-          left: -1000,
-          right: 1000,
-          top: -1000,
-          bottom: 1000,
+          left: -3000,
+          right: 3000,
+          top: -3000,
+          bottom: 3000,
       },
       dragTransition: { bounceStiffness: 100, bounceDamping: 20 },
     } : {};
