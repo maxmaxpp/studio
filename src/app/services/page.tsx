@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import Image from 'next/image';
@@ -66,7 +64,7 @@ export default function ServicesPage() {
   return (
     <div className="relative py-12 sm:py-16 overflow-hidden">
         <div className="absolute -top-24 -right-48 opacity-30 pointer-events-none">
-            <Image src="/sun-design.png" alt="Sun design" width={600} height={600} />
+            <Image src="/gal-design.png" alt="Galaxy design" width={600} height={600} />
         </div>
         <div className="absolute -bottom-48 -left-48 opacity-30 pointer-events-none">
             <Image src="/cons-design.png" alt="Constellation design" width={500} height={500} />
