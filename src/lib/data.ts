@@ -1,5 +1,7 @@
 
-import { CodeXml, DatabaseZap, Megaphone, Palette } from 'lucide-react';
+
+import { CodeXml, DatabaseZap, Megaphone, Palette, Facebook, Instagram, Linkedin, MessageCircle, Youtube } from 'lucide-react';
+import Image from 'next/image';
 
 export const services = [
   {
@@ -20,12 +22,71 @@ export const services = [
   },
 ];
 
+export const techStackWithProjects = [
+  {
+    name: 'Notion',
+    component: (
+      <Image
+        src="/tech-icons/notion.svg"
+        alt="Notion"
+        width={48}
+        height={48}
+        className="w-full h-auto"
+      />
+    ),
+    projectIds: [1, 5],
+  },
+  {
+    name: 'Canva',
+    component: (
+      <Image
+        src="/tech-icons/canva.svg"
+        alt="Canva"
+        width={48}
+        height={48}
+        className="w-full h-auto"
+      />
+    ),
+    projectIds: [3, 9, 10, 13, 14],
+  },
+  {
+    name: 'CapCut',
+    component: (
+      <Image
+        src="/tech-icons/capcut.svg"
+        alt="CapCut"
+        width={48}
+        height={48}
+        className="w-full h-auto"
+      />
+    ),
+    projectIds: [],
+  },
+  { name: 'Facebook', component: <Facebook className="w-full h-auto text-blue-600" />, projectIds: [2, 6] },
+  { name: 'Instagram', component: <Instagram className="w-full h-auto text-pink-500" />, projectIds: [2, 6] },
+  {
+    name: 'TikTok',
+    component: (
+      <Image
+        src="/tech-icons/tiktok.svg"
+        alt="TikTok"
+        width={40}
+        height={40}
+        className="w-full h-auto"
+      />
+    ),
+    projectIds: [2, 6],
+  },
+  { name: 'LinkedIn', component: <Linkedin className="w-full h-auto text-blue-700" />, projectIds: [2] },
+  { name: 'Next.js', component: <CodeXml className="w-full h-auto" />, projectIds: [4, 11, 12] },
+];
+
 export const projects = [
   {
     id: 1,
     title: 'E-commerce Data Migration',
     category: 'Data Entry',
-    description: 'Migrated over 10,000 product listings to a new Shopify store, ensuring data integrity and correct categorization.',
+    description: 'Migrated over 10,000 product listings to a new Shopify store using Notion for planning and tracking, ensuring data integrity and correct categorization.',
     imageUrlIds: ['project-data-1'],
   },
   {
@@ -39,7 +100,7 @@ export const projects = [
     id: 3,
     title: 'Rebranding for "Innovate Co."',
     category: 'Graphic Design',
-    description: 'Developed a complete new brand identity, including logo, color palette, and style guide for a tech startup.',
+    description: 'Developed a complete new brand identity using Canva, including logo, color palette, and style guide for a tech startup.',
     imageUrlIds: ['project-design-1'],
   },
   {
@@ -54,7 +115,7 @@ export const projects = [
     id: 5,
     title: 'Market Research Data Collation',
     category: 'Data Entry',
-    description: 'Collated and cleaned market research survey data from multiple sources into a unified, analyzable dataset.',
+    description: 'Collated and cleaned market research survey data from multiple sources into a unified, analyzable dataset organized in Notion.',
     imageUrlIds: ['project-data-2'],
   },
   {
@@ -75,35 +136,35 @@ export const projects = [
     id: 9,
     title: 'Event Poster Design',
     category: 'Graphic Design',
-    description: 'Created a series of eye-catching posters for a local music festival.',
+    description: 'Created a series of eye-catching posters for a local music festival using Canva.',
     imageUrlIds: ['project-design-3'],
   },
   {
     id: 10,
     title: 'Social Media Graphics Pack',
     category: 'Graphic Design',
-    description: 'Designed a pack of reusable social media templates for a small business to maintain brand consistency.',
+    description: 'Designed a pack of reusable social media templates in Canva for a small business to maintain brand consistency.',
     imageUrlIds: ['project-design-4'],
   },
   {
     id: 13,
     title: 'New Awesome Design',
     category: 'Graphic Design',
-    description: 'A description for your new awesome design project.',
+    description: 'A description for your new awesome design project, created with Canva.',
     imageUrlIds: ['project-design-new'],
   },
   {
     id: 14,
     title: 'Planet Logo Sketch',
     category: 'Graphic Design',
-    description: 'A creative logo design featuring a planet with rings and stars, in a hand-drawn style.',
+    description: 'A creative logo design featuring a planet with rings and stars, sketched in Canva.',
     imageUrlIds: ['project-design-planet'],
   },
   {
     id: 11,
     title: 'Critique Corner',
     category: 'Development',
-    description: 'A platform for designers and developers to share their work and receive constructive feedback.',
+    description: 'A platform for designers and developers to share their work and receive constructive feedback, built with Next.js.',
     imageUrlIds: ['project-dev-3'],
     liveUrl: 'https://heymaxx-dev-3.web.app',
   },
@@ -111,7 +172,7 @@ export const projects = [
     id: 12,
     title: 'Liachuu',
     category: 'Development',
-    description: 'An interactive web application for anime and manga enthusiasts to track, discover, and discuss their favorite series.',
+    description: 'An interactive web application for anime and manga enthusiasts to track, discover, and discuss their favorite series, built with Next.js.',
     imageUrlIds: ['project-dev-liachuu'],
     liveUrl: 'https://liachuu.web.app',
   }

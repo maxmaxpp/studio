@@ -4,9 +4,14 @@
 import { motion, useDragControls } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { projects } from '@/lib/data';
+import { projects as allProjects, techStackWithProjects } from '@/lib/data';
 import placeholderData from '@/lib/placeholder-images.json';
 import { useMemo } from 'react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
+import { Button } from '../ui/button';
+import { ExternalLink } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const ICON_SIZE = 90;
 const GAP = 10;
@@ -51,21 +56,57 @@ function hexToPixel(q: number, r: number, size: number, gap: number) {
   return { x, y };
 }
 
+type PlaceholderImage = (typeof placeholderData.placeholderImages)[0];
+
+function ProjectSlideshow({ images, projectTitle }: { images: PlaceholderImage[]; projectTitle: string; }) {
+  if (!images.length) return null;
+  
+  return (
+    <Carousel className="w-full group">
+      <CarouselContent>
+        {images.map((image) => (
+          <CarouselItem key={image.id}>
+             <div className="relative overflow-hidden rounded-lg aspect-video">
+              <Image
+                src={image.imageUrl}
+                alt={projectTitle}
+                data-ai-hint={image.imageHint}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      {images.length > 1 && (
+        <>
+          <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 hidden sm:inline-flex group-hover:inline-flex" />
+          <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 hidden sm:inline-flex group-hover:inline-flex" />
+        </>
+      )}
+    </Carousel>
+  );
+}
+
+
 export default function AppleWatchGrid() {
   const dragControls = useDragControls();
-  const coordinates = useMemo(() => generateHoneycombCoordinates(projects.length), []);
+  const coordinates = useMemo(() => generateHoneycombCoordinates(techStackWithProjects.length), []);
 
   const gridItems = useMemo(() => {
-    return projects.map((project, i) => {
+    return techStackWithProjects.map((tech, i) => {
       const coord = coordinates[i] || { q: 0, r: 0 };
       const { x, y } = hexToPixel(coord.q, coord.r, ICON_SIZE, GAP);
-      const image = placeholderData.placeholderImages.find(p => p.id === project.imageUrlIds[0]);
+      
+      const relatedProjects = tech.projectIds
+        .map(id => allProjects.find(p => p.id === id))
+        .filter(p => p);
 
       return {
-        ...project,
+        ...tech,
         x,
         y,
-        image,
+        relatedProjects,
       };
     });
   }, [coordinates]);
@@ -94,40 +135,72 @@ export default function AppleWatchGrid() {
       <motion.div
         drag
         dragControls={dragControls}
+        dragConstraints={{ 
+            left: -(containerWidth / 2) + (typeof window !== 'undefined' ? window.innerWidth / 2 : 500) - ICON_SIZE / 2,
+            right: (containerWidth / 2) - (typeof window !== 'undefined' ? window.innerWidth / 2 : 500) + ICON_SIZE / 2,
+            top: -(containerHeight / 2) + (typeof window !== 'undefined' ? window.innerHeight / 2 : 400) - ICON_SIZE / 2,
+            bottom: (containerHeight / 2) - (typeof window !== 'undefined' ? window.innerHeight / 2 : 400) + ICON_SIZE / 2,
+        }}
         className="relative"
         style={{ width: containerWidth, height: containerHeight }}
       >
-        {gridItems.map((project) => (
+        {gridItems.map((tech) => (
           <motion.div
-            key={project.id}
+            key={tech.name}
             className="absolute"
             style={{
               width: ICON_SIZE,
               height: ICON_SIZE,
-              left: `calc(50% + ${project.x}px)`,
-              top: `calc(50% + ${project.y}px)`,
+              left: `calc(50% + ${tech.x}px)`,
+              top: `calc(50% + ${tech.y}px)`,
               transform: 'translate(-50%, -50%)',
             }}
             whileHover={{ scale: 1.15, zIndex: 10 }}
             transition={{ type: 'spring', stiffness: 400, damping: 15 }}
           >
-            <Link href={project.liveUrl || '#'} target={project.liveUrl ? '_blank' : '_self'} className="block w-full h-full">
-              <div className="w-full h-full rounded-full overflow-hidden shadow-lg border-2 border-border/20">
-                {project.image ? (
-                  <Image
-                    src={project.image.imageUrl}
-                    alt={project.title}
-                    data-ai-hint={project.image.imageHint}
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                   <div className="w-full h-full bg-muted flex items-center justify-center text-xs text-center p-2 text-muted-foreground">
-                        {project.title}
-                    </div>
-                )}
-              </div>
-            </Link>
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="w-full h-full rounded-full overflow-hidden shadow-lg border-2 border-border/20 cursor-pointer p-3 bg-card flex items-center justify-center">
+                    {tech.component}
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl w-full p-6 bg-background/90 backdrop-blur-md border-none rounded-lg shadow-2xl">
+                 <DialogHeader>
+                    <DialogTitle className="flex items-center gap-3 text-2xl font-headline text-primary">
+                        {tech.name} Projects
+                    </DialogTitle>
+                    <DialogDescription>
+                        Here are some of the projects where I've used {tech.name}.
+                    </DialogDescription>
+                 </DialogHeader>
+                 <div className="grid gap-8 py-4 max-h-[70vh] overflow-y-auto">
+                    {tech.relatedProjects.map(project => {
+                        if (!project) return null;
+                        const projectImages = project.imageUrlIds
+                            .map(id => placeholderData.placeholderImages.find(p => p.id === id))
+                            .filter((p): p is PlaceholderImage => !!p);
+
+                        return (
+                            <div key={project.id} className="grid md:grid-cols-2 gap-6 items-center">
+                                <ProjectSlideshow images={projectImages} projectTitle={project.title} />
+                                <div className="space-y-3">
+                                    <h3 className="text-xl font-bold font-headline">{project.title}</h3>
+                                    <p className="text-foreground/80">{project.description}</p>
+                                    {project.liveUrl && (
+                                        <Button asChild variant="outline">
+                                            <Link href={project.liveUrl} target="_blank">
+                                                <ExternalLink className="mr-2 h-4 w-4" />
+                                                View Live Work
+                                            </Link>
+                                        </Button>
+                                    )}
+                                </div>
+                            </div>
+                        )
+                    })}
+                 </div>
+              </DialogContent>
+            </Dialog>
           </motion.div>
         ))}
       </motion.div>
