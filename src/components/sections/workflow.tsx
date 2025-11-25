@@ -1,4 +1,9 @@
 
+'use client';
+
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+
 const Asterisk = ({ className }: { className?: string }) => (
     <svg
       className={className}
@@ -14,14 +19,6 @@ const Asterisk = ({ className }: { className?: string }) => (
       />
     </svg>
   );
-
-const DownArrow = () => (
-    <svg width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-primary/30">
-        <path d="M12 4V36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M7 31L12 36L17 31" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-);
-
 
 const workflowSteps = [
     {
@@ -50,11 +47,41 @@ const workflowSteps = [
     }
 ]
 
+const WorkflowStep = ({ step, i, progress, range, targetScale }: {
+    step: { title: string, description: string },
+    i: number,
+    progress: any,
+    range: number[],
+    targetScale: number
+}) => {
+    const scale = useTransform(progress, range, [1, targetScale, 1]);
+    const opacity = useTransform(progress, range, [0.5, 1, 0.5]);
+
+    return (
+        <motion.div 
+            style={{ scale, opacity }}
+            className="sticky top-1/2 -translate-y-1/2 w-full max-w-lg origin-center"
+        >
+            <div className="bg-secondary/50 rounded-lg p-6 shadow-sm border border-primary/10 text-center">
+                <h3 className="font-headline text-2xl font-bold text-accent mb-2">{step.title}</h3>
+                <p className="text-foreground/70">{step.description}</p>
+            </div>
+        </motion.div>
+    );
+};
+
+
 export default function WorkflowSection() {
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ['start start', 'end end']
+    });
+
   return (
     <section 
         id="workflow" 
-        className="w-full py-20 md:py-32 relative overflow-hidden"
+        className="w-full relative py-20 md:py-32"
         style={{
             backgroundImage: 'radial-gradient(hsl(var(--border)) 1px, transparent 1px)',
             backgroundSize: '16px 16px',
@@ -66,20 +93,30 @@ export default function WorkflowSection() {
         <Asterisk className="absolute bottom-1/3 right-8 w-24 h-24 text-primary/30 opacity-50 -rotate-6" />
 
         <div className="container mx-auto px-4 md:px-6 text-center relative">
-            <h2 className="text-6xl font-logo text-foreground/80 mb-16">
+            <h2 className="text-6xl font-logo text-foreground/80 mb-16 md:mb-24">
                 My Workflow
             </h2>
 
-            <div className="flex flex-col items-center gap-4">
-                {workflowSteps.map((step, index) => (
-                    <>
-                        <div key={step.title} className="bg-secondary/50 rounded-lg p-6 max-w-lg w-full shadow-sm border border-primary/10">
-                            <h3 className="font-headline text-2xl font-bold text-accent mb-2">{step.title}</h3>
-                            <p className="text-foreground/70">{step.description}</p>
-                        </div>
-                        {index < workflowSteps.length - 1 && <DownArrow />}
-                    </>
-                ))}
+            <div ref={containerRef} className="relative" style={{ height: `${workflowSteps.length * 100}vh` }}>
+                <div className="sticky top-0 flex h-screen items-center justify-center">
+                    {workflowSteps.map((step, i) => {
+                        const targetScale = 1 - ((workflowSteps.length - 1 - i) * 0.05);
+                        const stepProgress = i / workflowSteps.length;
+                        const rangeStart = stepProgress - (1 / workflowSteps.length);
+                        const rangeEnd = stepProgress + (1 / workflowSteps.length);
+                        
+                        return (
+                            <WorkflowStep 
+                                key={step.title} 
+                                step={step} 
+                                i={i} 
+                                progress={scrollYProgress}
+                                range={[rangeStart, stepProgress, rangeEnd]} 
+                                targetScale={targetScale}
+                            />
+                        );
+                    })}
+                </div>
             </div>
         </div>
     </section>
