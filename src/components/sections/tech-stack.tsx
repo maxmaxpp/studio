@@ -3,6 +3,7 @@
 
 import { Facebook, Instagram, Linkedin, MessageCircle, Youtube } from 'lucide-react';
 import Image from 'next/image';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const icons = [
   {
@@ -60,29 +61,44 @@ const icons = [
   { name: 'Messenger', component: <MessageCircle className="text-green-500 w-10 h-10 md:w-12 md-h-12" /> },
 ];
 
-const IconCarousel = () => (
-    <div
-      className="flex flex-nowrap gap-4 animate-[scroll_20s_linear_infinite]"
-    >
-      {[...icons, ...icons].map((icon, index) => (
-        <div
-          key={`${icon.name}-${index}`}
-          className="flex-shrink-0 p-3 bg-card/70 backdrop-blur-sm rounded-lg"
-        >
-          {icon.component}
-        </div>
-      ))}
-    </div>
-)
 
 export default function TechStack() {
+  const duplicatedIcons = [...icons, ...icons, ...icons];
+
   return (
     <section className="py-16 overflow-hidden">
-        <div
-            className="w-full overflow-hidden"
-            style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
-        >
-            <IconCarousel />
+        <div className="w-full relative h-48">
+            <motion.div
+                className="absolute top-0 left-0 flex gap-8"
+                animate={{ x: ['0%', '-100%'] }}
+                transition={{
+                    ease: 'linear',
+                    duration: 30,
+                    repeat: Infinity,
+                }}
+                style={{
+                    width: '300%',
+                }}
+            >
+                {duplicatedIcons.map((icon, index) => (
+                    <motion.div
+                        key={`${icon.name}-${index}`}
+                        className="flex-shrink-0 p-3 bg-card/70 backdrop-blur-sm rounded-lg"
+                        animate={{
+                            y: [0, -30, 0, 30, 0]
+                        }}
+                        transition={{
+                            duration: 4,
+                            ease: 'easeInOut',
+                            repeat: Infinity,
+                            repeatType: 'loop',
+                            delay: index * 0.1
+                        }}
+                    >
+                        {icon.component}
+                    </motion.div>
+                ))}
+            </motion.div>
         </div>
     </section>
   );
