@@ -11,8 +11,8 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Button } from '../ui/button';
 import Link from 'next/link';
 
-const ICON_SIZE = 150;
-const GAP = 30;
+const ICON_SIZE = 250;
+const GAP = 50;
 
 interface Project {
     id: number;
@@ -72,14 +72,14 @@ const HoneycombGrid = () => {
         <motion.div
             drag
             dragConstraints={{
-                left: -500,
-                right: 500,
-                top: -500,
-                bottom: 500,
+                left: -1000,
+                right: 1000,
+                top: -1000,
+                bottom: 1000,
             }}
             dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
             onDragEnd={handleDragEnd}
-            className="relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+            className="absolute inset-0 w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
         >
             <div className="relative">
                 {projects.map((project, index) => {
@@ -108,7 +108,7 @@ const HoneycombGrid = () => {
                                 damping: 20,
                                 delay: index * 0.05,
                             }}
-                            whileHover={{ scale: 1.2, zIndex: 10, transition: { duration: 0.2 } }}
+                            whileHover={{ scale: 1.1, zIndex: 10, transition: { duration: 0.2 } }}
                             onClick={() => setSelectedProject(project)}
                         >
                             <div className="w-full h-full bg-card rounded-full flex items-center justify-center shadow-lg border-2 border-border overflow-hidden">
@@ -165,31 +165,78 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
 
     const horizontalSpacing = iconSize + gap;
     const verticalSpacing = (iconSize + gap) * (Math.sqrt(3) / 2);
-
-    let n = 0;
-    let i = 0;
-    while (n < numIcons) {
-        for (let j = -i; j <= i; j++) {
-            const isEvenRow = i % 2 === 0;
-            const x = j * horizontalSpacing + (isEvenRow ? 0 : horizontalSpacing / 2);
-            const y = i * verticalSpacing * 0.75;
-            
-            if (n < numIcons) points.push({ x, y: y - (i * verticalSpacing * 0.25) });
-            n++;
-
-            if (i !== 0 && n < numIcons) {
-                points.push({ x, y: -y + (i * verticalSpacing * 0.25) });
-                n++;
-            }
-        }
-        i++;
-    }
     
-    // This is a simplified centering approach
-    const centerX = points.reduce((acc, p) => acc + p.x, 0) / points.length;
-    const centerY = points.reduce((acc, p) => acc + p.y, 0) / points.length;
+    let n = 0;
+    let ring = 0;
+    while (n < numIcons) {
+        if (ring === 0) {
+            points.push({ x: 0, y: 0 });
+            n++;
+            ring++;
+            continue;
+        }
 
-    return points.map(p => ({ x: p.x - centerX, y: p.y - centerY }));
+        let currentX = ring * horizontalSpacing;
+        let currentY = 0;
+        
+        // Move from right to top-right
+        for (let i = 0; i < ring && n < numIcons; i++) {
+            points.push({ x: currentX, y: currentY });
+            currentX -= horizontalSpacing / 2;
+            currentY -= verticalSpacing;
+            n++;
+        }
+        
+        // Move from top-right to top-left
+        for (let i = 0; i < ring && n < numIcons; i++) {
+            points.push({ x: currentX, y: currentY });
+            currentX -= horizontalSpacing;
+            n++;
+        }
+        
+        // Move from top-left to left
+        for (let i = 0; i < ring && n < numIcons; i++) {
+            points.push({ x: currentX, y: currentY });
+            currentX -= horizontalSpacing / 2;
+            currentY += verticalSpacing;
+            n++;
+        }
+        
+        // Move from left to bottom-left
+        for (let i = 0; i < ring && n < numIcons; i++) {
+            points.push({ x: currentX, y: currentY });
+            currentX += horizontalSpacing / 2;
+            currentY += verticalSpacing;
+            n++;
+        }
+        
+        // Move from bottom-left to bottom-right
+        for (let i = 0; i < ring && n < numIcons; i++) {
+            points.push({ x: currentX, y: currentY });
+            currentX += horizontalSpacing;
+            n++;
+        }
+        
+        // Move from bottom-right to right
+        for (let i = 0; i < ring && n < numIcons; i++) {
+            points.push({ x: currentX, y: currentY });
+            currentX += horizontalSpacing / 2;
+            currentY -= verticalSpacing;
+            n++;
+        }
+        
+        ring++;
+    }
+
+    // This is a simplified centering approach for when the grid is not perfectly filled
+    if (points.length > 0) {
+        const centerX = points.reduce((acc, p) => acc + p.x, 0) / points.length;
+        const centerY = points.reduce((acc, p) => acc + p.y, 0) / points.length;
+        return points.map(p => ({ x: p.x - centerX, y: p.y - centerY }));
+    }
+
+    return points;
 }
+
 
 export default HoneycombGrid;
