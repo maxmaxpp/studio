@@ -1,12 +1,12 @@
 
 'use client';
 
-import { motion, useDragControls, PanInfo } from 'framer-motion';
+import { motion, useDragControls } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { projects as allProjects, techStackWithProjects } from '@/lib/data.tsx';
 import placeholderData from '@/lib/placeholder-images.json';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 import { Button } from '../ui/button';
@@ -129,20 +129,25 @@ export default function AppleWatchGrid() {
   const containerWidth = bounds.maxX - bounds.minX + ICON_SIZE * 2;
   const containerHeight = bounds.maxY - bounds.minY + ICON_SIZE * 2;
 
+  const dragAreaWidth = typeof window !== 'undefined' ? window.innerWidth : 1000;
+  const dragAreaHeight = typeof window !== 'undefined' ? window.innerHeight - 112 : 800; // 7rem for header/footer
+
 
   return (
     <div
       className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
-      onPointerDown={(e) => dragControls.start(e, { snapToCursor: false })}
+      onPointerDown={(e) => dragControls.start(e)}
+      style={{ touchAction: 'none' }}
     >
       <motion.div
-        drag="x"
+        drag
         dragControls={dragControls}
+        dragListener={false}
         dragConstraints={{ 
-            left: -(containerWidth / 2) + (typeof window !== 'undefined' ? window.innerWidth / 2 : 500) - ICON_SIZE / 2,
-            right: (containerWidth / 2) - (typeof window !== 'undefined' ? window.innerWidth / 2 : 500) + ICON_SIZE / 2,
-            top: -(containerHeight / 2) + (typeof window !== 'undefined' ? window.innerHeight / 2 : 400) - ICON_SIZE / 2,
-            bottom: (containerHeight / 2) - (typeof window !== 'undefined' ? window.innerHeight / 2 : 400) + ICON_SIZE / 2,
+            left: -(containerWidth / 2) + dragAreaWidth / 2 - ICON_SIZE / 2,
+            right: (containerWidth / 2) - dragAreaWidth / 2 + ICON_SIZE / 2,
+            top: -(containerHeight / 2) + dragAreaHeight / 2 - ICON_SIZE / 2,
+            bottom: (containerHeight / 2) - dragAreaHeight / 2 + ICON_SIZE / 2,
         }}
         className="relative"
         style={{ width: containerWidth, height: containerHeight }}
