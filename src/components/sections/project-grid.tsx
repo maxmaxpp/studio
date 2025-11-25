@@ -43,56 +43,57 @@ export default function ProjectGrid() {
                 backgroundSize: '20px 20px',
             }}
         />
-        <motion.div
-          style={{ scale }}
-          className="absolute left-1/2 top-1/2"
-        >
-          <div
-            className="grid"
-            style={{
-              gridTemplateColumns: `repeat(${cols}, 1fr)`,
-              gap: `${GAP}px`,
-              width: `${GRID_WIDTH}px`,
-              height: `${GRID_HEIGHT}px`,
-              transform: `translate(-50%, -50%)`,
-            }}
-          >
-            {projects.map((project, i) => {
-              const image = placeholderData.placeholderImages.find(p => p.id === project.imageUrlIds[0]);
+        <div className="absolute inset-0 flex items-center justify-center">
+            <motion.div
+              style={{ scale }}
+              className="origin-center"
+            >
+              <div
+                className="grid"
+                style={{
+                  gridTemplateColumns: `repeat(${cols}, 1fr)`,
+                  gap: `${GAP}px`,
+                  width: `${GRID_WIDTH}px`,
+                  height: `${GRID_HEIGHT}px`,
+                }}
+              >
+                {projects.map((project, i) => {
+                  const image = placeholderData.placeholderImages.find(p => p.id === project.imageUrlIds[0]);
 
-              return (
-                <motion.div
-                  key={project.id}
-                  style={{ opacity }}
-                  className="relative flex items-center justify-center"
-                >
-                  <Link href={project.liveUrl || '#'} target={project.liveUrl ? '_blank' : '_self'}>
+                  return (
                     <motion.div
-                        whileHover={{ scale: 1.1, zIndex: 10 }}
-                        transition={{ type: 'spring', stiffness: 300 }}
-                        className="relative rounded-full overflow-hidden shadow-lg border border-border/10"
-                        style={{ width: CIRCLE_SIZE, height: CIRCLE_SIZE }}
+                      key={project.id}
+                      style={{ opacity }}
+                      className="relative flex items-center justify-center"
                     >
-                        {image ? (
-                            <Image
-                                src={image.imageUrl}
-                                alt={project.title}
-                                data-ai-hint={image.imageHint}
-                                fill
-                                className="object-cover"
-                            />
-                        ) : (
-                            <div className="w-full h-full bg-muted flex items-center justify-center text-xs text-center p-2 text-muted-foreground">
-                                {project.title}
-                            </div>
-                        )}
+                      <Link href={project.liveUrl || '#'} target={project.liveUrl ? '_blank' : '_self'}>
+                        <motion.div
+                            whileHover={{ scale: 1.1, zIndex: 10 }}
+                            transition={{ type: 'spring', stiffness: 300 }}
+                            className="relative rounded-full overflow-hidden shadow-lg border border-border/10"
+                            style={{ width: CIRCLE_SIZE, height: CIRCLE_SIZE }}
+                        >
+                            {image ? (
+                                <Image
+                                    src={image.imageUrl}
+                                    alt={project.title}
+                                    data-ai-hint={image.imageHint}
+                                    fill
+                                    className="object-cover"
+                                />
+                            ) : (
+                                <div className="w-full h-full bg-muted flex items-center justify-center text-xs text-center p-2 text-muted-foreground">
+                                    {project.title}
+                                </div>
+                            )}
+                        </motion.div>
+                      </Link>
                     </motion.div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
+                  );
+                })}
+              </div>
+            </motion.div>
+        </div>
       </div>
     </div>
   );
