@@ -11,8 +11,8 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Button } from '../ui/button';
 import Link from 'next/link';
 
-const ICON_SIZE = 100;
-const GAP = 20;
+const ICON_SIZE = 150;
+const GAP = 30;
 
 interface Project {
     id: number;
@@ -163,23 +163,33 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
     const points: { x: number; y: number }[] = [];
     if (numIcons === 0) return points;
 
-    const grid_points: { x: number, y: number }[] = [];
-    const num_cols = Math.ceil(Math.sqrt(numIcons));
-    const effective_icon_size = iconSize + gap;
-    
-    for (let i = 0; i < numIcons; i++) {
-        const row = Math.floor(i / num_cols);
-        const col = i % num_cols;
-        
-        const x_offset = row % 2 === 0 ? 0 : effective_icon_size * 0.5;
+    const horizontalSpacing = iconSize + gap;
+    const verticalSpacing = (iconSize + gap) * (Math.sqrt(3) / 2);
 
-        const x = col * effective_icon_size + x_offset - (num_cols * effective_icon_size) / 2;
-        const y = row * effective_icon_size * 0.866 - (Math.floor(numIcons/num_cols) * effective_icon_size) / 2;
-        
-        grid_points.push({ x, y });
+    let n = 0;
+    let i = 0;
+    while (n < numIcons) {
+        for (let j = -i; j <= i; j++) {
+            const isEvenRow = i % 2 === 0;
+            const x = j * horizontalSpacing + (isEvenRow ? 0 : horizontalSpacing / 2);
+            const y = i * verticalSpacing * 0.75;
+            
+            if (n < numIcons) points.push({ x, y: y - (i * verticalSpacing * 0.25) });
+            n++;
+
+            if (i !== 0 && n < numIcons) {
+                points.push({ x, y: -y + (i * verticalSpacing * 0.25) });
+                n++;
+            }
+        }
+        i++;
     }
     
-    return grid_points;
+    // This is a simplified centering approach
+    const centerX = points.reduce((acc, p) => acc + p.x, 0) / points.length;
+    const centerY = points.reduce((acc, p) => acc + p.y, 0) / points.length;
+
+    return points.map(p => ({ x: p.x - centerX, y: p.y - centerY }));
 }
 
 export default HoneycombGrid;
