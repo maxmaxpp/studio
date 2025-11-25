@@ -95,7 +95,6 @@ export default function AppleWatchGrid() {
   const dragControls = useDragControls();
   const coordinates = useMemo(() => generateHoneycombCoordinates(techStackWithProjects.length), []);
   const [openDialog, setOpenDialog] = useState<string | null>(null);
-  const wasDragged = useRef(false);
 
   const gridItems = useMemo(() => {
     return techStackWithProjects.map((tech, i) => {
@@ -130,25 +129,15 @@ export default function AppleWatchGrid() {
   const containerWidth = bounds.maxX - bounds.minX + ICON_SIZE * 2;
   const containerHeight = bounds.maxY - bounds.minY + ICON_SIZE * 2;
 
-  const onDragStart = () => {
-    wasDragged.current = false;
-  };
-
-  const onDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    if (Math.abs(info.offset.x) > 5 || Math.abs(info.offset.y) > 5) {
-      wasDragged.current = true;
-    }
-  };
 
   return (
     <div
       className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+      onPointerDown={(e) => dragControls.start(e, { snapToCursor: false })}
     >
       <motion.div
-        drag
+        drag="x"
         dragControls={dragControls}
-        onDragStart={onDragStart}
-        onDrag={onDrag}
         dragConstraints={{ 
             left: -(containerWidth / 2) + (typeof window !== 'undefined' ? window.innerWidth / 2 : 500) - ICON_SIZE / 2,
             right: (containerWidth / 2) - (typeof window !== 'undefined' ? window.innerWidth / 2 : 500) + ICON_SIZE / 2,
@@ -176,11 +165,6 @@ export default function AppleWatchGrid() {
               <DialogTrigger asChild>
                  <div
                   className="w-full h-full rounded-full overflow-hidden shadow-lg border-2 border-border/20 cursor-pointer p-3 bg-card flex items-center justify-center"
-                  onClick={() => !wasDragged.current && setOpenDialog(tech.name)}
-                  onPointerDown={(e) => {
-                    // This allows dragging to start from the icon itself
-                    dragControls.start(e, { snapToCursor: false });
-                  }}
                 >
                     {tech.component}
                 </div>
