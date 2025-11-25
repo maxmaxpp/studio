@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform, useScroll } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
 const workflowSteps = [
@@ -30,49 +30,66 @@ const workflowSteps = [
     }
 ]
 
-const Card = ({ step }: { step: { title: string, description: string } }) => {
+const Card = ({ 
+    step, 
+    i, 
+    progress,
+    range,
+    targetScale,
+} : {
+    step: { title: string, description: string },
+    i: number,
+    progress: any,
+    range: number[],
+    targetScale: number
+}) => {
+    const scale = useTransform(progress, range, [1, targetScale]);
+
     return (
-        <div
-            className="group relative h-[450px] w-[450px] overflow-hidden bg-secondary/50 rounded-lg p-8 shadow-sm border border-primary/10 text-center flex flex-col justify-center"
-        >
-            <h3 className="font-headline text-2xl font-bold text-accent mb-4">{step.title}</h3>
-            <p className="text-foreground/70">{step.description}</p>
+        <div className="sticky top-0 h-screen flex items-center justify-center">
+            <motion.div
+                style={{ 
+                    scale,
+                    top: `calc(-5vh + ${i * 25}px)`
+                }}
+                className="relative h-[500px] w-[800px] rounded-2xl p-8 shadow-2xl bg-secondary/50 border border-primary/10 flex flex-col justify-center"
+            >
+                <h3 className="font-headline text-3xl font-bold text-accent mb-4 text-center">{step.title}</h3>
+                <p className="text-foreground/70 text-lg text-center max-w-lg mx-auto">{step.description}</p>
+            </motion.div>
         </div>
     );
 };
 
 export default function WorkflowSection() {
-    const targetRef = useRef<HTMLDivElement | null>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
     const { scrollYProgress } = useScroll({
-        target: targetRef,
+        target: containerRef,
+        offset: ['start start', 'end end']
     });
-
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-83%"]);
 
     return (
         <section 
             id="workflow" 
-            ref={targetRef}
-            className="relative h-[400vh] bg-background"
+            ref={containerRef}
+            className="relative bg-background py-20"
         >
-            <div 
-                className="sticky top-0 flex h-screen items-center overflow-hidden"
-                style={{
-                    backgroundImage: 'radial-gradient(hsl(var(--border)) 1px, transparent 1px)',
-                    backgroundSize: '16px 16px',
-                }}
-            >
-                <div className="absolute top-1/2 left-12 -translate-y-1/2">
-                    <h2 className="text-6xl font-logo text-foreground/80 transform -rotate-90">
-                        My Workflow
-                    </h2>
-                </div>
-                <motion.div style={{ x }} className="flex gap-8 pl-48">
-                    {workflowSteps.map((step, i) => {
-                        return <Card step={step} key={i} />;
-                    })}
-                </motion.div>
+             <div className="text-center mb-16">
+                <h2 className="text-6xl font-logo text-foreground/80">
+                    My Workflow
+                </h2>
             </div>
+            {workflowSteps.map((step, i) => {
+                const targetScale = 1 - ( (workflowSteps.length - i) * 0.05 );
+                return <Card 
+                    step={step} 
+                    i={i} 
+                    key={i} 
+                    progress={scrollYProgress} 
+                    range={[i * .125, 1]}
+                    targetScale={targetScale}
+                />;
+            })}
         </section>
     )
 }
