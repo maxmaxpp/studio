@@ -7,17 +7,14 @@ import Education from '@/components/sections/education';
 
 export default function AboutPage() {
   return (
-    <div className="relative py-12 sm:py-16 overflow-hidden">
-       <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <Image src="/line-design.png" alt="Line design" layout="fill" objectFit="cover" />
-      </div>
+    <div className="py-12 sm:py-16 overflow-hidden">
       <div className="absolute -top-24 -right-48 opacity-30 md:opacity-50 pointer-events-none">
         <Image src="/sun-design.png" alt="Sun design" width={600} height={600} />
       </div>
       <div className="absolute -bottom-48 -left-48 opacity-30 md:opacity-50 pointer-events-none">
         <Image src="/cons-design.png" alt="Constellation design" width={500} height={500} />
       </div>
-      <div className="container mx-auto relative z-10">
+      <div className="container mx-auto">
         <div className="grid md:grid-cols-5 gap-12 items-center">
           <div className="md:col-span-2 flex flex-col items-center gap-8">
             <motion.div 
