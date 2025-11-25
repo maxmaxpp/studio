@@ -99,6 +99,10 @@ export default function ServicesPage() {
             backgroundSize: '16px 16px',
         }}
     >
+        <div className="absolute inset-0 -z-10 opacity-30">
+            <TechStack />
+        </div>
+
         <div className="absolute -top-24 -right-48 opacity-40 pointer-events-none">
             <Image src="/gal-design.png" alt="Galaxy design" width={600} height={600} />
         </div>
@@ -175,7 +179,6 @@ export default function ServicesPage() {
             </motion.div>
         </div>
     </div>
-    <TechStack />
     </>
   );
 }

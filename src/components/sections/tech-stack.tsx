@@ -4,6 +4,7 @@
 import { Facebook, Instagram, Linkedin, MessageCircle, Youtube } from 'lucide-react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useMemo } from 'react';
 
 const icons = [
   {
@@ -61,45 +62,74 @@ const icons = [
   { name: 'Messenger', component: <MessageCircle className="text-green-500 w-10 h-10 md:w-12 md-h-12" /> },
 ];
 
+function generatePoints(numPoints: number, width: number, height: number, amplitude: number, frequency: number) {
+  let points = '';
+  for (let i = 0; i <= numPoints; i++) {
+    const x = (i / numPoints) * width;
+    const y = height / 2 + amplitude * Math.sin((i / numPoints) * Math.PI * 2 * frequency);
+    points += `${x},${y} `;
+  }
+  return points.trim();
+}
+
 
 export default function TechStack() {
-  const duplicatedIcons = [...icons, ...icons, ...icons];
+    const duplicatedIcons = useMemo(() => [...icons, ...icons, ...icons], []);
 
-  return (
-    <section className="py-16 overflow-hidden">
-        <div className="w-full relative h-48">
-            <motion.div
-                className="absolute top-0 left-0 flex gap-8"
-                animate={{ x: ['0%', '-100%'] }}
-                transition={{
-                    ease: 'linear',
-                    duration: 30,
-                    repeat: Infinity,
-                }}
-                style={{
-                    width: '300%',
-                }}
-            >
-                {duplicatedIcons.map((icon, index) => (
+    return (
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+            <svg viewBox="0 0 1200 200" className="absolute w-full h-auto" preserveAspectRatio="none">
+                <motion.path
+                    d="M 0 100 Q 300 0, 600 100 T 1200 100"
+                    fill="none"
+                    stroke="hsl(var(--border))"
+                    strokeWidth="1"
+                    strokeDasharray="5 5"
+                />
+            </svg>
+
+            {duplicatedIcons.map((icon, index) => {
+                const totalIcons = duplicatedIcons.length;
+                const pathLength = 1200; 
+
+                return (
                     <motion.div
                         key={`${icon.name}-${index}`}
-                        className="flex-shrink-0 p-3 bg-card/70 backdrop-blur-sm rounded-lg"
+                        className="absolute flex-shrink-0"
+                        style={{
+                            offsetPath: `path('M 0 100 Q 300 0, 600 100 T 1200 100')`,
+                            offsetDistance: '0%',
+                            top: 0, 
+                            left: 0, 
+                        }}
                         animate={{
-                            y: [0, -30, 0, 30, 0]
+                            offsetDistance: '100%',
                         }}
                         transition={{
-                            duration: 4,
-                            ease: 'easeInOut',
+                            duration: 15,
+                            ease: 'linear',
                             repeat: Infinity,
-                            repeatType: 'loop',
-                            delay: index * 0.1
+                            delay: (index / totalIcons) * 15,
                         }}
                     >
-                        {icon.component}
+                        <motion.div
+                             className="p-3 bg-card/70 backdrop-blur-sm rounded-lg"
+                             animate={{
+                                 y: [0, -20, 0, 20, 0]
+                             }}
+                             transition={{
+                                 duration: 3,
+                                 ease: 'easeInOut',
+                                 repeat: Infinity,
+                                 repeatType: 'loop',
+                                 delay: index * 0.2
+                             }}
+                        >
+                            {icon.component}
+                        </motion.div>
                     </motion.div>
-                ))}
-            </motion.div>
+                );
+            })}
         </div>
-    </section>
-  );
+    );
 }
