@@ -59,33 +59,41 @@ const ProjectSlideshow = ({ project }: { project: Project }) => {
     )
 }
 
-const HoneycombGrid = () => {
+const HoneycombGrid = ({ isInteractive = true }: { isInteractive?: boolean }) => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const dragControls = useDragControls();
 
     const honeycombPoints = useMemo(() => calculateHoneycombPoints(projects.length, ICON_SIZE, GAP), [projects.length]);
+    
+    const handleItemClick = (project: Project) => {
+      if (isInteractive) {
+        setSelectedProject(project);
+      }
+    }
 
-    const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-        // This function can be used for snapping or other logic on drag end if needed
-    };
+    const motionDivProps = isInteractive ? {
+      drag: true,
+      dragControls: dragControls,
+      dragConstraints: {
+          left: -1000,
+          right: 1000,
+          top: -1000,
+          bottom: 1000,
+      },
+      dragTransition: { bounceStiffness: 100, bounceDamping: 20 },
+    } : {};
+
 
     return (
         <div className="relative w-full h-full">
+             {isInteractive && (
+                 <motion.div
+                    className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
+                    onPointerDown={(e) => dragControls.start(e)}
+                />
+            )}
             <motion.div
-                className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
-                onPointerDown={(e) => dragControls.start(e)}
-            />
-            <motion.div
-                drag
-                dragControls={dragControls}
-                dragConstraints={{
-                    left: -1000,
-                    right: 1000,
-                    top: -1000,
-                    bottom: 1000,
-                }}
-                dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
-                onDragEnd={handleDragEnd}
+                {...motionDivProps}
                 className="relative w-full h-full flex items-center justify-center"
             >
                 <div className="relative">
@@ -98,7 +106,7 @@ const HoneycombGrid = () => {
                         return (
                             <motion.div
                                 key={project.id}
-                                className="absolute flex items-center justify-center cursor-pointer pointer-events-auto"
+                                className="absolute flex items-center justify-center pointer-events-auto"
                                 style={{
                                     width: ICON_SIZE,
                                     height: ICON_SIZE,
@@ -106,6 +114,7 @@ const HoneycombGrid = () => {
                                     top: y,
                                     x: -ICON_SIZE / 2,
                                     y: -ICON_SIZE / 2,
+                                    cursor: isInteractive ? 'pointer' : 'default',
                                 }}
                                 initial={{ scale: 0, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
@@ -115,8 +124,8 @@ const HoneycombGrid = () => {
                                     damping: 20,
                                     delay: index * 0.05,
                                 }}
-                                whileHover={{ scale: 1.1, zIndex: 10, transition: { duration: 0.2 } }}
-                                onClick={() => setSelectedProject(project)}
+                                whileHover={isInteractive ? { scale: 1.1, zIndex: 10, transition: { duration: 0.2 } } : {}}
+                                onClick={() => handleItemClick(project)}
                             >
                                 <div className="w-full h-full bg-card rounded-full flex items-center justify-center shadow-lg border-2 border-border overflow-hidden">
                                     {projectImage && (
@@ -173,88 +182,44 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
 
     const horizontalSpacing = iconSize + gap;
     const verticalSpacing = (iconSize + gap) * (Math.sqrt(3) / 2);
-    
+
     let count = 0;
-
-    const addPoint = (q: number, r: number) => {
-        if (count >= numIcons) return;
-        // Axial to pixel conversion
-        const x = horizontalSpacing * 3/4 * q;
-        const y = verticalSpacing * (r + q/2);
-        points.push({ x, y });
-        count++;
-    }
-
-    addPoint(0, 0); // Center
+    points.push({ x: 0, y: 0 });
+    count++;
 
     for (let ring = 1; count < numIcons; ring++) {
-        let q = ring;
-        let r = -ring;
+        let x = 0;
+        let y = -ring * verticalSpacing;
 
-        // Top-left to Top-right
-        for (let i = 0; i < ring; i++) addPoint(q, r + i);
-        // Top-right to Right
-        for (let i = 0; i < ring; i++) addPoint(q - i, r + ring);
-        // Right to Bottom-right
-        for (let i = 0; i < ring; i++) addPoint(-i, ring);
-        // Bottom-right to Bottom-left
-        for (let i = 0; i < ring; i++) addPoint(-ring, -i);
-        // Bottom-left to Left
-        for (let i = 0; i < ring; i++) addPoint(-ring + i, -ring);
-        // Left to Top-left
-        for (let i = 0; i < ring; i++) addPoint(i, -ring);
-    }
-    
-    // The previous spiral algorithm was complex and had issues.
-    // A much simpler hexagonal spiral algorithm using axial coordinates is more robust.
-    const newPoints: { x: number, y: number }[] = [];
-    let i = 0;
-    
-    const axial_directions = [
-        {q: 1, r: 0}, {q: 0, r: 1}, {q: -1, r: 1}, 
-        {q: -1, r: 0}, {q: 0, r: -1}, {q: 1, r: -1}
-    ];
-
-    let q = 0, r = 0;
-    
-    const toPixel = (q_coord: number, r_coord: number) => {
-        const x_coord = horizontalSpacing * (3/4 * q_coord);
-        const y_coord = verticalSpacing * (r_coord + q_coord/2);
-        return {x: x_coord, y: y_coord};
-    }
-
-    if (numIcons > 0) {
-        newPoints.push(toPixel(0, 0));
-        i++;
-    }
-    
-    let ring = 1;
-    while(i < numIcons) {
-        q = ring;
-        r = 0;
-        for(const dir of axial_directions) {
-            for(let j = 0; j < ring; j++) {
-                if (i >= numIcons) break;
-                if(dir.q === 1 && dir.r === -1) { // last segment of a ring
-                    // no change needed
-                } else {
-                     q -= dir.q;
-                     r -= dir.r;
-                }
-                const next_dir_index = (axial_directions.indexOf(dir) + 2) % 6;
-                const next_dir = axial_directions[next_dir_index];
-                q += next_dir.q;
-                r += next_dir.r;
-                newPoints.push(toPixel(q, r));
-                i++;
-            }
-            if (i >= numIcons) break;
+        // Move to the starting point of the ring
+        for(let i=0; i<ring; i++){
+            x += horizontalSpacing * 3/4;
+            y += verticalSpacing / 2;
         }
-        ring++;
+
+        const directions = [
+            [-horizontalSpacing * 3/4, -verticalSpacing / 2],
+            [-horizontalSpacing * 3/4, verticalSpacing / 2],
+            [0, verticalSpacing],
+            [horizontalSpacing * 3/4, verticalSpacing / 2],
+            [horizontalSpacing * 3/4, -verticalSpacing / 2],
+            [0, -verticalSpacing],
+        ];
+
+        for (const dir of directions) {
+            for (let i = 0; i < ring; i++) {
+                if (count >= numIcons) break;
+                x += dir[0];
+                y += dir[1];
+                points.push({ x, y });
+                count++;
+            }
+            if (count >= numIcons) break;
+        }
     }
 
-
-    return newPoints.slice(0, numIcons);
+    return points;
 }
+
 
 export default HoneycombGrid;

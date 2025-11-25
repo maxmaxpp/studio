@@ -8,7 +8,7 @@ export default function ProjectsPage() {
 
   return (
     <div 
-      className="relative w-full min-h-[calc(100vh-10rem)] overflow-hidden"
+      className="relative h-[calc(100vh-8rem)] w-[calc(100vw)] -translate-x-1/2 left-1/2 overflow-hidden"
     >
       <div className="text-center pt-12 pb-8 absolute top-0 left-0 right-0 z-20 pointer-events-none">
         <motion.h1 
@@ -28,7 +28,7 @@ export default function ProjectsPage() {
           Drag to explore. Click to see details.
         </motion.p>
       </div>
-      <HoneycombGrid />
+      <HoneycombGrid isInteractive={true} />
     </div>
   );
 }

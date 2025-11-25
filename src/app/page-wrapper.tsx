@@ -18,19 +18,18 @@ export default function PageWrapper({
     <>
       {!isProjectsPage && (
         <div className="fixed inset-0 -z-10 opacity-30 blur-sm">
-          <HoneycombGrid />
+          <HoneycombGrid isInteractive={false} />
         </div>
       )}
       <div
         className={cn(
-          'relative z-10 mx-auto min-h-screen flex flex-col',
-          !isProjectsPage && 'max-w-5xl bg-background/80 px-4 sm:px-6 lg:px-8 backdrop-blur-sm'
+          'relative z-10 mx-auto flex min-h-screen flex-col',
+          !isProjectsPage &&
+            'max-w-5xl bg-background/80 px-4 backdrop-blur-sm sm:px-6 lg:px-8'
         )}
       >
         <SiteHeader />
-        <main className="flex-grow">
-          {children}
-        </main>
+        <main className="flex-grow">{children}</main>
         <SiteFooter />
       </div>
     </>
