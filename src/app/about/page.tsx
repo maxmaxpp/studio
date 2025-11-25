@@ -8,10 +8,10 @@ import Education from '@/components/sections/education';
 export default function AboutPage() {
   return (
     <div className="relative py-12 sm:py-16">
-      <div className="absolute -top-24 -right-48 opacity-30 md:opacity-50 pointer-events-none">
+      <div className="absolute -top-24 -right-48 opacity-30 pointer-events-none">
         <Image src="/sun-design.png" alt="Sun design" width={600} height={600} />
       </div>
-      <div className="absolute -bottom-24 -left-48 opacity-30 md:opacity-50 pointer-events-none">
+      <div className="absolute -bottom-12 -left-48 opacity-30 pointer-events-none">
         <Image src="/cons-design.png" alt="Constellation design" width={500} height={500} />
       </div>
       <div className="container mx-auto relative">
