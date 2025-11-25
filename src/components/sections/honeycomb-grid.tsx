@@ -2,7 +2,7 @@
 'use client';
 
 import { useRef, useMemo, useState } from 'react';
-import { motion, useScroll, useTransform, PanInfo } from 'framer-motion';
+import { motion, PanInfo } from 'framer-motion';
 import { projects } from '@/lib/data.tsx';
 import placeholderData from '@/lib/placeholder-images.json';
 import Image from 'next/image';
@@ -60,15 +60,7 @@ const ProjectSlideshow = ({ project }: { project: Project }) => {
 }
 
 const HoneycombGrid = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-    });
-
-    const scale = useTransform(scrollYProgress, [0, 1], [1.2, 0.7]);
-    const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [1, 1, 1, 1]);
 
     const honeycombPoints = useMemo(() => calculateHoneycombPoints(projects.length, ICON_SIZE, GAP), [projects.length]);
 
@@ -78,7 +70,6 @@ const HoneycombGrid = () => {
 
     return (
         <motion.div
-            ref={containerRef}
             drag
             dragConstraints={{
                 left: -500,
@@ -88,8 +79,7 @@ const HoneycombGrid = () => {
             }}
             dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
             onDragEnd={handleDragEnd}
-            className="relative w-full h-full flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing"
-            style={{ scale, opacity }}
+            className="relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
         >
             <div className="relative">
                 {projects.map((project, index) => {
