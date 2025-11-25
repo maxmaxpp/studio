@@ -17,18 +17,45 @@ const serviceImages: { [key: string]: string } = {
 const serviceDetails: { [key: string]: { title: string; description: string; items: string[] } } = {
     'System & Productivity': {
         title: 'System & Productivity',
-        description: 'Organize your digital workspace and streamline your workflows for maximum efficiency.',
-        items: ['Notion Setups & Management', 'Workflow and System Organization', 'File Management & Organization', 'Data Entry & Management']
+        description: 'Streamlining workflows and organizing your digital space.',
+        items: [
+            'Notion workspace setup (dashboards, databases, trackers)',
+            'Process mapping & documentation',
+            'Workflow creation for tasks, projects, and content',
+            'Productivity system development (routines, templates, automation plans)',
+            'Digital organization (files, folders, assets, reference docs)',
+            'Project planning & task management support',
+            'Creating SOPs and structured guides for teams or solo operators',
+            'Basic data tracking using Notion, Excel, or Google Sheets'
+        ]
     },
     'Social Media Management': {
         title: 'Social Media Management',
-        description: 'Elevate your online presence with strategic content planning and consistent engagement.',
-        items: ['Content Planning & Scheduling', 'Social Media Posting', 'Community Engagement', 'Basic Analytics Reporting']
+        description: 'Helping you stay consistent, organized, and present online.',
+        items: [
+            'Content planning and monthly content calendars',
+            'Caption writing and basic copywriting',
+            'Content scheduling & posting',
+            'Basic engagement monitoring (likes, comments, mentions)',
+            'Hashtag research & optimization',
+            'Trend research and content ideas',
+            'Profile optimization (bio, highlights, links, branding)',
+            'Visual content organization and asset management'
+        ]
     },
     'Graphic Design & Multimedia': {
         title: 'Graphic Design & Multimedia',
-        description: 'Bring your brand to life with stunning visuals and creative multimedia content.',
-        items: ['Basic Graphic Design', 'Simple Brand Design (Logos, Color Palettes)', 'Video Editing for Social Media (Reels, TikToks)', 'Presentation Design']
+        description: 'Creating visuals that align with your brand’s identity.',
+        items: [
+            'Social media graphics (feeds, stories, promos)',
+            'Branding assets (color palettes, elements, icons)',
+            'Simple logo concepts',
+            'Video editing for short-form content',
+            'Reels/TikTok editing and layouting',
+            'Banner, header, and cover photo design',
+            'Infographics & visual explainers',
+            'Product mockups and basic promotional materials'
+        ]
     }
 }
 
