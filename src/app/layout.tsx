@@ -9,6 +9,7 @@ import SiteHeader from '@/components/site/header';
 import SiteFooter from '@/components/site/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
+import HoneycombGrid from '@/components/sections/honeycomb-grid';
 
 export default function RootLayout({
   children,
@@ -31,10 +32,13 @@ export default function RootLayout({
           'min-h-screen bg-background font-body text-foreground antialiased overflow-x-hidden'
         )}
       >
+        <div className="fixed inset-0 -z-10 blur-sm opacity-30">
+            <HoneycombGrid />
+        </div>
         <FirebaseClientProvider>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 bg-background/80 backdrop-blur-sm min-h-screen flex flex-col">
             <SiteHeader />
-            <main>{children}</main>
+            <main className="flex-grow">{children}</main>
             <SiteFooter />
           </div>
           <Toaster />

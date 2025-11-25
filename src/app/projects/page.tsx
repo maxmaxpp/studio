@@ -1,16 +1,15 @@
 
 'use client';
 
-import HoneycombGrid from '@/components/sections/honeycomb-grid';
 import { motion } from 'framer-motion';
 
 export default function ProjectsPage() {
 
   return (
     <div 
-      className="relative w-full h-screen overflow-hidden bg-background"
+      className="relative w-full min-h-[calc(100vh-10rem)] overflow-hidden"
     >
-      <div className="text-center pt-2 pb-8 absolute top-0 left-0 right-0 z-20 bg-background/50 backdrop-blur-sm pointer-events-none">
+      <div className="text-center pt-12 pb-8 absolute top-0 left-0 right-0 z-20 pointer-events-none">
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -28,7 +27,7 @@ export default function ProjectsPage() {
           Drag to explore. Click to see details.
         </motion.p>
       </div>
-      <HoneycombGrid />
+      {/* HoneycombGrid is now in the main layout */}
     </div>
   );
 }

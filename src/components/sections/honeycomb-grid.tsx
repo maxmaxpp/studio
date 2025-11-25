@@ -167,7 +167,7 @@ const HoneycombGrid = () => {
     );
 };
 
-function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: number) {
+function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: number): { x: number; y: number }[] {
     const points: { x: number; y: number }[] = [];
     if (numIcons === 0) return points;
 
@@ -177,46 +177,59 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
     let n = 0;
     let ring = 0;
 
+    // Center point
+    points.push({ x: 0, y: 0 });
+    n++;
+
     while (n < numIcons) {
-        if (ring === 0) {
-            points.push({ x: 0, y: 0 });
-            n++;
-            ring++;
-            continue;
-        }
-
-        let x = ring * horizontalSpacing;
-        let y = 0;
-
-        // Move to the first position of the ring
-        for (let i = 0; i < ring; i++) {
-            x -= horizontalSpacing / 2;
-            y -= verticalSpacing;
-        }
-        
-        const directions = [
-            { x: horizontalSpacing, y: 0 }, // Right
-            { x: horizontalSpacing / 2, y: verticalSpacing }, // Down-Right
-            { x: -horizontalSpacing / 2, y: verticalSpacing }, // Down-Left
-            { x: -horizontalSpacing, y: 0 }, // Left
-            { x: -horizontalSpacing / 2, y: -verticalSpacing }, // Up-Left
-            { x: horizontalSpacing / 2, y: -verticalSpacing }, // Up-Right
-        ];
-        
-        for (let i = 0; i < 6; i++) {
-            for (let j = 0; j < ring; j++) {
-                if (n >= numIcons) break;
-                points.push({ x, y });
-                x += directions[i].x;
-                y += directions[i].y;
-                n++;
-            }
-             if (n >= numIcons) break;
-        }
         ring++;
-    }
-    return points;
-}
+        let x = 0;
+        let y = -ring * verticalSpacing;
 
+        // Top point of the ring
+        if (n < numIcons) {
+            points.push({ x, y });
+            n++;
+        }
+
+        const directions = [
+            { x: horizontalSpacing * 0.75, y: verticalSpacing * 0.5 },   // Down-Right
+            { x: 0, y: verticalSpacing },                                // Down
+            { x: -horizontalSpacing * 0.75, y: verticalSpacing * 0.5 },  // Down-Left
+            { x: -horizontalSpacing * 0.75, y: -verticalSpacing * 0.5 }, // Up-Left
+            { x: 0, y: -verticalSpacing },                               // Up
+            { x: horizontalSpacing * 0.75, y: -verticalSpacing * 0.5 },  // Up-Right
+        ];
+
+        // This logic is tricky. A simpler approach for rings is better.
+        // Let's try a side-by-side traversal.
+    }
+    
+    // Let's try a different, more robust algorithm.
+    const newPoints: { x: number; y: number }[] = [];
+    let count = 0;
+    
+    const addPoint = (q: number, r: number) => {
+        if (count >= numIcons) return;
+        const x = horizontalSpacing * (3/4 * q);
+        const y = verticalSpacing * (r + q / 2);
+        newPoints.push({ x, y });
+        count++;
+    }
+
+    addPoint(0, 0); // Center
+
+    for (let r = 1; count < numIcons; r++) {
+        for (let i = 0; i < r; i++) addPoint(i, -r); // Top-right
+        for (let i = 0; i < r; i++) addPoint(r, -r + i); // Right
+        for (let i = 0; i < r; i++) addPoint(r - i, i); // Bottom-right
+        for (let i = 0; i < r; i++) addPoint(-i, r); // Bottom-left
+        for (let i = 0; i < r; i++) addPoint(-r, r - i); // Left
+        for (let i = 0; i < r; i++) addPoint(-r + i, -i); // Top-left
+    }
+
+
+    return newPoints;
+}
 
 export default HoneycombGrid;
