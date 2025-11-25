@@ -2,7 +2,7 @@
 'use client';
 
 import { useRef, useMemo, useState } from 'react';
-import { motion, PanInfo } from 'framer-motion';
+import { motion, PanInfo, useDragControls } from 'framer-motion';
 import { projects } from '@/lib/data.tsx';
 import placeholderData from '@/lib/placeholder-images.json';
 import Image from 'next/image';
@@ -61,6 +61,7 @@ const ProjectSlideshow = ({ project }: { project: Project }) => {
 
 const HoneycombGrid = () => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const dragControls = useDragControls();
 
     const honeycombPoints = useMemo(() => calculateHoneycombPoints(projects.length, ICON_SIZE, GAP), [projects.length]);
 
@@ -69,63 +70,70 @@ const HoneycombGrid = () => {
     };
 
     return (
-        <motion.div
-            drag
-            dragConstraints={{
-                left: -1000,
-                right: 1000,
-                top: -1000,
-                bottom: 1000,
-            }}
-            dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
-            onDragEnd={handleDragEnd}
-            className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none"
-        >
-            <div className="relative">
-                {projects.map((project, index) => {
-                    const point = honeycombPoints[index];
-                    if (!point) return null;
-                    const { x, y } = point;
-                    const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlIds[0]);
+        <>
+            <motion.div
+                className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
+                onPointerDown={(e) => dragControls.start(e)}
+            />
+            <motion.div
+                drag
+                dragControls={dragControls}
+                dragConstraints={{
+                    left: -1000,
+                    right: 1000,
+                    top: -1000,
+                    bottom: 1000,
+                }}
+                dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
+                onDragEnd={handleDragEnd}
+                className="relative w-full h-full flex items-center justify-center"
+            >
+                <div className="relative">
+                    {projects.map((project, index) => {
+                        const point = honeycombPoints[index];
+                        if (!point) return null;
+                        const { x, y } = point;
+                        const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlIds[0]);
 
-                    return (
-                        <motion.div
-                            key={project.id}
-                            className="absolute flex items-center justify-center cursor-pointer pointer-events-auto"
-                            style={{
-                                width: ICON_SIZE,
-                                height: ICON_SIZE,
-                                left: x,
-                                top: y,
-                                x: -ICON_SIZE / 2,
-                                y: -ICON_SIZE / 2,
-                            }}
-                            initial={{ scale: 0, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{
-                                type: 'spring',
-                                stiffness: 260,
-                                damping: 20,
-                                delay: index * 0.05,
-                            }}
-                            whileHover={{ scale: 1.1, zIndex: 10, transition: { duration: 0.2 } }}
-                            onClick={() => setSelectedProject(project)}
-                        >
-                            <div className="w-full h-full bg-card rounded-full flex items-center justify-center shadow-lg border-2 border-border overflow-hidden">
-                                {projectImage && (
-                                    <Image
-                                        src={projectImage.imageUrl}
-                                        alt={project.title}
-                                        width={ICON_SIZE}
-                                        height={ICON_SIZE}
-                                        className="object-cover w-full h-full"
-                                    />
-                                )}
-                            </div>
-                        </motion.div>
-                    );
-                })}
-            </div>
+                        return (
+                            <motion.div
+                                key={project.id}
+                                className="absolute flex items-center justify-center cursor-pointer pointer-events-auto"
+                                style={{
+                                    width: ICON_SIZE,
+                                    height: ICON_SIZE,
+                                    left: x,
+                                    top: y,
+                                    x: -ICON_SIZE / 2,
+                                    y: -ICON_SIZE / 2,
+                                }}
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{
+                                    type: 'spring',
+                                    stiffness: 260,
+                                    damping: 20,
+                                    delay: index * 0.05,
+                                }}
+                                whileHover={{ scale: 1.1, zIndex: 10, transition: { duration: 0.2 } }}
+                                onClick={() => setSelectedProject(project)}
+                            >
+                                <div className="w-full h-full bg-card rounded-full flex items-center justify-center shadow-lg border-2 border-border overflow-hidden">
+                                    {projectImage && (
+                                        <Image
+                                            src={projectImage.imageUrl}
+                                            alt={project.title}
+                                            width={ICON_SIZE}
+                                            height={ICON_SIZE}
+                                            className="object-cover w-full h-full"
+                                        />
+                                    )}
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+            </motion.div>
             <Dialog open={!!selectedProject} onOpenChange={(isOpen) => !isOpen && setSelectedProject(null)}>
                 <DialogContent className="sm:max-w-2xl bg-card/80 backdrop-blur-sm">
                     {selectedProject && (
@@ -155,7 +163,7 @@ const HoneycombGrid = () => {
                     )}
                 </DialogContent>
             </Dialog>
-        </motion.div>
+        </>
     );
 };
 
@@ -177,52 +185,29 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
             continue;
         }
 
-        // Top-right to top-left
-        for (let i = 0; i < ring; i++) {
-            const angle = (Math.PI / 3) * 5;
-            const x = ring * horizontalSpacing * Math.cos(angle) + i * horizontalSpacing;
-            const y = ring * verticalSpacing * Math.sin(angle);
-            if (n < numIcons) points[n++] = { x: x + i * (horizontalSpacing/2), y: y + i * verticalSpacing };
-        }
+        let currentX = ring * horizontalSpacing * 0.5;
+        let currentY = -ring * verticalSpacing;
         
-        // Right side
-        for (let i = 0; i < ring; i++) {
-            const angle = 0;
-            const x = ring * horizontalSpacing * Math.cos(angle);
-            const y = ring * verticalSpacing * Math.sin(angle) + i * verticalSpacing;
-             if (n < numIcons) points[n++] = { x: x, y: y - i * (verticalSpacing/2)};
-        }
+        const directions = [
+            { x: horizontalSpacing * 0.5, y: verticalSpacing }, // Down-Right
+            { x: -horizontalSpacing * 0.5, y: verticalSpacing }, // Down-Left
+            { x: -horizontalSpacing, y: 0 }, // Left
+            { x: -horizontalSpacing * 0.5, y: -verticalSpacing }, // Up-Left
+            { x: horizontalSpacing * 0.5, y: -verticalSpacing }, // Up-Right
+            { x: horizontalSpacing, y: 0 }, // Right
+        ];
         
-        // Bottom-right side
-        for (let i = 0; i < ring; i++) {
-            const angle = Math.PI / 3;
-            const x = ring * horizontalSpacing * Math.cos(angle) - i * (horizontalSpacing/2);
-            const y = ring * verticalSpacing * Math.sin(angle) + i * verticalSpacing;
-             if (n < numIcons) points[n++] = { x: x, y: y };
-        }
+        // Starting point for each ring
+        currentX = ring * horizontalSpacing;
+        currentY = 0;
         
-        // Bottom-left side
-         for (let i = 0; i < ring; i++) {
-            const angle = (Math.PI / 3) * 2;
-            const x = ring * horizontalSpacing * Math.cos(angle) - i * horizontalSpacing;
-            const y = ring * verticalSpacing * Math.sin(angle);
-             if (n < numIcons) points[n++] = { x: x - i * (horizontalSpacing/2), y: y - i * verticalSpacing };
-        }
-        
-        // Left side
-        for (let i = 0; i < ring; i++) {
-            const angle = Math.PI;
-            const x = ring * horizontalSpacing * Math.cos(angle);
-            const y = ring * verticalSpacing * Math.sin(angle) - i * verticalSpacing;
-             if (n < numIcons) points[n++] = { x: x, y: y + i * (verticalSpacing/2) };
-        }
-        
-        // Top-left side
-        for (let i = 0; i < ring; i++) {
-            const angle = (Math.PI / 3) * 4;
-            const x = ring * horizontalSpacing * Math.cos(angle) + i * (horizontalSpacing/2);
-            const y = ring * verticalSpacing * Math.sin(angle) - i * verticalSpacing;
-             if (n < numIcons) points[n++] = { x: x, y: y };
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < ring; j++) {
+                if (n >= numIcons) break;
+                points[n++] = { x: currentX, y: currentY };
+                currentX += directions[i].x;
+                currentY += directions[i].y;
+            }
         }
 
         ring++;
@@ -230,137 +215,5 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
 
     return points;
 }
-
-function calculateHoneycombPoints_v2(numIcons: number, iconSize: number, gap: number) {
-    const points = [];
-    let count = 0;
-    const h_spacing = iconSize + gap;
-    const v_spacing = (iconSize + gap) * Math.sqrt(3) / 2;
-
-    points.push({ x: 0, y: 0 });
-    count++;
-
-    for (let r = 1; count < numIcons; r++) {
-        // Top side
-        for (let i = 0; i < r && count < numIcons; i++) {
-            points.push({ x: (h_spacing / 2) * (r - i), y: -v_spacing * (r + i) });
-            count++;
-        }
-        // Right side
-        for (let i = 0; i < r && count < numIcons; i++) {
-            points.push({ x: h_spacing * r - (h_spacing/2)*i, y: v_spacing*i });
-            count++;
-        }
-        // Bottom-right side
-        for (let i = 0; i < r && count < numIcons; i++) {
-            points.push({ x: h_spacing * (r/2 - i), y: v_spacing * r });
-            count++;
-        }
-        // Bottom side
-        for (let i = 0; i < r && count < numIcons; i++) {
-            points.push({ x: -h_spacing/2 * (r-i), y: v_spacing * (r+i) });
-            count++;
-        }
-        // Left side
-        for (let i = 0; i < r && count < numIcons; i++) {
-            points.push({ x: -h_spacing * r + (h_spacing/2)*i, y: -v_spacing*i });
-            count++;
-        }
-        // Top-left side
-        for (let i = 0; i < r && count < numIcons; i++) {
-            points.push({ x: -h_spacing * (r/2 - i), y: -v_spacing * r });
-            count++;
-        }
-    }
-    return points;
-}
-
-const calculateHoneycombPoints_v3 = (numIcons: number, iconSize: number, gap: number) => {
-    const points = [{ x: 0, y: 0 }];
-    let ring = 1;
-    const horizontalSpacing = iconSize + gap;
-    const verticalSpacing = (Math.sqrt(3) / 2) * (iconSize + gap);
-
-    while (points.length < numIcons) {
-        let x = ring * horizontalSpacing;
-        let y = 0;
-
-        // Move right
-        for (let i = 0; i < ring && points.length < numIcons; i++) {
-            points.push({ x, y });
-            x -= horizontalSpacing / 2;
-            y -= verticalSpacing;
-        }
-
-        // Move top right
-        for (let i = 0; i < ring && points.length < numIcons; i++) {
-            points.push({ x, y });
-            x -= horizontalSpacing;
-        }
-        
-        // Move top left
-        for (let i = 0; i < ring && points.length < numIcons; i++) {
-            points.push({ x, y });
-            x -= horizontalSpacing / 2;
-            y += verticalSpacing;
-        }
-
-        // Move left
-        for (let i = 0; i < ring && points.length < numIcons; i++) {
-            points.push({ x, y });
-            x += horizontalSpacing / 2;
-            y += verticalSpacing;
-        }
-
-        // Move bottom left
-        for (let i = 0; i < ring && points.length < numIcons; i++) {
-            points.push({ x, y });
-            x += horizontalSpacing;
-        }
-
-        // Move bottom right
-        for (let i = 0; i < ring && points.length < numIcons; i++) {
-            points.push({ x, y });
-            x += horizontalSpacing / 2;
-            y -= verticalSpacing;
-        }
-        ring++;
-    }
-
-    return points;
-};
-
-
-const calculateHoneycombPoints_v4 = (numPoints: number, radius: number, gap: number) => {
-  const points = [];
-  const effectiveRadius = radius + gap;
-  const angle = (2 * Math.PI) / 6;
-
-  points.push({ x: 0, y: 0 });
-
-  let ring = 1;
-  while (points.length < numPoints) {
-    for (let i = 0; i < 6; i++) {
-      for (let j = 0; j < ring; j++) {
-        if (points.length >= numPoints) break;
-
-        const startX = ring * effectiveRadius * Math.cos(i * angle);
-        const startY = ring * effectiveRadius * Math.sin(i * angle);
-
-        const endX = ring * effectiveRadius * Math.cos((i + 1) * angle);
-        const endY = ring * effectiveRadius * Math.sin((i + 1) * angle);
-
-        const x = startX + (j / ring) * (endX - startX);
-        const y = startY + (j / ring) * (endY - startY);
-
-        points.push({ x, y });
-      }
-    }
-    ring++;
-  }
-
-  return points;
-};
-
 
 export default HoneycombGrid;
