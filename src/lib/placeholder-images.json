@@ -143,6 +143,38 @@
       "imageHint": "person portrait",
       "width": 1080,
       "height": 720
+    },
+    {
+      "id": "service-data-entry",
+      "description": "A person organizing files and data.",
+      "imageUrl": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzeXN0ZW0lMjBwcm9kdWN0aXZpdHl8ZW58MHx8fHwxNzYzOTk4MjE1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "system productivity",
+      "width": 1080,
+      "height": 720
+    },
+    {
+      "id": "service-social-media",
+      "description": "A phone showing social media apps.",
+      "imageUrl": "https://images.unsplash.com/photo-1611162616805-6882fa4f923b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2NpYWwlMjBtZWRpYSUyMG1hbmFnZW1lbnR8ZW58MHx8fHwxNzYzOTk4MjQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "social media",
+      "width": 1080,
+      "height": 720
+    },
+    {
+      "id": "service-graphic-design",
+      "description": "A designer working on a computer.",
+      "imageUrl": "https://images.unsplash.com/photo-1626785774573-4b799315345d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmFwaGljJTIwZGVzaWduJTIwbXVsdGltZWRpYXxlbnwwfHx8fDE3NjM5OTgyNjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "graphic design",
+      "width": 1080,
+      "height": 720
+    },
+    {
+      "id": "service-development",
+      "description": "A computer screen with code on it.",
+      "imageUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkZXZlbG9wbWVudCUyMGNvZGV8ZW58MHx8fHwxNzYzOTk4Mjk1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "development code",
+      "width": 1080,
+      "height": 720
     }
   ]
 }
