@@ -76,20 +76,21 @@ const HoneycombGrid = () => {
     };
 
     return (
-        <div ref={containerRef} className="relative w-full h-full flex items-center justify-center overflow-hidden">
-            <motion.div
-                drag
-                dragConstraints={{
-                    left: -500,
-                    right: 500,
-                    top: -500,
-                    bottom: 500,
-                }}
-                dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
-                onDragEnd={handleDragEnd}
-                className="relative cursor-grab active:cursor-grabbing"
-                style={{ scale, opacity }}
-            >
+        <motion.div
+            ref={containerRef}
+            drag
+            dragConstraints={{
+                left: -500,
+                right: 500,
+                top: -500,
+                bottom: 500,
+            }}
+            dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
+            onDragEnd={handleDragEnd}
+            className="relative w-full h-full flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing"
+            style={{ scale, opacity }}
+        >
+            <div className="relative">
                 {projects.map((project, index) => {
                     const point = honeycombPoints[index];
                     if (!point) return null;
@@ -99,7 +100,7 @@ const HoneycombGrid = () => {
                     return (
                         <motion.div
                             key={project.id}
-                            className="absolute flex items-center justify-center"
+                            className="absolute flex items-center justify-center cursor-pointer"
                             style={{
                                 width: ICON_SIZE,
                                 height: ICON_SIZE,
@@ -119,7 +120,7 @@ const HoneycombGrid = () => {
                             whileHover={{ scale: 1.2, zIndex: 10, transition: { duration: 0.2 } }}
                             onClick={() => setSelectedProject(project)}
                         >
-                            <div className="w-full h-full bg-card rounded-full flex items-center justify-center shadow-lg border-2 border-border overflow-hidden cursor-pointer">
+                            <div className="w-full h-full bg-card rounded-full flex items-center justify-center shadow-lg border-2 border-border overflow-hidden">
                                 {projectImage && (
                                     <Image
                                         src={projectImage.imageUrl}
@@ -133,7 +134,7 @@ const HoneycombGrid = () => {
                         </motion.div>
                     );
                 })}
-            </motion.div>
+            </div>
             <Dialog open={!!selectedProject} onOpenChange={(isOpen) => !isOpen && setSelectedProject(null)}>
                 <DialogContent className="sm:max-w-2xl bg-card/80 backdrop-blur-sm">
                     {selectedProject && (
@@ -163,7 +164,7 @@ const HoneycombGrid = () => {
                     )}
                 </DialogContent>
             </Dialog>
-        </div>
+        </motion.div>
     );
 };
 
