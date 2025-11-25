@@ -59,7 +59,9 @@ function hexToPixel(q: number, r: number, size: number, gap: number) {
 type PlaceholderImage = (typeof placeholderData.placeholderImages)[0];
 
 function ProjectSlideshow({ images, projectTitle }: { images: PlaceholderImage[]; projectTitle: string; }) {
-  if (!images.length) return null;
+    if (!images || images.length === 0) {
+        return <div className="aspect-video bg-muted rounded-lg flex items-center justify-center"><p className="text-muted-foreground">No images for this project.</p></div>;
+    }
   
   return (
     <Carousel className="w-full group">
@@ -100,7 +102,7 @@ export default function AppleWatchGrid() {
       
       const relatedProjects = tech.projectIds
         .map(id => allProjects.find(p => p.id === id))
-        .filter(p => p);
+        .filter((p): p is (typeof allProjects)[0] => !!p);
 
       return {
         ...tech,
@@ -174,7 +176,7 @@ export default function AppleWatchGrid() {
                     </DialogDescription>
                  </DialogHeader>
                  <div className="grid gap-8 py-4 max-h-[70vh] overflow-y-auto">
-                    {tech.relatedProjects.map(project => {
+                    {tech.relatedProjects.length > 0 ? tech.relatedProjects.map(project => {
                         if (!project) return null;
                         const projectImages = project.imageUrlIds
                             .map(id => placeholderData.placeholderImages.find(p => p.id === id))
@@ -197,7 +199,9 @@ export default function AppleWatchGrid() {
                                 </div>
                             </div>
                         )
-                    })}
+                    }) : (
+                        <p className="text-center text-foreground/70">No projects found for this technology yet.</p>
+                    )}
                  </div>
               </DialogContent>
             </Dialog>

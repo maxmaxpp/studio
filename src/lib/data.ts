@@ -2,6 +2,7 @@
 
 import { CodeXml, DatabaseZap, Megaphone, Palette, Facebook, Instagram, Linkedin, MessageCircle, Youtube } from 'lucide-react';
 import Image from 'next/image';
+import React from 'react';
 
 export const services = [
   {
@@ -22,65 +23,65 @@ export const services = [
   },
 ];
 
-export const techStackWithProjects = [
-  {
-    name: 'Notion',
-    component: (
-      <Image
-        src="/tech-icons/notion.svg"
-        alt="Notion"
-        width={48}
-        height={48}
-        className="w-full h-auto"
-      />
-    ),
-    projectIds: [1, 5],
-  },
-  {
-    name: 'Canva',
-    component: (
-      <Image
-        src="/tech-icons/canva.svg"
-        alt="Canva"
-        width={48}
-        height={48}
-        className="w-full h-auto"
-      />
-    ),
-    projectIds: [3, 9, 10, 13, 14],
-  },
-  {
-    name: 'CapCut',
-    component: (
-      <Image
-        src="/tech-icons/capcut.svg"
-        alt="CapCut"
-        width={48}
-        height={48}
-        className="w-full h-auto"
-      />
-    ),
-    projectIds: [],
-  },
-  { name: 'Facebook', component: <Facebook className="w-full h-auto text-blue-600" />, projectIds: [2, 6] },
-  { name: 'Instagram', component: <Instagram className="w-full h-auto text-pink-500" />, projectIds: [2, 6] },
-  {
-    name: 'TikTok',
-    component: (
-      <Image
-        src="/tech-icons/tiktok.svg"
-        alt="TikTok"
-        width={40}
-        height={40}
-        className="w-full h-auto"
-      />
-    ),
-    projectIds: [2, 6],
-  },
-  { name: 'LinkedIn', component: <Linkedin className="w-full h-auto text-blue-700" />, projectIds: [2] },
-  { name: 'Next.js', component: <CodeXml className="w-full h-auto" />, projectIds: [4, 11, 12] },
-];
-
+export const techStackWithProjects: { name: string; component: React.ReactNode; projectIds: number[] }[] = [
+    {
+      name: 'Notion',
+      component: (
+        <Image
+          src="/tech-icons/notion.svg"
+          alt="Notion"
+          width={48}
+          height={48}
+          className="w-full h-auto"
+        />
+      ),
+      projectIds: [1, 5],
+    },
+    {
+      name: 'Canva',
+      component: (
+        <Image
+          src="/tech-icons/canva.svg"
+          alt="Canva"
+          width={48}
+          height={48}
+          className="w-full h-auto"
+        />
+      ),
+      projectIds: [3, 9, 10, 13, 14],
+    },
+    {
+      name: 'CapCut',
+      component: (
+        <Image
+          src="/tech-icons/capcut.svg"
+          alt="CapCut"
+          width={48}
+          height={48}
+          className="w-full h-auto"
+        />
+      ),
+      projectIds: [],
+    },
+    { name: 'Facebook', component: <Facebook className="w-full h-auto text-blue-600" />, projectIds: [2, 6] },
+    { name: 'Instagram', component: <Instagram className="w-full h-auto text-pink-500" />, projectIds: [2, 6] },
+    {
+      name: 'TikTok',
+      component: (
+        <Image
+          src="/tech-icons/tiktok.svg"
+          alt="TikTok"
+          width={40}
+          height={40}
+          className="w-full h-auto"
+        />
+      ),
+      projectIds: [2, 6],
+    },
+    { name: 'LinkedIn', component: <Linkedin className="w-full h-auto text-blue-700" />, projectIds: [2] },
+    { name: 'Next.js', component: <CodeXml className="w-full h-auto" />, projectIds: [4, 11, 12] },
+  ];
+  
 export const projects = [
   {
     id: 1,
