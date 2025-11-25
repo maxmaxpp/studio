@@ -1,18 +1,17 @@
-
 'use client';
 
-import PortfolioSection from '@/components/sections/portfolio';
+import HoneycombGrid from '@/components/sections/honeycomb-grid';
 
 export default function ProjectsPage() {
   return (
-    <div className="container mx-auto py-16 md:py-24">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">My Work</h1>
+    <div className="relative w-full min-h-screen overflow-hidden bg-background">
+      <div className="text-center pt-16 md:pt-24 mb-8">
+        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">My Tech Stack</h1>
         <p className="max-w-2xl mx-auto text-lg text-foreground/80 mt-4">
-          A selection of projects I'm proud of.
+          Drag to explore the technologies I work with. Scroll to zoom in and out.
         </p>
       </div>
-      <PortfolioSection />
+      <HoneycombGrid />
     </div>
   );
 }
