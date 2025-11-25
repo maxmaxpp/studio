@@ -32,7 +32,7 @@ export default function RootLayout({
           'min-h-screen bg-background font-body text-foreground antialiased overflow-x-hidden'
         )}
       >
-        <div className="fixed inset-0 -z-10 blur-sm opacity-30">
+        <div className="fixed inset-0 -z-10 opacity-30">
             <HoneycombGrid />
         </div>
         <FirebaseClientProvider>
