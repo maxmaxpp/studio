@@ -1,14 +1,35 @@
 
 
+'use client';
+
 import Image from 'next/image';
 import { services } from '@/lib/data';
 import placeholderData from '@/lib/placeholder-images.json';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 const serviceImages: { [key: string]: string } = {
     'Data Entry': 'service-data-entry',
     'Social Media Manager': 'service-social-media',
     'Graphic Design': 'service-graphic-design',
     'Development': 'service-development'
+}
+
+const serviceDetails: { [key: string]: { title: string; description: string; items: string[] } } = {
+    'System & Productivity': {
+        title: 'System & Productivity',
+        description: 'Organize your digital workspace and streamline your workflows for maximum efficiency.',
+        items: ['Notion Setups & Management', 'Workflow and System Organization', 'File Management & Organization', 'Data Entry & Management']
+    },
+    'Social Media Management': {
+        title: 'Social Media Management',
+        description: 'Elevate your online presence with strategic content planning and consistent engagement.',
+        items: ['Content Planning & Scheduling', 'Social Media Posting', 'Community Engagement', 'Basic Analytics Reporting']
+    },
+    'Graphic Design & Multimedia': {
+        title: 'Graphic Design & Multimedia',
+        description: 'Bring your brand to life with stunning visuals and creative multimedia content.',
+        items: ['Basic Graphic Design', 'Simple Brand Design (Logos, Color Palettes)', 'Video Editing for Social Media (Reels, TikToks)', 'Presentation Design']
+    }
 }
 
 
@@ -34,6 +55,10 @@ export default function ServicesPage() {
                 {servicesToDisplay.map(service => {
                     const imageId = serviceImages[service.title];
                     const image = placeholderData.placeholderImages.find(p => p.id === imageId);
+                    const serviceLabel = service.title === 'Data Entry' ? 'System & Productivity' : 
+                                       service.title === 'Graphic Design' ? 'Graphic Design & Multimedia' : 
+                                       'Social Media Management';
+                    const details = serviceDetails[serviceLabel];
                     
                     return (
                         <div key={service.title} className="flex flex-col items-center">
@@ -55,11 +80,24 @@ export default function ServicesPage() {
                                    </div>
                                )}
                            </div>
-                           <div className="mt-4 bg-primary/80 text-primary-foreground px-6 py-2 rounded-lg shadow-md text-base font-medium">
-                               {service.title === 'Data Entry' ? 'System & Productivity' : 
-                                service.title === 'Graphic Design' ? 'Graphic Design & Multimedia' : 
-                                'Social Media Management'}
-                           </div>
+                           <Dialog>
+                             <DialogTrigger asChild>
+                               <button className="mt-4 bg-primary/80 text-primary-foreground px-6 py-2 rounded-lg shadow-md text-base font-medium hover:bg-primary/90 transition-colors">
+                                 {serviceLabel}
+                               </button>
+                             </DialogTrigger>
+                             <DialogContent className="sm:max-w-md">
+                               <DialogHeader>
+                                 <DialogTitle className="font-headline text-2xl text-primary">{details.title}</DialogTitle>
+                                 <DialogDescription className="text-base">
+                                   {details.description}
+                                 </DialogDescription>
+                               </DialogHeader>
+                               <ul className="list-disc list-inside space-y-2 py-4 text-foreground/80">
+                                   {details.items.map(item => <li key={item}>{item}</li>)}
+                               </ul>
+                             </DialogContent>
+                           </Dialog>
                         </div>
                     );
                 })}
