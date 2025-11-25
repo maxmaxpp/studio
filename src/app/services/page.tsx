@@ -5,6 +5,7 @@ import { services } from '@/lib/data';
 import placeholderData from '@/lib/placeholder-images.json';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { motion } from 'framer-motion';
+import TechStack from '@/components/sections/tech-stack';
 
 const serviceImages: { [key: string]: string } = {
     'Data Entry': 'service-data-entry',
@@ -89,8 +90,9 @@ export default function ServicesPage() {
     const servicesToDisplay = services.filter(service => service.title !== 'Development');
 
   return (
+    <>
     <div 
-        className="relative py-12 sm:py-16 overflow-hidden"
+        className="relative pt-12 sm:pt-16 pb-24 sm:pb-32 overflow-hidden"
         style={{
             backgroundImage: 'radial-gradient(hsl(var(--border)) 1px, transparent 1px)',
             backgroundSize: '16px 16px',
@@ -110,7 +112,7 @@ export default function ServicesPage() {
                 transition={{ duration: 0.5 }}
                 className="flex items-center justify-center mb-12"
             >
-                <h1 className="text-6xl font-logo text-primary">My</h1>
+                <h1 className="text-6xl font-logo text-primary mr-4">My</h1>
                 <h2 className="text-6xl font-headline font-bold text-foreground/80">Services</h2>
             </motion.div>
             
@@ -172,5 +174,7 @@ export default function ServicesPage() {
             </motion.div>
         </div>
     </div>
+    <TechStack />
+    </>
   );
 }
