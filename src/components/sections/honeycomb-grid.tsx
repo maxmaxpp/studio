@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useRef, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, PanInfo, useDragControls } from 'framer-motion';
 import { projects } from '@/lib/data.tsx';
 import placeholderData from '@/lib/placeholder-images.json';
@@ -185,35 +185,38 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
             continue;
         }
 
-        let currentX = ring * horizontalSpacing * 0.5;
-        let currentY = -ring * verticalSpacing;
+        let x = ring * horizontalSpacing;
+        let y = 0;
+
+        // Move to the first position of the ring
+        for (let i = 0; i < ring; i++) {
+            x -= horizontalSpacing / 2;
+            y -= verticalSpacing;
+        }
         
         const directions = [
-            { x: horizontalSpacing * 0.5, y: verticalSpacing }, // Down-Right
-            { x: -horizontalSpacing * 0.5, y: verticalSpacing }, // Down-Left
-            { x: -horizontalSpacing, y: 0 }, // Left
-            { x: -horizontalSpacing * 0.5, y: -verticalSpacing }, // Up-Left
-            { x: horizontalSpacing * 0.5, y: -verticalSpacing }, // Up-Right
             { x: horizontalSpacing, y: 0 }, // Right
+            { x: horizontalSpacing / 2, y: verticalSpacing }, // Down-Right
+            { x: -horizontalSpacing / 2, y: verticalSpacing }, // Down-Left
+            { x: -horizontalSpacing, y: 0 }, // Left
+            { x: -horizontalSpacing / 2, y: -verticalSpacing }, // Up-Left
+            { x: horizontalSpacing / 2, y: -verticalSpacing }, // Up-Right
         ];
-        
-        // Starting point for each ring
-        currentX = ring * horizontalSpacing;
-        currentY = 0;
         
         for (let i = 0; i < 6; i++) {
             for (let j = 0; j < ring; j++) {
                 if (n >= numIcons) break;
-                points[n++] = { x: currentX, y: currentY };
-                currentX += directions[i].x;
-                currentY += directions[i].y;
+                points.push({ x, y });
+                x += directions[i].x;
+                y += directions[i].y;
+                n++;
             }
+             if (n >= numIcons) break;
         }
-
         ring++;
     }
-
     return points;
 }
+
 
 export default HoneycombGrid;
