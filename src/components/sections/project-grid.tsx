@@ -31,8 +31,7 @@ export default function ProjectGrid() {
   });
 
   const scale = useTransform(scrollYProgress, [0, 1], [3, 1]);
-  const a = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [90, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
     <div ref={containerRef} className="relative h-[300vh] w-full">
@@ -45,7 +44,7 @@ export default function ProjectGrid() {
             }}
         />
         <motion.div
-          style={{ scale, rotate }}
+          style={{ scale }}
           className="absolute left-1/2 top-1/2"
         >
           <div
@@ -64,7 +63,7 @@ export default function ProjectGrid() {
               return (
                 <motion.div
                   key={project.id}
-                  style={{ opacity: a }}
+                  style={{ opacity }}
                   className="relative flex items-center justify-center"
                 >
                   <Link href={project.liveUrl || '#'} target={project.liveUrl ? '_blank' : '_self'}>
