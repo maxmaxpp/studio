@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { services } from '@/lib/data';
 import placeholderData from '@/lib/placeholder-images.json';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { motion } from 'framer-motion';
 
 const serviceImages: { [key: string]: string } = {
     'Data Entry': 'service-data-entry',
@@ -57,6 +58,31 @@ const serviceDetails: { [key: string]: { title: string; description: string; ite
     }
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 100,
+      damping: 12,
+    },
+  },
+};
+
 
 export default function ServicesPage() {
     const servicesToDisplay = services.filter(service => service.title !== 'Development');
@@ -77,12 +103,22 @@ export default function ServicesPage() {
         </div>
 
         <div className="container mx-auto relative text-center">
-            <div className="flex items-center justify-center mb-12">
+            <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex items-center justify-center mb-12"
+            >
                 <h1 className="text-6xl font-logo text-primary -mr-2">My</h1>
                 <h2 className="text-6xl font-headline font-bold text-foreground/80">Services</h2>
-            </div>
+            </motion.div>
             
-            <div className="grid md:grid-cols-3 gap-8">
+            <motion.div 
+                className="grid md:grid-cols-3 gap-8"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
                 {servicesToDisplay.map(service => {
                     const imageId = serviceImages[service.title];
                     const image = placeholderData.placeholderImages.find(p => p.id === imageId);
@@ -92,7 +128,7 @@ export default function ServicesPage() {
                     const details = serviceDetails[serviceLabel];
                     
                     return (
-                        <div key={service.title} className="flex flex-col items-center">
+                        <motion.div key={service.title} className="flex flex-col items-center" variants={itemVariants}>
                            <div className="w-full bg-card/60 rounded-lg p-2 border shadow-sm">
                                <div className="flex items-center gap-1.5 px-2 py-1.5 border-b mb-2">
                                    <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
@@ -129,10 +165,10 @@ export default function ServicesPage() {
                                </ul>
                              </DialogContent>
                            </Dialog>
-                        </div>
+                        </motion.div>
                     );
                 })}
-            </div>
+            </motion.div>
         </div>
     </div>
   );
