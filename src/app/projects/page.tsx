@@ -22,7 +22,7 @@ export default function ProjectsPage() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="max-w-2xl mx-auto text-lg text-foreground/80 mt-4"
         >
-          Drag to explore. Scroll to zoom. Click to see details.
+          Drag to explore. Click to see details.
         </motion.p>
       </div>
       <HoneycombGrid />
