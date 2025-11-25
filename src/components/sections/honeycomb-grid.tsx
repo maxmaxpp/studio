@@ -34,7 +34,9 @@ const HoneycombGrid = () => {
           style={{ scale, y }}
         >
           {techStack.map((item, index) => {
-            const { x, y } = honeycombPoints[index];
+            const point = honeycombPoints[index];
+            if (!point) return null; // Add a safeguard
+            const { x, y } = point;
             return (
               <motion.div
                 key={item.name}
@@ -61,142 +63,36 @@ const HoneycombGrid = () => {
 };
 
 function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: number) {
-  const points = [];
-  let ring = 0;
-  let countInRing = 1;
+  if (numIcons === 0) return [];
 
+  const points: { x: number; y: number }[] = [];
   points.push({ x: 0, y: 0 }); // Center icon
 
+  if (numIcons === 1) return points;
+
+  let ring = 1;
   while (points.length < numIcons) {
-    ring++;
-    const iconsInRing = 6 * ring;
-    for (let i = 0; i < iconsInRing && points.length < numIcons; i++) {
-      const angle = (Math.PI / 3) * i - (Math.PI / 6) * (ring % 2);
-      const dist = (iconSize + gap) * ring;
-      
-      let x = dist * Math.cos(angle);
-      let y = dist * Math.sin(angle);
-      
-      // Adjust for hexagonal packing
-      if(ring > 0) {
-        const side = Math.floor(i / ring);
-        const step = i % ring;
-
-        const hexWidth = (iconSize + gap) * Math.sqrt(3);
-        const hexHeight = (iconSize + gap) * 2;
-
-        let startX = 0, startY = 0;
-        let dx = 0, dy = 0;
-
-        switch(side) {
-            case 0: // Right
-                startX = ring * hexWidth/2;
-                startY = -ring * hexHeight/4;
-                dx = 0;
-                dy = step * hexHeight/2;
-                break;
-            case 1: // Bottom right
-                startX = ring * hexWidth/2;
-                startY = ring * hexHeight/4;
-                dx = -step * hexWidth/2;
-                dy = step * hexHeight/4;
-                break;
-            case 2: // Bottom left
-                startX = 0;
-                startY = ring * hexHeight/2;
-                dx = -step * hexWidth/2;
-                dy = -step * hexHeight/4;
-                break;
-            case 3: // Left
-                startX = -ring * hexWidth/2;
-                startY = ring * hexHeight/4;
-                dx = 0;
-                dy = -step * hexHeight/2;
-                break;
-            case 4: // Top left
-                startX = -ring * hexWidth/2;
-                startY = -ring * hexHeight/4;
-                dx = step * hexWidth/2;
-                dy = -step * hexHeight/4;
-                break;
-            case 5: // Top right
-                startX = 0;
-                startY = -ring * hexHeight/2;
-                dx = step * hexWidth/2;
-                dy = step * hexHeight/4;
-                break;
-        }
-
-        const angle_deg = i / iconsInRing * 360;
-        const radius = (iconSize + gap) * ring;
-        x = radius * Math.cos(angle_deg * Math.PI / 180);
-        y = radius * Math.sin(angle_deg * Math.PI / 180);
-      }
-      
-      points.push({ x: points[0].x + x, y: points[0].y + y });
+    for (let i = 0; i < ring; i++) {
+      if (points.length >= numIcons) break;
+      const x = (iconSize + gap) * Math.sqrt(3) * (ring - i / 2);
+      const y = (iconSize + gap) * (3 / 2) * i;
+      points.push({ x, y });
+      if (i > 0) points.push({ x, y: -y });
+      if (ring - i / 2 !== 0) points.push({ x: -x, y });
+      if (i > 0 && ring - i / 2 !== 0) points.push({ x: -x, y: -y });
     }
+    for (let i = 1; i < ring; i++) {
+        if (points.length >= numIcons) break;
+        const x = (iconSize + gap) * Math.sqrt(3) * i/2;
+        const y = (iconSize + gap) * (3/2) * ring;
+        points.push({x, y});
+        points.push({x: -x, y});
+        points.push({x, y: -y});
+        points.push({x: -x, y: -y});
+    }
+    ring++;
   }
-
-  // A more structured hexagonal layout calculation
-  const structuredPoints: {x:number, y:number}[] = [];
-  const h = (iconSize + gap); // height of hexagon (apothem to apothem)
-  const w = h * Math.sqrt(3) / 2; // width from center to vertex
-  
-  let currentRing = 0;
-  let index = 0;
-
-  while(index < numIcons) {
-      if (currentRing === 0) {
-          structuredPoints.push({ x: 0, y: 0 });
-          index++;
-      } else {
-          let curr = { x: 0, y: -currentRing * h }; // Start at top
-          // Top-right to right
-          for(let i=0; i<currentRing && index < numIcons; i++) {
-              curr = {x: curr.x + w, y: curr.y + h/2};
-              structuredPoints.push(curr);
-              index++;
-          }
-          // Right to bottom-right
-          for(let i=0; i<currentRing && index < numIcons; i++) {
-              curr = {x: curr.x, y: curr.y + h};
-              structuredPoints.push(curr);
-              index++;
-          }
-           // Bottom-right to bottom-left
-          for(let i=0; i<currentRing && index < numIcons; i++) {
-              curr = {x: curr.x - w, y: curr.y + h/2};
-              structuredPoints.push(curr);
-              index++;
-          }
-          // Bottom-left to left
-          for(let i=0; i<currentRing && index < numIcons; i++) {
-              curr = {x: curr.x - w, y: curr.y - h/2};
-              structuredPoints.push(curr);
-              index++;
-          }
-          // Left to top-left
-          for(let i=0; i<currentRing && index < numIcons; i++) {
-              curr = {x: curr.x, y: curr.y - h};
-              structuredPoints.push(curr);
-              index++;
-          }
-          // Top-left to top
-          for(let i=0; i<currentRing-1 && index < numIcons; i++) {
-              curr = {x: curr.x + w, y: curr.y - h/2};
-              structuredPoints.push(curr);
-              index++;
-          }
-           if (index < numIcons) {
-              curr = {x: curr.x + w, y: curr.y - h/2};
-              index++;
-          }
-      }
-      currentRing++;
-  }
-  
-  return structuredPoints;
+  return points;
 }
-
 
 export default HoneycombGrid;
