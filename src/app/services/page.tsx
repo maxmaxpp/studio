@@ -110,7 +110,7 @@ export default function ServicesPage() {
                 transition={{ duration: 0.5 }}
                 className="flex items-center justify-center mb-12"
             >
-                <h1 className="text-6xl font-logo text-primary -mr-2">My</h1>
+                <h1 className="text-6xl font-logo text-primary">My</h1>
                 <h2 className="text-6xl font-headline font-bold text-foreground/80">Services</h2>
             </motion.div>
             
