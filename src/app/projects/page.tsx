@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 export default function ProjectsPage() {
   return (
     <div className="relative w-full h-[150vh] overflow-hidden bg-background">
-      <div className="sticky top-16 z-20 text-center py-4 md:py-6 mb-8 bg-background/80 backdrop-blur-sm">
+      <div className="text-center py-4 md:py-6 mb-8">
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
