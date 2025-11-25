@@ -79,7 +79,7 @@ const HoneycombGrid = () => {
             }}
             dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
             onDragEnd={handleDragEnd}
-            className="absolute inset-0 w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+            className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none"
         >
             <div className="relative">
                 {projects.map((project, index) => {
@@ -91,7 +91,7 @@ const HoneycombGrid = () => {
                     return (
                         <motion.div
                             key={project.id}
-                            className="absolute flex items-center justify-center cursor-pointer"
+                            className="absolute flex items-center justify-center cursor-pointer pointer-events-auto"
                             style={{
                                 width: ICON_SIZE,
                                 height: ICON_SIZE,
@@ -165,9 +165,10 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
 
     const horizontalSpacing = iconSize + gap;
     const verticalSpacing = (iconSize + gap) * (Math.sqrt(3) / 2);
-    
+
     let n = 0;
     let ring = 0;
+
     while (n < numIcons) {
         if (ring === 0) {
             points.push({ x: 0, y: 0 });
@@ -176,67 +177,190 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
             continue;
         }
 
-        let currentX = ring * horizontalSpacing;
-        let currentY = 0;
-        
-        // Move from right to top-right
-        for (let i = 0; i < ring && n < numIcons; i++) {
-            points.push({ x: currentX, y: currentY });
-            currentX -= horizontalSpacing / 2;
-            currentY -= verticalSpacing;
-            n++;
+        // Top-right to top-left
+        for (let i = 0; i < ring; i++) {
+            const angle = (Math.PI / 3) * 5;
+            const x = ring * horizontalSpacing * Math.cos(angle) + i * horizontalSpacing;
+            const y = ring * verticalSpacing * Math.sin(angle);
+            if (n < numIcons) points[n++] = { x: x + i * (horizontalSpacing/2), y: y + i * verticalSpacing };
         }
         
-        // Move from top-right to top-left
-        for (let i = 0; i < ring && n < numIcons; i++) {
-            points.push({ x: currentX, y: currentY });
-            currentX -= horizontalSpacing;
-            n++;
+        // Right side
+        for (let i = 0; i < ring; i++) {
+            const angle = 0;
+            const x = ring * horizontalSpacing * Math.cos(angle);
+            const y = ring * verticalSpacing * Math.sin(angle) + i * verticalSpacing;
+             if (n < numIcons) points[n++] = { x: x, y: y - i * (verticalSpacing/2)};
         }
         
-        // Move from top-left to left
-        for (let i = 0; i < ring && n < numIcons; i++) {
-            points.push({ x: currentX, y: currentY });
-            currentX -= horizontalSpacing / 2;
-            currentY += verticalSpacing;
-            n++;
+        // Bottom-right side
+        for (let i = 0; i < ring; i++) {
+            const angle = Math.PI / 3;
+            const x = ring * horizontalSpacing * Math.cos(angle) - i * (horizontalSpacing/2);
+            const y = ring * verticalSpacing * Math.sin(angle) + i * verticalSpacing;
+             if (n < numIcons) points[n++] = { x: x, y: y };
         }
         
-        // Move from left to bottom-left
-        for (let i = 0; i < ring && n < numIcons; i++) {
-            points.push({ x: currentX, y: currentY });
-            currentX += horizontalSpacing / 2;
-            currentY += verticalSpacing;
-            n++;
+        // Bottom-left side
+         for (let i = 0; i < ring; i++) {
+            const angle = (Math.PI / 3) * 2;
+            const x = ring * horizontalSpacing * Math.cos(angle) - i * horizontalSpacing;
+            const y = ring * verticalSpacing * Math.sin(angle);
+             if (n < numIcons) points[n++] = { x: x - i * (horizontalSpacing/2), y: y - i * verticalSpacing };
         }
         
-        // Move from bottom-left to bottom-right
-        for (let i = 0; i < ring && n < numIcons; i++) {
-            points.push({ x: currentX, y: currentY });
-            currentX += horizontalSpacing;
-            n++;
+        // Left side
+        for (let i = 0; i < ring; i++) {
+            const angle = Math.PI;
+            const x = ring * horizontalSpacing * Math.cos(angle);
+            const y = ring * verticalSpacing * Math.sin(angle) - i * verticalSpacing;
+             if (n < numIcons) points[n++] = { x: x, y: y + i * (verticalSpacing/2) };
         }
         
-        // Move from bottom-right to right
-        for (let i = 0; i < ring && n < numIcons; i++) {
-            points.push({ x: currentX, y: currentY });
-            currentX += horizontalSpacing / 2;
-            currentY -= verticalSpacing;
-            n++;
+        // Top-left side
+        for (let i = 0; i < ring; i++) {
+            const angle = (Math.PI / 3) * 4;
+            const x = ring * horizontalSpacing * Math.cos(angle) + i * (horizontalSpacing/2);
+            const y = ring * verticalSpacing * Math.sin(angle) - i * verticalSpacing;
+             if (n < numIcons) points[n++] = { x: x, y: y };
         }
-        
-        ring++;
-    }
 
-    // This is a simplified centering approach for when the grid is not perfectly filled
-    if (points.length > 0) {
-        const centerX = points.reduce((acc, p) => acc + p.x, 0) / points.length;
-        const centerY = points.reduce((acc, p) => acc + p.y, 0) / points.length;
-        return points.map(p => ({ x: p.x - centerX, y: p.y - centerY }));
+        ring++;
     }
 
     return points;
 }
+
+function calculateHoneycombPoints_v2(numIcons: number, iconSize: number, gap: number) {
+    const points = [];
+    let count = 0;
+    const h_spacing = iconSize + gap;
+    const v_spacing = (iconSize + gap) * Math.sqrt(3) / 2;
+
+    points.push({ x: 0, y: 0 });
+    count++;
+
+    for (let r = 1; count < numIcons; r++) {
+        // Top side
+        for (let i = 0; i < r && count < numIcons; i++) {
+            points.push({ x: (h_spacing / 2) * (r - i), y: -v_spacing * (r + i) });
+            count++;
+        }
+        // Right side
+        for (let i = 0; i < r && count < numIcons; i++) {
+            points.push({ x: h_spacing * r - (h_spacing/2)*i, y: v_spacing*i });
+            count++;
+        }
+        // Bottom-right side
+        for (let i = 0; i < r && count < numIcons; i++) {
+            points.push({ x: h_spacing * (r/2 - i), y: v_spacing * r });
+            count++;
+        }
+        // Bottom side
+        for (let i = 0; i < r && count < numIcons; i++) {
+            points.push({ x: -h_spacing/2 * (r-i), y: v_spacing * (r+i) });
+            count++;
+        }
+        // Left side
+        for (let i = 0; i < r && count < numIcons; i++) {
+            points.push({ x: -h_spacing * r + (h_spacing/2)*i, y: -v_spacing*i });
+            count++;
+        }
+        // Top-left side
+        for (let i = 0; i < r && count < numIcons; i++) {
+            points.push({ x: -h_spacing * (r/2 - i), y: -v_spacing * r });
+            count++;
+        }
+    }
+    return points;
+}
+
+const calculateHoneycombPoints_v3 = (numIcons: number, iconSize: number, gap: number) => {
+    const points = [{ x: 0, y: 0 }];
+    let ring = 1;
+    const horizontalSpacing = iconSize + gap;
+    const verticalSpacing = (Math.sqrt(3) / 2) * (iconSize + gap);
+
+    while (points.length < numIcons) {
+        let x = ring * horizontalSpacing;
+        let y = 0;
+
+        // Move right
+        for (let i = 0; i < ring && points.length < numIcons; i++) {
+            points.push({ x, y });
+            x -= horizontalSpacing / 2;
+            y -= verticalSpacing;
+        }
+
+        // Move top right
+        for (let i = 0; i < ring && points.length < numIcons; i++) {
+            points.push({ x, y });
+            x -= horizontalSpacing;
+        }
+        
+        // Move top left
+        for (let i = 0; i < ring && points.length < numIcons; i++) {
+            points.push({ x, y });
+            x -= horizontalSpacing / 2;
+            y += verticalSpacing;
+        }
+
+        // Move left
+        for (let i = 0; i < ring && points.length < numIcons; i++) {
+            points.push({ x, y });
+            x += horizontalSpacing / 2;
+            y += verticalSpacing;
+        }
+
+        // Move bottom left
+        for (let i = 0; i < ring && points.length < numIcons; i++) {
+            points.push({ x, y });
+            x += horizontalSpacing;
+        }
+
+        // Move bottom right
+        for (let i = 0; i < ring && points.length < numIcons; i++) {
+            points.push({ x, y });
+            x += horizontalSpacing / 2;
+            y -= verticalSpacing;
+        }
+        ring++;
+    }
+
+    return points;
+};
+
+
+const calculateHoneycombPoints_v4 = (numPoints: number, radius: number, gap: number) => {
+  const points = [];
+  const effectiveRadius = radius + gap;
+  const angle = (2 * Math.PI) / 6;
+
+  points.push({ x: 0, y: 0 });
+
+  let ring = 1;
+  while (points.length < numPoints) {
+    for (let i = 0; i < 6; i++) {
+      for (let j = 0; j < ring; j++) {
+        if (points.length >= numPoints) break;
+
+        const startX = ring * effectiveRadius * Math.cos(i * angle);
+        const startY = ring * effectiveRadius * Math.sin(i * angle);
+
+        const endX = ring * effectiveRadius * Math.cos((i + 1) * angle);
+        const endY = ring * effectiveRadius * Math.sin((i + 1) * angle);
+
+        const x = startX + (j / ring) * (endX - startX);
+        const y = startY + (j / ring) * (endY - startY);
+
+        points.push({ x, y });
+      }
+    }
+    ring++;
+  }
+
+  return points;
+};
 
 
 export default HoneycombGrid;
