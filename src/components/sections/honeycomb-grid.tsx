@@ -70,7 +70,7 @@ const HoneycombGrid = () => {
     };
 
     return (
-        <>
+        <div className="relative w-full h-full">
             <motion.div
                 className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
                 onPointerDown={(e) => dragControls.start(e)}
@@ -163,7 +163,7 @@ const HoneycombGrid = () => {
                     )}
                 </DialogContent>
             </Dialog>
-        </>
+        </div>
     );
 };
 
@@ -173,63 +173,88 @@ function calculateHoneycombPoints(numIcons: number, iconSize: number, gap: numbe
 
     const horizontalSpacing = iconSize + gap;
     const verticalSpacing = (iconSize + gap) * (Math.sqrt(3) / 2);
-
-    let n = 0;
-    let ring = 0;
-
-    // Center point
-    points.push({ x: 0, y: 0 });
-    n++;
-
-    while (n < numIcons) {
-        ring++;
-        let x = 0;
-        let y = -ring * verticalSpacing;
-
-        // Top point of the ring
-        if (n < numIcons) {
-            points.push({ x, y });
-            n++;
-        }
-
-        const directions = [
-            { x: horizontalSpacing * 0.75, y: verticalSpacing * 0.5 },   // Down-Right
-            { x: 0, y: verticalSpacing },                                // Down
-            { x: -horizontalSpacing * 0.75, y: verticalSpacing * 0.5 },  // Down-Left
-            { x: -horizontalSpacing * 0.75, y: -verticalSpacing * 0.5 }, // Up-Left
-            { x: 0, y: -verticalSpacing },                               // Up
-            { x: horizontalSpacing * 0.75, y: -verticalSpacing * 0.5 },  // Up-Right
-        ];
-
-        // This logic is tricky. A simpler approach for rings is better.
-        // Let's try a side-by-side traversal.
-    }
     
-    // Let's try a different, more robust algorithm.
-    const newPoints: { x: number; y: number }[] = [];
     let count = 0;
-    
+
     const addPoint = (q: number, r: number) => {
         if (count >= numIcons) return;
-        const x = horizontalSpacing * (3/4 * q);
-        const y = verticalSpacing * (r + q / 2);
-        newPoints.push({ x, y });
+        // Axial to pixel conversion
+        const x = horizontalSpacing * 3/4 * q;
+        const y = verticalSpacing * (r + q/2);
+        points.push({ x, y });
         count++;
     }
 
     addPoint(0, 0); // Center
 
-    for (let r = 1; count < numIcons; r++) {
-        for (let i = 0; i < r; i++) addPoint(i, -r); // Top-right
-        for (let i = 0; i < r; i++) addPoint(r, -r + i); // Right
-        for (let i = 0; i < r; i++) addPoint(r - i, i); // Bottom-right
-        for (let i = 0; i < r; i++) addPoint(-i, r); // Bottom-left
-        for (let i = 0; i < r; i++) addPoint(-r, r - i); // Left
-        for (let i = 0; i < r; i++) addPoint(-r + i, -i); // Top-left
+    for (let ring = 1; count < numIcons; ring++) {
+        let q = ring;
+        let r = -ring;
+
+        // Top-left to Top-right
+        for (let i = 0; i < ring; i++) addPoint(q, r + i);
+        // Top-right to Right
+        for (let i = 0; i < ring; i++) addPoint(q - i, r + ring);
+        // Right to Bottom-right
+        for (let i = 0; i < ring; i++) addPoint(-i, ring);
+        // Bottom-right to Bottom-left
+        for (let i = 0; i < ring; i++) addPoint(-ring, -i);
+        // Bottom-left to Left
+        for (let i = 0; i < ring; i++) addPoint(-ring + i, -ring);
+        // Left to Top-left
+        for (let i = 0; i < ring; i++) addPoint(i, -ring);
+    }
+    
+    // The previous spiral algorithm was complex and had issues.
+    // A much simpler hexagonal spiral algorithm using axial coordinates is more robust.
+    const newPoints: { x: number, y: number }[] = [];
+    let i = 0;
+    
+    const axial_directions = [
+        {q: 1, r: 0}, {q: 0, r: 1}, {q: -1, r: 1}, 
+        {q: -1, r: 0}, {q: 0, r: -1}, {q: 1, r: -1}
+    ];
+
+    let q = 0, r = 0;
+    
+    const toPixel = (q_coord: number, r_coord: number) => {
+        const x_coord = horizontalSpacing * (3/4 * q_coord);
+        const y_coord = verticalSpacing * (r_coord + q_coord/2);
+        return {x: x_coord, y: y_coord};
+    }
+
+    if (numIcons > 0) {
+        newPoints.push(toPixel(0, 0));
+        i++;
+    }
+    
+    let ring = 1;
+    while(i < numIcons) {
+        q = ring;
+        r = 0;
+        for(const dir of axial_directions) {
+            for(let j = 0; j < ring; j++) {
+                if (i >= numIcons) break;
+                if(dir.q === 1 && dir.r === -1) { // last segment of a ring
+                    // no change needed
+                } else {
+                     q -= dir.q;
+                     r -= dir.r;
+                }
+                const next_dir_index = (axial_directions.indexOf(dir) + 2) % 6;
+                const next_dir = axial_directions[next_dir_index];
+                q += next_dir.q;
+                r += next_dir.r;
+                newPoints.push(toPixel(q, r));
+                i++;
+            }
+            if (i >= numIcons) break;
+        }
+        ring++;
     }
 
 
-    return newPoints;
+    return newPoints.slice(0, numIcons);
 }
 
 export default HoneycombGrid;

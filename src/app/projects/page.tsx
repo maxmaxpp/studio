@@ -27,7 +27,7 @@ export default function ProjectsPage() {
           Drag to explore. Click to see details.
         </motion.p>
       </div>
-      {/* HoneycombGrid is now in the main layout */}
+      {/* The HoneycombGrid is now rendered by PageWrapper on this route */}
     </div>
   );
 }
