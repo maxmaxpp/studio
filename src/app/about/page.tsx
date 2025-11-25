@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import WorkExperience from '@/components/sections/work-experience';
+import Education from '@/components/sections/education';
 
 export default function AboutPage() {
   return (
@@ -56,7 +57,10 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-        <WorkExperience />
+        <div className="mt-24 grid md:grid-cols-2 gap-16">
+            <Education />
+            <WorkExperience />
+        </div>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ const workExperience = [
 
 export default function WorkExperience() {
   return (
-    <section className="mt-24">
+    <section>
         <div className="text-center mb-12">
             <div className='flex justify-center items-center gap-4'>
                 <Briefcase className="h-10 w-10 text-primary/70" strokeWidth={1.5} />
