@@ -1,9 +1,9 @@
-import PortfolioSection from "@/components/sections/portfolio";
+import ProjectGrid from '@/components/sections/project-grid';
 
 export default function ProjectsPage() {
-    return (
-        <div className="pt-24">
-            <PortfolioSection />
-        </div>
-    )
+  return (
+    <div>
+      <ProjectGrid />
+    </div>
+  );
 }
