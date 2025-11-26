@@ -83,7 +83,7 @@ export default function WorkflowSection() {
                 backgroundSize: '16px 16px',
             }}
         >
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div ref={containerRef} className="relative">
                     <div className="text-center mb-16 relative z-10">
                         <h2 className="text-6xl font-logo text-foreground/80">
