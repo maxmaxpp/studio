@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useCollection, WithId } from '@/firebase/firestore/use-collection';
 import { collection, query, orderBy } from 'firebase/firestore';
 import { useFirestore, useMemoFirebase } from '@/firebase/provider';
-import placeholderData from '@/lib/placeholder-images.json';
 import { Skeleton } from '@/components/ui/skeleton';
 import AddTestimonial from './testimonial-form';
 import { StarRating } from '../ui/star-rating';
@@ -17,7 +16,7 @@ interface Testimonial {
   company: string;
   quote: string;
   rating: number;
-  avatarUrlId?: string;
+  email: string;
 }
 
 function TestimonialCard({
@@ -25,9 +24,7 @@ function TestimonialCard({
 }: {
   testimonial: WithId<Testimonial>;
 }) {
-  const avatarImage = placeholderData.placeholderImages.find(
-    (p) => p.id === testimonial.avatarUrlId
-  );
+  const avatarUrl = `https://api.dicebear.com/8.x/lorelei/svg?seed=${encodeURIComponent(testimonial.name)}`;
   return (
     <li className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]">
       <blockquote className="flex flex-col justify-between h-full">
@@ -41,20 +38,13 @@ function TestimonialCard({
         </div>
         <div className="relative z-20 mt-6 flex flex-row items-center">
           <span className="flex flex-col gap-1">
-             {avatarImage ? (
-              <Avatar className="h-12 w-12">
+             <Avatar className="h-12 w-12">
                 <AvatarImage
-                  src={avatarImage.imageUrl}
+                  src={avatarUrl}
                   alt={testimonial.name}
-                  data-ai-hint={avatarImage.imageHint}
                 />
                 <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
               </Avatar>
-            ) : (
-              <Avatar className="h-12 w-12">
-                <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-              </Avatar>
-            )}
             <div className='flex flex-col'>
                 <span className="text-base leading-[1.6] text-primary font-bold">
                     {testimonial.name}
