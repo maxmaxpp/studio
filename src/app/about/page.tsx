@@ -14,7 +14,7 @@ export default function AboutPage() {
             backgroundSize: '16px 16px',
         }}
     >
-      <div className="absolute -top-24 -right-48 opacity-30 pointer-events-none">
+      <div className="absolute -top-24 -right-48 opacity-40 pointer-events-none">
         <Image src="/sun-design.png" alt="Sun design" width={600} height={600} />
       </div>
       <div className="absolute -bottom-12 -left-48 opacity-30 pointer-events-none">
