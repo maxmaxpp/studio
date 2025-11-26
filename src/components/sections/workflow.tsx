@@ -74,9 +74,10 @@ const Card = ({
             <motion.div
                 style={{ 
                     scale,
-                    top: `calc(-5vh + ${i * 25}px)`
+                    top: `calc(-5vh + ${i * 25}px)`,
+                    backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 600 600\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
                 }}
-                className="relative h-[500px] w-full max-w-4xl rounded-2xl p-8 shadow-2xl bg-secondary border border-primary/10 flex flex-col justify-center"
+                className="relative h-[500px] w-full max-w-4xl rounded-2xl p-8 shadow-2xl bg-secondary border border-primary/10 flex flex-col justify-center bg-blend-soft-light"
             >
                 <h3 className="font-headline text-3xl font-bold text-accent mb-4 text-center">{step.title}</h3>
                 <p className="text-foreground/80 text-lg text-center max-w-lg mx-auto">{step.description}</p>
@@ -96,11 +97,15 @@ export default function WorkflowSection() {
         <section 
             id="workflow" 
             className="relative w-full bg-background py-20"
-            style={{
-                backgroundImage: 'radial-gradient(hsl(var(--border)) 1px, transparent 1px)',
-                backgroundSize: '16px 16px',
-            }}
         >
+            <div 
+                className="absolute inset-0"
+                style={{
+                    backgroundImage: 'radial-gradient(hsl(var(--border)) 1px, transparent 1px)',
+                    backgroundSize: '16px 16px',
+                }}
+            />
+
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <Asterisk className="absolute top-1/4 left-[5%] w-8 h-8 opacity-30 text-accent animate-spin-slow [animation-delay:-1s]" />
               <Asterisk className="absolute top-1/2 right-[5%] w-14 h-14 opacity-40 text-accent animate-spin-slow [animation-delay:-3s]" />
