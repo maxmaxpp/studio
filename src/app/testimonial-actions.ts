@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { initializeFirebase } from '@/firebase';
+import { initializeFirebaseServer } from '@/firebase/server-init';
 
 const testimonialSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -42,7 +42,7 @@ export async function submitTestimonial(
   }
 
   try {
-    const { firestore } = initializeFirebase();
+    const { firestore } = initializeFirebaseServer();
     const testimonialsCollection = collection(firestore, 'testimonials');
     await addDoc(testimonialsCollection, {
       ...validatedFields.data,
