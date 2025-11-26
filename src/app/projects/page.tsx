@@ -24,6 +24,8 @@ export default function ProjectsPage() {
                 fill
                 className="object-cover"
            />
+       </div>
+       <div className="absolute inset-0 -z-10 opacity-20">
            <Image 
                 src="/cons-design.png"
                 alt="Constellation background"
