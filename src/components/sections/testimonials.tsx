@@ -9,7 +9,7 @@ import placeholderData from '@/lib/placeholder-images.json';
 import { Skeleton } from '@/components/ui/skeleton';
 import AddTestimonial from './testimonial-form';
 import { StarRating } from '../ui/star-rating';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface Testimonial {
@@ -97,8 +97,8 @@ const InfiniteMovingTestimonials = ({
     isLoading: boolean;
     speed?: "fast" | "normal" | "slow";
   }) => {
-    const containerRef = useState<HTMLDivElement | null>(null);
-    const scrollerRef = useState<HTMLUListElement | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const scrollerRef = useRef<HTMLUListElement>(null);
   
     useEffect(() => {
         if (scrollerRef.current && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -133,7 +133,7 @@ const InfiniteMovingTestimonials = ({
             if (speed === "fast") {
                 containerRef.current.style.setProperty("--animation-duration", "20s");
             } else if (speed === "normal") {
-                containerRef_current.style.setProperty("--animation-duration", "40s");
+                containerRef.current.style.setProperty("--animation-duration", "40s");
             } else {
                 containerRef.current.style.setProperty("--animation-duration", "80s");
             }
