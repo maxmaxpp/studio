@@ -61,6 +61,24 @@ const Card = ({
     );
 };
 
+const Asterisk = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    width="54"
+    height="53"
+    viewBox="0 0 54 53"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M27 0.999982L29.5358 20.4641L45.9228 9.53588L35.011 23.011L53.021 27L35.011 30.989L45.9228 44.4641L29.5358 33.5359L27 53L24.4642 33.5359L8.07718 44.4641L18.989 30.989L0.979004 27L18.989 23.011L8.07718 9.53588L24.4642 20.4641L27 0.999982Z"
+      fill="hsl(var(--accent))"
+      fillOpacity="0.5"
+    />
+  </svg>
+);
+
+
 export default function WorkflowSection() {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const { scrollYProgress } = useScroll({
@@ -74,7 +92,12 @@ export default function WorkflowSection() {
             ref={containerRef}
             className="relative bg-background py-20"
         >
-             <div className="text-center mb-16">
+             <Asterisk className="absolute top-1/4 left-1/4 w-8 h-8 opacity-30 text-accent animate-spin-slow [animation-delay:-1s]" />
+             <Asterisk className="absolute top-1/2 right-1/4 w-14 h-14 opacity-40 text-accent animate-spin-slow [animation-delay:-3s]" />
+             <Asterisk className="absolute top-[10%] right-1/3 w-12 h-12 opacity-50 text-accent animate-spin-slow" />
+             <Asterisk className="absolute bottom-[15%] left-1/4 w-10 h-10 opacity-40 text-accent animate-spin-slow [animation-delay:-2s]" />
+
+             <div className="text-center mb-16 relative z-10">
                 <h2 className="text-6xl font-logo text-foreground/80">
                     My Workflow
                 </h2>
