@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from 'react';
@@ -10,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import Image from 'next/image';
 
 const initialState: FormState = {
   message: '',
@@ -46,8 +48,11 @@ export default function ContactSection() {
   }, [state, toast]);
 
   return (
-    <section id="contact" className="w-full py-20 md:py-32 bg-background">
-      <div className="container mx-auto px-4 md:px-6 text-center">
+    <section id="contact" className="relative overflow-hidden w-full py-20 md:py-32 bg-background">
+       <div className="absolute -bottom-12 -left-48 opacity-30 pointer-events-none">
+        <Image src="/cons-design.png" alt="Constellation design" width={500} height={500} />
+      </div>
+      <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary">Get in Touch</h2>
         <p className="max-w-2xl mx-auto text-lg text-foreground/80 mt-4">
             Ready to work together? My inbox is always open! You can contact me via email at <a href="mailto:elainejennat@gmail.com" className="underline font-medium hover:text-primary">elainejennat@gmail.com</a> or via the contact form below:
