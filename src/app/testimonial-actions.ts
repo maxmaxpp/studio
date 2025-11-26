@@ -6,7 +6,8 @@ import { initializeFirebaseServer } from '@/firebase/server-init';
 
 const testimonialSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
-  company: z.string().optional(),
+  email: z.string().email('Please enter a valid email address.'),
+  company: z.string().min(2, 'Company must be at least 2 characters.'),
   quote: z.string().min(10, 'Testimonial must be at least 10 characters.'),
   rating: z.coerce.number().min(1, 'Please provide a rating.').max(5),
 });
@@ -15,6 +16,7 @@ export type FormState = {
   message: string;
   errors?: {
     name?: string[];
+    email?: string[];
     company?: string[];
     quote?: string[];
     rating?: string[];
@@ -28,6 +30,7 @@ export async function submitTestimonial(
 ): Promise<FormState> {
   const validatedFields = testimonialSchema.safeParse({
     name: formData.get('name'),
+    email: formData.get('email'),
     company: formData.get('company'),
     quote: formData.get('quote'),
     rating: formData.get('rating'),

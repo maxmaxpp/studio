@@ -86,6 +86,11 @@
           "type": "string",
           "description": "Name of the client providing the testimonial."
         },
+        "email": {
+          "type": "string",
+          "description": "Email address of the client for profile association.",
+          "format": "email"
+        },
         "company": {
           "type": "string",
           "description": "Company of the client."
@@ -107,6 +112,7 @@
       "required": [
         "id",
         "name",
+        "email",
         "company",
         "quote",
         "rating",

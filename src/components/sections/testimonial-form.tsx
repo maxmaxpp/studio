@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Star } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -19,7 +19,6 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
 import { StarRating } from '../ui/star-rating';
 
 const initialState: FormState = {
@@ -92,11 +91,21 @@ export default function AddTestimonial() {
             )}
           </div>
           <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" name="email" type="email" placeholder="Your Email" required />
+            {state.errors?.email && (
+              <p className="text-sm font-medium text-destructive">
+                {state.errors.email.join(', ')}
+              </p>
+            )}
+          </div>
+          <div className="space-y-2">
             <Label htmlFor="company">Company</Label>
             <Input
               id="company"
               name="company"
-              placeholder="Your Company (Optional)"
+              placeholder="Your Company"
+              required
             />
              {state.errors?.company && (
               <p className="text-sm font-medium text-destructive">
