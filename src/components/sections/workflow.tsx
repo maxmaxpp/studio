@@ -43,16 +43,22 @@ const Card = ({
     range: number[],
     targetScale: number
 }) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ['start end', 'start start']
+    });
+
     const scale = useTransform(progress, range, [1, targetScale]);
 
     return (
-        <div className="sticky top-0 h-screen flex items-center justify-center">
+        <div ref={containerRef} className="sticky top-0 h-screen flex items-center justify-center">
             <motion.div
                 style={{ 
                     scale,
                     top: `calc(-5vh + ${i * 25}px)`
                 }}
-                className="relative h-[500px] w-[800px] rounded-2xl p-8 shadow-2xl bg-secondary border border-primary/10 flex flex-col justify-center"
+                className="relative h-[500px] w-full max-w-4xl rounded-2xl p-8 shadow-2xl bg-secondary border border-primary/10 flex flex-col justify-center"
             >
                 <h3 className="font-headline text-3xl font-bold text-accent mb-4 text-center">{step.title}</h3>
                 <p className="text-foreground/80 text-lg text-center max-w-lg mx-auto">{step.description}</p>
@@ -71,30 +77,32 @@ export default function WorkflowSection() {
     return (
         <section 
             id="workflow" 
-            className="relative bg-background py-20"
+            className="relative w-full bg-background py-20"
             style={{
                 backgroundImage: 'radial-gradient(hsl(var(--border)) 1px, transparent 1px)',
                 backgroundSize: '16px 16px',
             }}
         >
-             <div ref={containerRef} className="relative">
-                <div className="text-center mb-16 relative z-10">
-                    <h2 className="text-6xl font-logo text-foreground/80">
-                        My Workflow
-                    </h2>
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div ref={containerRef} className="relative">
+                    <div className="text-center mb-16 relative z-10">
+                        <h2 className="text-6xl font-logo text-foreground/80">
+                            My Workflow
+                        </h2>
+                    </div>
+                    {workflowSteps.map((step, i) => {
+                        const targetScale = 1 - ( (workflowSteps.length - i) * 0.05 );
+                        return <Card 
+                            step={step} 
+                            i={i} 
+                            key={i} 
+                            progress={scrollYProgress} 
+                            range={[i * .125, 1]}
+                            targetScale={targetScale}
+                        />;
+                    })}
                 </div>
-                {workflowSteps.map((step, i) => {
-                    const targetScale = 1 - ( (workflowSteps.length - i) * 0.05 );
-                    return <Card 
-                        step={step} 
-                        i={i} 
-                        key={i} 
-                        progress={scrollYProgress} 
-                        range={[i * .125, 1]}
-                        targetScale={targetScale}
-                    />;
-                })}
-             </div>
+            </div>
         </section>
     )
 }
