@@ -3,7 +3,7 @@
 
 import { useMemo, useState } from 'react';
 import { motion, PanInfo, useDragControls } from 'framer-motion';
-import { projects } from '@/lib/data.tsx';
+import { projects, techStack } from '@/lib/data.tsx';
 import placeholderData from '@/lib/placeholder-images.json';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../ui/dialog';
@@ -102,7 +102,9 @@ const HoneycombGrid = ({ isInteractive = true, onDragStart }: { isInteractive?: 
                         const point = honeycombPoints[index];
                         if (!point) return null;
                         const { x, y } = point;
-                        const projectImage = placeholderData.placeholderImages.find(p => p.id === project.imageUrlIds[0]);
+                        
+                        const primaryTechName = project.tech[0];
+                        const techIconData = techStack.find(t => t.name === primaryTechName);
 
                         return (
                             <motion.div
@@ -128,15 +130,13 @@ const HoneycombGrid = ({ isInteractive = true, onDragStart }: { isInteractive?: 
                                 whileHover={isInteractive ? { scale: 1.1, zIndex: 10, transition: { duration: 0.2 } } : {}}
                                 onClick={() => handleItemClick(project)}
                             >
-                                <div className="w-full h-full bg-card rounded-full flex items-center justify-center shadow-lg border-2 border-border overflow-hidden">
-                                    {projectImage && (
-                                        <Image
-                                            src={projectImage.imageUrl}
-                                            alt={project.title}
-                                            width={ICON_SIZE}
-                                            height={ICON_SIZE}
-                                            className="object-cover w-full h-full"
-                                        />
+                                <div className="w-full h-full bg-card rounded-full flex items-center justify-center p-12 shadow-lg border-2 border-border overflow-hidden">
+                                    {techIconData ? (
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            {techIconData.component}
+                                        </div>
+                                    ) : (
+                                        <span className="text-sm font-bold text-muted-foreground">{project.title}</span>
                                     )}
                                 </div>
                             </motion.div>
