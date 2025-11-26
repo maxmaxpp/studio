@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import WorkExperience from '@/components/sections/work-experience';
 import Education from '@/components/sections/education';
+import FallingStars from '@/components/effects/falling-stars';
 
 export default function AboutPage() {
   return (
@@ -15,6 +16,7 @@ export default function AboutPage() {
             backgroundSize: '16px 16px',
         }}
     >
+      <FallingStars />
       <div className="absolute -top-24 -right-48 opacity-50 pointer-events-none">
         <Image src="/sun-design.png" alt="Sun design" width={600} height={600} />
       </div>
