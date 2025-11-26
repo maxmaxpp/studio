@@ -67,6 +67,13 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="relative overflow-hidden w-full py-20 md:py-32 bg-background">
+       <div 
+        className="absolute inset-0"
+        style={{
+            backgroundImage: 'radial-gradient(hsl(var(--border)) 1px, transparent 1px)',
+            backgroundSize: '16px 16px',
+        }}
+    />
        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <Asterisk className="absolute top-1/4 left-[5%] w-8 h-8 opacity-30 text-accent animate-spin-slow [animation-delay:-1s]" />
           <Asterisk className="absolute top-1/2 right-[5%] w-14 h-14 opacity-40 text-accent animate-spin-slow [animation-delay:-3s]" />
