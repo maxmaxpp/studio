@@ -30,6 +30,24 @@ const workflowSteps = [
     }
 ]
 
+const Asterisk = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    width="54"
+    height="53"
+    viewBox="0 0 54 53"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M27 0.999982L29.5358 20.4641L45.9228 9.53588L35.011 23.011L53.021 27L35.011 30.989L45.9228 44.4641L29.5358 33.5359L27 53L24.4642 33.5359L8.07718 44.4641L18.989 30.989L0.979004 27L18.989 23.011L8.07718 9.53588L24.4642 20.4641L27 0.999982Z"
+      fill="hsl(var(--accent))"
+      fillOpacity="0.5"
+    />
+  </svg>
+);
+
+
 const Card = ({ 
     step, 
     i, 
@@ -83,6 +101,22 @@ export default function WorkflowSection() {
                 backgroundSize: '16px 16px',
             }}
         >
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <Asterisk className="absolute top-1/4 left-[5%] w-8 h-8 opacity-30 text-accent animate-spin-slow [animation-delay:-1s]" />
+              <Asterisk className="absolute top-1/2 right-[5%] w-14 h-14 opacity-40 text-accent animate-spin-slow [animation-delay:-3s]" />
+              <Asterisk className="absolute top-[10%] right-[10%] w-12 h-12 opacity-50 text-accent animate-spin-slow" />
+              <Asterisk className="absolute bottom-[15%] left-[10%] w-10 h-10 opacity-40 text-accent animate-spin-slow [animation-delay:-2s]" />
+              <Asterisk className="absolute bottom-[5%] right-[15%] w-16 h-16 opacity-60 text-accent animate-spin-slow [animation-delay:-4s]" />
+              <Asterisk className="absolute top-[5%] left-[15%] w-6 h-6 opacity-20 text-accent animate-spin-slow [animation-delay:-5s]" />
+              <Asterisk className="absolute bottom-[20%] right-[25%] w-8 h-8 opacity-30 text-accent animate-spin-slow [animation-delay:-6s]" />
+              <Asterisk className="absolute top-[30%] left-[20%] w-12 h-12 opacity-40 text-accent animate-spin-slow [animation-delay:-7s]" />
+              <Asterisk className="absolute bottom-[10%] left-[30%] w-14 h-14 opacity-50 text-accent animate-spin-slow [animation-delay:-8s]" />
+              <Asterisk className="absolute top-[40%] right-[20%] w-10 h-10 opacity-30 text-accent animate-spin-slow [animation-delay:-9s]" />
+              <Asterisk className="absolute bottom-1/2 left-[2%] w-12 h-12 opacity-50 text-accent animate-spin-slow [animation-delay:-1s]" />
+              <Asterisk className="absolute top-3/4 right-[2%] w-10 h-10 opacity-40 text-accent animate-spin-slow [animation-delay:-3s]" />
+              <Asterisk className="absolute top-[5%] right-[2%] w-16 h-16 opacity-60 text-accent animate-spin-slow [animation-delay:-5s]" />
+            </div>
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div ref={containerRef} className="relative">
                     <div className="text-center mb-16 relative z-10">
