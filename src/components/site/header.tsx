@@ -4,8 +4,9 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "../ui/sheet";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -16,8 +17,29 @@ const navLinks = [
     { href: '/#contact', label: 'Contact' },
 ]
 
+const NavLink = ({ href, label, onLinkClick }: { href: string; label: string; onLinkClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void; }) => {
+    return (
+        <Button asChild variant="link" className="text-base font-medium text-primary/80 transition-colors hover:text-primary hover:underline underline-offset-4 decoration-2">
+            <Link href={href} onClick={(e) => onLinkClick(e, href)}>
+                {label}
+            </Link>
+        </Button>
+    )
+}
+
+const MobileNavLink = ({ href, label, onLinkClick }: { href: string; label: string; onLinkClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void; }) => {
+    return (
+         <SheetClose asChild>
+            <Link href={href} onClick={(e) => onLinkClick(e, href)} className="flex items-center gap-2 text-lg font-medium text-foreground hover:text-primary">
+                {label}
+            </Link>
+        </SheetClose>
+    )
+}
+
 export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +51,23 @@ export default function SiteHeader() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    // Only handle hash links on the homepage
+    if (pathname === '/' && href.startsWith('/#')) {
+      e.preventDefault();
+      const targetId = href.substring(2);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    // For other links, allow default Next.js behavior
+  };
+
 
   return (
     <header
@@ -45,7 +84,7 @@ export default function SiteHeader() {
             <nav className="hidden md:flex items-center gap-1">
                 {navLinks.map(link => (
                      <Button key={link.href} asChild variant="link" className="text-base font-medium text-primary/80 transition-colors hover:text-primary hover:underline underline-offset-4 decoration-2">
-                        <Link href={link.href}>
+                        <Link href={link.href} onClick={(e) => handleLinkClick(e, link.href)}>
                             {link.label}
                         </Link>
                      </Button>
@@ -62,9 +101,11 @@ export default function SiteHeader() {
                     <SheetContent side="right">
                         <div className="grid gap-4 py-6">
                             {navLinks.map(link => (
-                                <Link key={link.href} href={link.href} className="flex items-center gap-2 text-lg font-medium text-foreground hover:text-primary">
-                                    {link.label}
-                                </Link>
+                                <SheetClose key={link.href} asChild>
+                                    <Link href={link.href} onClick={(e) => handleLinkClick(e, link.href)} className="flex items-center gap-2 text-lg font-medium text-foreground hover:text-primary">
+                                        {link.label}
+                                    </Link>
+                                </SheetClose>
                             ))}
                         </div>
                     </SheetContent>
