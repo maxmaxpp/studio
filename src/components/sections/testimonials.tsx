@@ -1,13 +1,6 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useCollection, WithId } from '@/firebase/firestore/use-collection';
 import { collection, query, orderBy } from 'firebase/firestore';
@@ -16,6 +9,8 @@ import placeholderData from '@/lib/placeholder-images.json';
 import { Skeleton } from '@/components/ui/skeleton';
 import AddTestimonial from './testimonial-form';
 import { StarRating } from '../ui/star-rating';
+import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface Testimonial {
   name: string;
@@ -34,18 +29,20 @@ function TestimonialCard({
     (p) => p.id === testimonial.avatarUrlId
   );
   return (
-    <div className="p-1 h-full">
-      <Card className="h-full flex flex-col justify-between bg-background shadow-lg rounded-xl border-none">
-        <CardContent className="p-6 flex flex-col items-center text-center">
-           {testimonial.rating > 0 && (
-             <StarRating rating={testimonial.rating} className="mb-4" size={20} />
-           )}
-          <p className="text-foreground/80 italic mb-6 flex-grow">
-            "{testimonial.quote}"
-          </p>
-          <div className="flex flex-col items-center mt-auto">
-            {avatarImage ? (
-              <Avatar className="h-16 w-16 mb-4">
+    <li className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]">
+      <blockquote className="flex flex-col justify-between h-full">
+        <div className="relative z-20 mt-2">
+            {testimonial.rating > 0 && (
+                <StarRating rating={testimonial.rating} className="mb-4" size={20} />
+            )}
+            <span className="text-sm leading-[1.6] text-foreground/80 font-normal">
+                "{testimonial.quote}"
+            </span>
+        </div>
+        <div className="relative z-20 mt-6 flex flex-row items-center">
+          <span className="flex flex-col gap-1">
+             {avatarImage ? (
+              <Avatar className="h-12 w-12">
                 <AvatarImage
                   src={avatarImage.imageUrl}
                   alt={testimonial.name}
@@ -54,39 +51,116 @@ function TestimonialCard({
                 <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
               </Avatar>
             ) : (
-              <Avatar className="h-16 w-16 mb-4">
+              <Avatar className="h-12 w-12">
                 <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
               </Avatar>
             )}
-            <p className="font-bold text-lg font-headline text-primary">
-              {testimonial.name}
-            </p>
-            <p className="text-sm text-foreground/60">{testimonial.company}</p>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+            <div className='flex flex-col'>
+                <span className="text-base leading-[1.6] text-primary font-bold">
+                    {testimonial.name}
+                </span>
+                <span className=" text-sm leading-[1.6] text-foreground/60 font-normal">
+                    {testimonial.company}
+                </span>
+            </div>
+          </span>
+        </div>
+      </blockquote>
+    </li>
   );
 }
 
 function TestimonialSkeleton() {
   return (
-    <div className="p-1 h-full">
-       <Card className="h-full flex flex-col justify-between bg-background shadow-lg rounded-xl border-none">
-        <CardContent className="p-6 flex flex-col items-center text-center">
-             <Skeleton className="h-5 w-24 mb-4" />
-            <Skeleton className="h-4 w-3/4 mb-6" />
-             <Skeleton className="h-4 w-1/2 mb-2" />
-            <div className="flex flex-col items-center mt-auto">
-                <Skeleton className="h-16 w-16 rounded-full mb-4" />
-                <Skeleton className="h-6 w-24 mb-2" />
-                <Skeleton className="h-4 w-32" />
-            </div>
-        </CardContent>
-       </Card>
-    </div>
+    <li className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]">
+      <Skeleton className="h-5 w-24 mb-4" />
+      <Skeleton className="h-4 w-full mb-2" />
+      <Skeleton className="h-4 w-3/4 mb-6" />
+      <div className="flex items-center gap-4">
+        <Skeleton className="h-12 w-12 rounded-full" />
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-4 w-24" />
+          <Skeleton className="h-4 w-32" />
+        </div>
+      </div>
+    </li>
   );
 }
+
+
+const InfiniteMovingTestimonials = ({
+    testimonials,
+    isLoading,
+    speed = "slow",
+  }: {
+    testimonials: WithId<Testimonial>[] | null;
+    isLoading: boolean;
+    speed?: "fast" | "normal" | "slow";
+  }) => {
+    const containerRef = useState<HTMLDivElement | null>(null);
+    const scrollerRef = useState<HTMLUListElement | null>(null);
+  
+    useEffect(() => {
+        if (scrollerRef.current && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            addAnimation();
+        }
+    }, [testimonials, isLoading]);
+  
+    function addAnimation() {
+        if (containerRef.current && scrollerRef.current) {
+          const scrollerContent = Array.from(scrollerRef.current.children);
+    
+          scrollerContent.forEach((item) => {
+            const duplicatedItem = item.cloneNode(true);
+            if (scrollerRef.current) {
+                scrollerRef.current.appendChild(duplicatedItem);
+            }
+          });
+    
+          getDirection();
+          getSpeed();
+        }
+    }
+    
+    const getDirection = () => {
+        if (containerRef.current) {
+            containerRef.current.style.setProperty("--animation-direction", "forwards");
+        }
+    };
+
+    const getSpeed = () => {
+        if (containerRef.current) {
+            if (speed === "fast") {
+                containerRef.current.style.setProperty("--animation-duration", "20s");
+            } else if (speed === "normal") {
+                containerRef_current.style.setProperty("--animation-duration", "40s");
+            } else {
+                containerRef.current.style.setProperty("--animation-duration", "80s");
+            }
+        }
+    };
+
+    return (
+        <div
+            ref={containerRef}
+            className="scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]"
+        >
+        <ul
+          ref={scrollerRef}
+          className={cn(
+            "flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
+            "animate-scroll"
+          )}
+        >
+            {isLoading && Array.from({ length: 5 }).map((_, i) => <TestimonialSkeleton key={i} />)}
+            {!isLoading && testimonials?.map((testimonial) => (
+                <TestimonialCard testimonial={testimonial} key={testimonial.id} />
+            ))}
+        </ul>
+      </div>
+    );
+};
+  
 
 export default function TestimonialsSection() {
   const firestore = useFirestore();
@@ -102,7 +176,7 @@ export default function TestimonialsSection() {
 
   return (
     <section id="testimonials" className="w-full py-20 md:py-32 bg-secondary">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-4 md:px-6 flex flex-col items-center">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary">
             What Clients Say
@@ -118,34 +192,8 @@ export default function TestimonialsSection() {
           </div>
         )}
 
-        <Carousel
-          opts={{
-            align: 'start',
-            loop: true,
-          }}
-          className="w-full max-w-4xl mx-auto"
-        >
-          <CarouselContent>
-            {isLoading &&
-              Array.from({ length: 3 }).map((_, i) => (
-                <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
-                  <TestimonialSkeleton />
-                </CarouselItem>
-              ))}
-            {!isLoading &&
-              testimonials &&
-              testimonials.map((testimonial) => (
-                <CarouselItem
-                  key={testimonial.id}
-                  className="md:basis-1/2 lg:basis-1/3"
-                >
-                  <TestimonialCard testimonial={testimonial} />
-                </CarouselItem>
-              ))}
-          </CarouselContent>
-          <CarouselPrevious className="hidden sm:inline-flex" />
-          <CarouselNext className="hidden sm:inline-flex" />
-        </Carousel>
+        <InfiniteMovingTestimonials testimonials={testimonials} isLoading={isLoading} />
+
         <div className="text-center mt-12">
           <AddTestimonial />
         </div>
