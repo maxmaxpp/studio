@@ -89,34 +89,38 @@ export default function WorkflowSection() {
     return (
         <section 
             id="workflow" 
-            ref={containerRef}
             className="relative bg-background py-20"
         >
-             <Asterisk className="absolute top-[5%] left-[10%] w-12 h-12 opacity-50 text-accent animate-spin-slow" />
-             <Asterisk className="absolute top-[15%] right-[15%] w-8 h-8 opacity-30 text-accent animate-spin-slow [animation-delay:-1s]" />
-             <Asterisk className="absolute top-[50%] left-[20%] w-14 h-14 opacity-40 text-accent animate-spin-slow [animation-delay:-3s]" />
-             <Asterisk className="absolute top-[80%] right-[25%] w-10 h-10 opacity-40 text-accent animate-spin-slow [animation-delay:-2s]" />
-             <Asterisk className="absolute top-[95%] left-[15%] w-16 h-16 opacity-60 text-accent animate-spin-slow [animation-delay:-4s]" />
-             <Asterisk className="absolute top-[60%] right-[10%] w-12 h-12 opacity-50 text-accent animate-spin-slow [animation-delay:-5s]" />
-             <Asterisk className="absolute top-[30%] left-[30%] w-6 h-6 opacity-20 text-accent animate-spin-slow [animation-delay:-0.5s]" />
+             <div className="absolute inset-0 overflow-hidden">
+                <Asterisk className="absolute top-[5%] left-[5%] w-12 h-12 opacity-50 text-accent animate-spin-slow" />
+                <Asterisk className="absolute top-[15%] right-[8%] w-8 h-8 opacity-30 text-accent animate-spin-slow [animation-delay:-1s]" />
+                <Asterisk className="absolute top-[50%] left-[10%] w-14 h-14 opacity-40 text-accent animate-spin-slow [animation-delay:-3s]" />
+                <Asterisk className="absolute top-[80%] right-[12%] w-10 h-10 opacity-40 text-accent animate-spin-slow [animation-delay:-2s]" />
+                <Asterisk className="absolute top-[95%] left-[15%] w-16 h-16 opacity-60 text-accent animate-spin-slow [animation-delay:-4s]" />
+                <Asterisk className="absolute top-[60%] right-[5%] w-12 h-12 opacity-50 text-accent animate-spin-slow [animation-delay:-5s]" />
+                <Asterisk className="absolute top-[30%] left-[20%] w-6 h-6 opacity-20 text-accent animate-spin-slow [animation-delay:-0.5s]" />
+                <Asterisk className="absolute top-[40%] right-[20%] w-6 h-6 opacity-20 text-accent animate-spin-slow [animation-delay:-1.5s]" />
+                <Asterisk className="absolute top-[70%] left-[30%] w-8 h-8 opacity-30 text-accent animate-spin-slow [animation-delay:-2.5s]" />
+             </div>
 
-
-             <div className="text-center mb-16 relative z-10">
-                <h2 className="text-6xl font-logo text-foreground/80">
-                    My Workflow
-                </h2>
-            </div>
-            {workflowSteps.map((step, i) => {
-                const targetScale = 1 - ( (workflowSteps.length - i) * 0.05 );
-                return <Card 
-                    step={step} 
-                    i={i} 
-                    key={i} 
-                    progress={scrollYProgress} 
-                    range={[i * .125, 1]}
-                    targetScale={targetScale}
-                />;
-            })}
+             <div ref={containerRef} className="relative">
+                <div className="text-center mb-16 relative z-10">
+                    <h2 className="text-6xl font-logo text-foreground/80">
+                        My Workflow
+                    </h2>
+                </div>
+                {workflowSteps.map((step, i) => {
+                    const targetScale = 1 - ( (workflowSteps.length - i) * 0.05 );
+                    return <Card 
+                        step={step} 
+                        i={i} 
+                        key={i} 
+                        progress={scrollYProgress} 
+                        range={[i * .125, 1]}
+                        targetScale={targetScale}
+                    />;
+                })}
+             </div>
         </section>
     )
 }
