@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
@@ -24,7 +25,7 @@ function TestimonialCard({
 }: {
   testimonial: WithId<Testimonial>;
 }) {
-  const avatarUrl = `https://api.dicebear.com/8.x/lorelei/svg?seed=${encodeURIComponent(testimonial.name)}`;
+  const avatarUrl = `https://api.dicebear.com/8.x/lorelei/svg?seed=${encodeURIComponent(testimonial.email)}`;
   return (
     <li className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]">
       <blockquote className="flex flex-col justify-between h-full">
