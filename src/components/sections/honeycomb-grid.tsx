@@ -27,7 +27,7 @@ interface Project {
 const ProjectSlideshow = ({ project }: { project: Project }) => {
     const images = project.imageUrlIds
         .map(id => placeholderData.placeholderImages.find(p => p.id === id))
-        .filter(Boolean);
+        .filter(image => image && image.imageUrl);
 
     if (images.length === 0) {
         return <div className="text-center text-muted-foreground">No images available for this project.</div>;
@@ -38,17 +38,16 @@ const ProjectSlideshow = ({ project }: { project: Project }) => {
             <CarouselContent>
                 {images.map((image, index) => (
                     <CarouselItem key={index}>
-                        <div className="p-1">
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
-                                {image && (
-                                    <Image
-                                        src={image.imageUrl}
-                                        alt={`${project.title} screenshot ${index + 1}`}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                )}
-                            </div>
+                        <div className="p-1 flex justify-center">
+                           {image && (
+                                <Image
+                                    src={image.imageUrl}
+                                    alt={`${project.title} screenshot ${index + 1}`}
+                                    width={image.width}
+                                    height={image.height}
+                                    className="object-contain rounded-lg border"
+                                />
+                            )}
                         </div>
                     </CarouselItem>
                 ))}
