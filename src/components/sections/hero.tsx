@@ -69,8 +69,8 @@ export default function HeroSection() {
                     <Button asChild size="lg" variant="accent">
                         <Link href="/#contact">WORK WITH ME</Link>
                     </Button>
-                    <Button asChild size="lg" variant="link" className="text-accent-foreground/80 hover:text-accent-foreground">
-                        <a href="/CV.pdf" download>DOWNLOAD CV</a>
+                    <Button asChild size="lg" variant="accent">
+                        <a href="/Resume.pdf" download>DOWNLOAD RESUME</a>
                     </Button>
                 </motion.div>
             </div>
