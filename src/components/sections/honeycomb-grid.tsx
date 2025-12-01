@@ -45,7 +45,7 @@ const ProjectSlideshow = ({ project }: { project: Project }) => {
                                     alt={`${project.title} screenshot ${index + 1}`}
                                     width={image.width}
                                     height={image.height}
-                                    className="object-contain rounded-lg border"
+                                    className="object-contain rounded-lg border w-full h-auto"
                                 />
                             )}
                         </div>
