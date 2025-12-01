@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
@@ -22,6 +23,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="https://fav.farm/✨" />
+        <link rel="icon" type="image/png" sizes="32x32" href="https://fav.farm/✨" />
+        <link rel="icon" type="image/png" sizes="16x16" href="https://fav.farm/✨" />
       </head>
       <body
         className={cn(
