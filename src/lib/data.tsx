@@ -118,7 +118,7 @@ export const projects = [
     category: 'Development',
     description: 'Designed and implemented an intuitive burger menu for a mobile application, enhancing user experience and navigation.',
     imageUrlIds: ['project-burger-menu'],
-    tech: ['React', 'Next.js']
+    tech: ['Canva']
   },
   {
     id: 11,
