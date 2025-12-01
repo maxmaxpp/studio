@@ -1,3 +1,4 @@
+
 import { CodeXml, DatabaseZap, Megaphone, Palette, Facebook, Instagram, Linkedin, MessageCircle, Youtube } from 'lucide-react';
 import Image from 'next/image';
 
@@ -110,6 +111,14 @@ export const projects = [
     description: 'A creative logo design featuring a planet with rings and stars, sketched in Canva.',
     imageUrlIds: ['project-design-planet'],
     tech: ['Canva']
+  },
+  {
+    id: 15,
+    title: 'Mobile App Navigation',
+    category: 'Development',
+    description: 'Designed and implemented an intuitive burger menu for a mobile application, enhancing user experience and navigation.',
+    imageUrlIds: ['project-burger-menu'],
+    tech: ['React', 'Next.js']
   },
   {
     id: 11,

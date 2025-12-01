@@ -97,6 +97,14 @@
       "height": 1350
     },
     {
+      "id": "project-burger-menu",
+      "description": "A mobile navigation burger menu.",
+      "imageUrl": "/burger-menu.png",
+      "imageHint": "mobile navigation",
+      "width": 42,
+      "height": 60
+    },
+    {
       "id": "project-dev-2",
       "description": "A responsive website displayed on multiple devices.",
       "imageUrl": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZXNwb25zaXZlJTIwd2Vic2l0ZXxlbnwwfHx8fDE3NjIzMzM4ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
