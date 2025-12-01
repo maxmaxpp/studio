@@ -115,7 +115,7 @@ export const projects = [
   {
     id: 15,
     title: 'Mobile App Navigation',
-    category: 'Development',
+    category: 'Graphic Design',
     description: 'Designed and implemented an intuitive burger menu for a mobile application, enhancing user experience and navigation.',
     imageUrlIds: ['project-burger-menu'],
     tech: ['Canva']
