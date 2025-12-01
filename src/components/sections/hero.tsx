@@ -69,7 +69,7 @@ export default function HeroSection() {
                     <Button asChild size="lg" variant="accent">
                         <Link href="/#contact">WORK WITH ME</Link>
                     </Button>
-                    <a href="/Resume.pdf" download>
+                    <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer" download>
                         <Button size="lg" variant="accent">DOWNLOAD RESUME</Button>
                     </a>
                 </motion.div>
