@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "../ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "../ui/sheet";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -99,7 +99,13 @@ export default function SiteHeader() {
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="right">
-                        <div className="grid gap-4 py-6">
+                        <SheetHeader className="p-4">
+                           <SheetTitle className="text-2xl font-headline text-primary">Menu</SheetTitle>
+                           <SheetDescription>
+                                Navigate through the different sections of the site.
+                           </SheetDescription>
+                        </SheetHeader>
+                        <div className="grid gap-4 py-6 px-4">
                             {navLinks.map(link => (
                                 <SheetClose key={link.href} asChild>
                                     <Link href={link.href} onClick={(e) => handleLinkClick(e, link.href)} className="flex items-center gap-2 text-lg font-medium text-foreground hover:text-primary">
